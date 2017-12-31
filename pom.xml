@@ -28,7 +28,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.loggerproject</groupId>
-			<artifactId>global-resource</artifactId>
+			<artifactId>microservice-global-resource</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

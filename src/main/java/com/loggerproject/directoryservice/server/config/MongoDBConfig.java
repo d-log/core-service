@@ -1,4 +1,4 @@
-package com.loggerproject.directoryservice.config;
+package com.loggerproject.directoryservice.server.config;
 
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
