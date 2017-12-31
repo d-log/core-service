@@ -34,8 +34,10 @@ public class DirectoryControllerAPI {
 		try {
 			List<DirectoryModel> createdDirectoryModels = request.getModels().stream().map(model -> directoryService.create(model)).collect(Collectors.toList());
 			response.setCreatedModels(createdDirectoryModels);
+			response.setSuccess(true);
 		} catch (Exception e) {
 			response.setErrorMessage(e.getMessage());
+			response.setSuccess(false);
 		}
 
 		return response;
@@ -48,8 +50,10 @@ public class DirectoryControllerAPI {
 		try {
 			List<DirectoryModel> updatedDirectoryModels = request.getModels().stream().map(model -> directoryService.update(model)).collect(Collectors.toList());
 			response.setUpdatedModels(updatedDirectoryModels);
+			response.setSuccess(true);
 		} catch (Exception e) {
 			response.setErrorMessage(e.getMessage());
+			response.setSuccess(false);
 		}
 
 		return response;
@@ -62,8 +66,10 @@ public class DirectoryControllerAPI {
 		try {
 			List<DirectoryModel> models = request.getIds().stream().map(modelID -> directoryService.getFindOne(modelID)).collect(Collectors.toList());
 			response.setModels(models);
+			response.setSuccess(true);
 		} catch (Exception e) {
 			response.setErrorMessage(e.getMessage());
+			response.setSuccess(false);
 		}
 
 		return response;
@@ -76,8 +82,10 @@ public class DirectoryControllerAPI {
 		try {
 			List<DirectoryModel> deletedDirectoryModels = request.getIds().stream().map(modelID -> directoryService.delete(modelID)).collect(Collectors.toList());
 			response.setDeletedModels(deletedDirectoryModels);
+			response.setSuccess(true);
 		} catch (Exception e) {
 			response.setErrorMessage(e.getMessage());
+			response.setSuccess(false);
 		}
 
 		return response;
