@@ -29,10 +29,10 @@ public class DirectoryServiceClient {
     }
 
     public ResponseGetDirectoryModels get(RequestGetDirectoryModels request) {
-        return restTemplate.postForObject(END_POINT + "api/get", request, ResponseGetDirectoryModels.class);
+        return restTemplate.postForObject(END_POINT + "/api/get", request, ResponseGetDirectoryModels.class);
     }
 
     public ResponseDeleteDirectoryModels delete(RequestDeleteDirectoryModels request) {
-        return restTemplate.postForObject(END_POINT + "api/delete", request, ResponseDeleteDirectoryModels.class);
+        return restTemplate.postForObject(END_POINT + "/api/delete", request, ResponseDeleteDirectoryModels.class);
     }
 }
