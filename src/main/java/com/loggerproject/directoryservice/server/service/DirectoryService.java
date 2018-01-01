@@ -22,8 +22,18 @@ public class DirectoryService {
         return model;
     }
 
-    public DirectoryModel create(DirectoryModel model) {
+    private void validateModel(DirectoryModel model) {
+        // TODO validate model and throw exceptions if needed
+    }
+
+    private DirectoryModel scrubAndValidate(DirectoryModel model) {
         model = scrubModel(model);
+        validateModel(model);
+        return model;
+    }
+
+    public DirectoryModel create(DirectoryModel model) {
+        model = scrubAndValidate(model);
         model.setId(null);
         directoryRepository.save(model);
 
@@ -31,7 +41,7 @@ public class DirectoryService {
     }
 
     public DirectoryModel update(DirectoryModel model) {
-        model = scrubModel(model);
+        model = scrubAndValidate(model);
 
         DirectoryModel oldModel = directoryRepository.findOne(model.getId());
         if (oldModel != null) {
