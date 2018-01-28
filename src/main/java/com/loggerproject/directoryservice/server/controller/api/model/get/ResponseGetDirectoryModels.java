@@ -9,4 +9,5 @@ import java.util.List;
 @Data
 public class ResponseGetDirectoryModels extends ResponseGetModel {
     List<DirectoryModel> models;
+    List<String> nonExistentIDs;
 }

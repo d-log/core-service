@@ -1,5 +1,6 @@
 package com.loggerproject.directoryservice.server.data.model;
 
+import com.loggerproject.microserviceglobalresource.pojo.data.MetaDataModel;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,4 +17,5 @@ public class DirectoryModel {
     List<String> logIDs;
     String name;
     String description;
+    MetaDataModel metaData;
 }

@@ -57,14 +57,13 @@ public class DirectoryService {
         return oldModel;
     }
 
-    public DirectoryModel getFindOne(String directoryID) {
+    public DirectoryModel findOne(String directoryID) {
         return directoryRepository.findOne(directoryID);
     }
 
     public DirectoryModel delete(String directoryID) {
-        DirectoryModel model = getFindOne(directoryID);
-    	directoryRepository.delete(directoryID);
-
+        DirectoryModel model = findOne(directoryID);
+    	if (model != null) directoryRepository.delete(directoryID);
         return model;
     }
 }

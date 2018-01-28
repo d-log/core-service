@@ -8,5 +8,6 @@ import java.util.List;
 
 @Data
 public class ResponseDeleteDirectoryModels extends ResponseDeleteModel {
-    List<DirectoryModel> deletedModels;
+    List<DirectoryModel> models;
+    List<String> nonExistentIDs;
 }

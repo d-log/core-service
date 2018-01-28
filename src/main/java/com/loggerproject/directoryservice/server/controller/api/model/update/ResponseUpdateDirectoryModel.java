@@ -1,11 +1,10 @@
 package com.loggerproject.directoryservice.server.controller.api.model.update;
 
+import com.loggerproject.directoryservice.server.data.model.DirectoryModel;
 import com.loggerproject.microserviceglobalresource.pojo.controller.response.sub.ResponseUpdateModel;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class ResponseUpdateDirectoryModels extends ResponseUpdateModel {
-    List<ResponseUpdateDirectoryModel> responses;
+public class ResponseUpdateDirectoryModel extends ResponseUpdateModel {
+    DirectoryModel model;
 }
