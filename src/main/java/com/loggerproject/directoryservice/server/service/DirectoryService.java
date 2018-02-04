@@ -1,49 +1,40 @@
 package com.loggerproject.directoryservice.server.service;
 
+import com.loggerproject.directoryservice.server.controller.api.DirectoryRepositoryRestResource;
 import com.loggerproject.directoryservice.server.data.model.DirectoryModel;
-import com.loggerproject.directoryservice.server.data.repository.DirectoryRepository;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-public class DirectoryService {
+public class DirectoryService implements GlobalService<DirectoryModel> {
 
     @Autowired
-    DirectoryRepository directoryRepository;
+    DirectoryRepositoryRestResource directoryRepository;
 
-    private DirectoryModel scrubModel(DirectoryModel model) {
+    private DirectoryModel scrubAndValidate(DirectoryModel model) {
         model.setLogIDs(model.getLogIDs() == null ? new ArrayList<>() : model.getLogIDs());
         model.setParentIDs(model.getParentIDs()  == null ? new ArrayList<>() : model.getParentIDs());
         model.setChildrenIDs(model.getChildrenIDs()  == null ? new ArrayList<>() : model.getChildrenIDs());
         model.setName(model.getName() == null ? "" : model.getName());
         model.setDescription(model.getDescription() == null ? "" : model.getDescription());
+
         return model;
     }
 
-    private void validateModel(DirectoryModel model) {
-        // TODO validate model and throw exceptions if needed
-    }
-
-    private DirectoryModel scrubAndValidate(DirectoryModel model) {
-        model = scrubModel(model);
-        validateModel(model);
-        return model;
-    }
-
-    public DirectoryModel create(DirectoryModel model) {
+    public DirectoryModel save(DirectoryModel model) {
         model = scrubAndValidate(model);
-        model.setId(null);
+        model.setID(null);
         directoryRepository.save(model);
-
         return model;
     }
 
-    public DirectoryModel update(DirectoryModel model) {
+    public DirectoryModel update(String id, DirectoryModel model) {
         model = scrubAndValidate(model);
 
-        DirectoryModel oldModel = directoryRepository.findOne(model.getId());
+        DirectoryModel oldModel = directoryRepository.findOne(id);
         if (oldModel != null) {
             oldModel.setLogIDs(model.getLogIDs());
             oldModel.setParentIDs(model.getParentIDs());
@@ -55,16 +46,6 @@ public class DirectoryService {
         }
 
         return oldModel;
-    }
-
-    public DirectoryModel findOne(String directoryID) {
-        return directoryRepository.findOne(directoryID);
-    }
-
-    public DirectoryModel delete(String directoryID) {
-        DirectoryModel model = findOne(directoryID);
-    	if (model != null) directoryRepository.delete(directoryID);
-        return model;
     }
 }
 
