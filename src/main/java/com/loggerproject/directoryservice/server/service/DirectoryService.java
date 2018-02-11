@@ -34,24 +34,6 @@ public class DirectoryService extends GlobalServerService<DirectoryModel> {
 
         return model;
     }
-
-    @SuppressWarnings("unchecked")
-    public DirectoryModel update(String id, DirectoryModel model) throws Exception {
-        model = scrubAndValidate(model);
-
-        DirectoryModel oldModel = (DirectoryModel)repository.findOne(id);
-        if (oldModel != null) {
-            oldModel.setLogIDs(model.getLogIDs());
-            oldModel.setParentIDs(model.getParentIDs());
-            oldModel.setChildrenIDs(model.getChildrenIDs());
-            oldModel.setName(model.getName());
-            oldModel.setDescription(model.getDescription());
-
-            repository.save(oldModel);
-        }
-
-        return oldModel;
-    }
 }
 
 
