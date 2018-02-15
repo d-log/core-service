@@ -1,4 +1,4 @@
-package com.loggerproject.directoryservice.server.config;
+package com.loggerproject.coreservice.server.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

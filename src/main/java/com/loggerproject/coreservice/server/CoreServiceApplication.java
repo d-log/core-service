@@ -1,4 +1,4 @@
-package com.loggerproject.directoryservice.server;
+package com.loggerproject.coreservice.server;
 
 import com.loggerproject.logservice.client.EnableLogClientService;
 import com.loggerproject.microserviceglobalresource.server.annotation.mongo.MongoDBConfig;
@@ -15,9 +15,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @MongoDBConfig
 @EnableLogClientService
-public class DirectoryServiceApplication {
+public class CoreServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DirectoryServiceApplication.class, args);
+		SpringApplication.run(CoreServiceApplication.class, args);
 	}
 }

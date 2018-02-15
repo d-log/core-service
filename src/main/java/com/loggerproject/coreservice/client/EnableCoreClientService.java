@@ -1,6 +1,6 @@
-package com.loggerproject.directoryservice.client;
+package com.loggerproject.coreservice.client;
 
-import com.loggerproject.directoryservice.client.configuration.DirectoryClientServiceConfiguration;
+import com.loggerproject.coreservice.client.configuration.CoreClientServiceConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(DirectoryClientServiceConfiguration.class)
-public @interface EnableDirectoryClientService {
+@Import(CoreClientServiceConfiguration.class)
+public @interface EnableCoreClientService {
 }

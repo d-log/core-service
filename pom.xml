@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.loggerproject</groupId>
-	<artifactId>directory-service</artifactId>
+	<artifactId>core-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>directory-service</name>
+	<name>core-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
