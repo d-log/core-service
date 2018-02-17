@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.server.service.minions;
+package com.loggerproject.coreservice.server.service.minions.logdetail;
 
 import com.loggerproject.coreservice.server.controller.api.model.LogDetailModel;
 import com.loggerproject.coreservice.server.controller.api.model.ViewDataDetailModel;
@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class LogDetailModelService {
+public class LogDetailModelFreshService {
 
     @Autowired
     ImageClientService imageClientService;
@@ -46,7 +46,7 @@ public class LogDetailModelService {
     @Autowired
     ViewTemplateClientService viewTemplateClientService;
 
-    public LogDetailModel buildLogDetailModel(LogModel logModel) {
+    public LogDetailModel getLogDetailModel(LogModel logModel) {
         LogDetailModel logDetailModel = new LogDetailModel();
 
         this.setLogDetailLogID(logDetailModel, logModel);
