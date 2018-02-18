@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.server.controller.api.model;
+package com.loggerproject.coreservice.server.model.log.detail;
 
 import com.loggerproject.directoryservice.server.data.model.DirectoryModel;
 import com.loggerproject.microserviceglobalresource.server.data.MetaData;

@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.client.service;
 
-import com.loggerproject.coreservice.server.controller.api.model.LogDetailModel;
+import com.loggerproject.coreservice.server.model.log.detail.LogDetailModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,6 @@ public class CoreClientService {
     protected RestTemplate restTemplate;
 
     public LogDetailModel findOne(String id) {
-        return this.restTemplate.getForObject(ROOT_END_POINT + "/api/log-detail/" + id, LogDetailModel.class);
+        return this.restTemplate.getForObject(ROOT_END_POINT + "/api/log/detail/" + id, LogDetailModel.class);
     }
 }
