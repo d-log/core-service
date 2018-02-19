@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.server.controller.api;
 
-import com.loggerproject.coreservice.server.model.log.detail.LogDetailModel;
-import com.loggerproject.coreservice.server.service.logdetail.LogDetailModelService;
+import com.loggerproject.coreservice.server.model.LogDetailModel;
+import com.loggerproject.coreservice.server.service.LogDetailModelService;
 import com.loggerproject.logservice.client.service.LogClientService;
 import com.loggerproject.logservice.server.data.model.LogModel;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
-package com.loggerproject.coreservice.server.service.logdetail;
+package com.loggerproject.coreservice.server.service;
 
-import com.loggerproject.coreservice.server.model.log.detail.LogDetailModel;
-import com.loggerproject.coreservice.server.model.log.detail.ViewDataDetailModel;
+import com.loggerproject.coreservice.server.model.LogDetailModel;
+import com.loggerproject.coreservice.server.model.ViewDataDetailModel;
 import com.loggerproject.directoryservice.client.service.DirectoryClientService;
 import com.loggerproject.directoryservice.server.data.model.DirectoryModel;
 import com.loggerproject.imageservice.client.service.ImageClientService;

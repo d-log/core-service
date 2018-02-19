@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.client.service;
 
-import com.loggerproject.coreservice.server.model.log.detail.LogDetailModel;
+import com.loggerproject.coreservice.server.model.LogDetailModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
