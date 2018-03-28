@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * @SpringBootApplication -
  * @EnableEurekaClient -
+ * @MongoDBConfig -
  */
 @SpringBootApplication
 @EnableEurekaClient

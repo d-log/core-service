@@ -1,7 +1,8 @@
-package com.loggerproject.coreservice.service;
+package com.loggerproject.coreservice.service.logdetail;
 
 import com.loggerproject.coreservice.data.directory.DirectoryModelService;
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;
+import com.loggerproject.coreservice.data.log.LogModelService;
 import com.loggerproject.coreservice.data.log.model.LogModel;
 import com.loggerproject.coreservice.data.log.model.SchemaDataSource;
 import com.loggerproject.coreservice.data.log.model.ViewData;
@@ -13,8 +14,8 @@ import com.loggerproject.coreservice.data.viewtemplate.ViewTemplateModelService;
 import com.loggerproject.coreservice.data.viewtemplate.model.ViewTemplateModel;
 import com.loggerproject.coreservice.data.viewtemplatetheme.ViewTemplateThemeModelService;
 import com.loggerproject.coreservice.data.viewtemplatetheme.model.ViewTemplateThemeModel;
-import com.loggerproject.coreservice.service.model.LogDetailModel;
-import com.loggerproject.coreservice.service.model.ViewDataDetailModel;
+import com.loggerproject.coreservice.service.logdetail.model.LogDetailModel;
+import com.loggerproject.coreservice.service.logdetail.model.ViewDataDetailModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class LogDetailModelFreshService {
-
-//    @Autowired
-//    ImageClientService imageClientService;
+public class LogDetailModelService {
+    @Autowired
+    LogModelService logModelService;
 
     @Autowired
     TagModelService tagModelService;
@@ -42,7 +42,12 @@ public class LogDetailModelFreshService {
     @Autowired
     ViewTemplateThemeModelService viewTemplateThemeModelService;
 
-    public LogDetailModel getLogDetailModel(LogModel logModel) {
+    public LogDetailModel findOne(String logID) throws Exception {
+        LogModel logModel = logModelService.validateAndFindOne(logID);
+        return this.findOne(logModel);
+    }
+
+    public LogDetailModel findOne(LogModel logModel) {
         LogDetailModel logDetailModel = new LogDetailModel();
 
         this.setLogDetailLogID(logDetailModel, logModel);

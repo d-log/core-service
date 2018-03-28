@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.service.model;
+package com.loggerproject.coreservice.service.logdetail.model;
 
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;
 import com.loggerproject.coreservice.data.tag.model.TagModel;
