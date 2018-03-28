@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.data.tag;
 
+import com.loggerproject.coreservice.data.tag.endpoint.TagModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.tag.model.TagModel;
 import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class TagModelService extends GlobalServerService<TagModel> {
 
     @Autowired
-    public TagModelService(TagModelRepository repository) {
+    public TagModelService(TagModelRepositoryRestResource repository) {
         super(repository);
     }
 

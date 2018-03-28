@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "models", path = "directory")
-public interface DirectoryRepositoryRestResource extends MongoRepository<DirectoryModel, String> {
+public interface DirectoryModelRepositoryRestResource extends MongoRepository<DirectoryModel, String> {
     @RestResource(path = "name", rel = "name")
     List<DirectoryModel> findByName(@Param("name") String name);
 }

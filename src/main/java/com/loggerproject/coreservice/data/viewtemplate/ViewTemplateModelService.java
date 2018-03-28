@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.data.viewtemplate;
 
+import com.loggerproject.coreservice.data.viewtemplate.endpoint.ViewTemplateModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.viewtemplate.model.ViewTemplateCSS;
 import com.loggerproject.coreservice.data.viewtemplate.model.ViewTemplateJS;
 import com.loggerproject.coreservice.data.viewtemplate.model.ViewTemplateModel;
@@ -12,7 +13,7 @@ import org.springframework.util.Assert;
 public class ViewTemplateModelService extends GlobalServerService<ViewTemplateModel> {
 
     @Autowired
-    public ViewTemplateModelService(ViewTemplateModelRepository repository) {
+    public ViewTemplateModelService(ViewTemplateModelRepositoryRestResource repository) {
         super(repository);
     }
 

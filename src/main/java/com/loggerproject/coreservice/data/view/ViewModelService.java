@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.data.view;
 
+import com.loggerproject.coreservice.data.view.endpoint.ViewModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.view.model.DataSchema;
 import com.loggerproject.coreservice.data.view.model.ViewModel;
 import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class ViewModelService extends GlobalServerService<ViewModel> {
 
     @Autowired
-    public ViewModelService(ViewModelRepository repository) {
+    public ViewModelService(ViewModelRepositoryRestResource repository) {
         super(repository);
     }
 

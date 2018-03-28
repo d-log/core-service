@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.data.log;
 
+import com.loggerproject.coreservice.data.log.endpoint.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.log.model.LogModel;
 import com.loggerproject.coreservice.data.log.model.ViewData;
 import com.loggerproject.coreservice.data.log.service.ViewDataService;
@@ -16,7 +17,7 @@ public class LogModelService extends GlobalServerService<LogModel> {
     ViewDataService viewDataService;
 
     @Autowired
-    public LogModelService(LogModelRepository repository) {
+    public LogModelService(LogModelRepositoryRestResource repository) {
         super(repository);
     }
 

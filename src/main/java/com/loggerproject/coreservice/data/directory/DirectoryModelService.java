@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.data.directory;
 
+import com.loggerproject.coreservice.data.directory.endpoint.DirectoryModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;
 import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class DirectoryModelService extends GlobalServerService<DirectoryModel> {
 
     @Autowired
-    public DirectoryModelService(DirectoryModelRepository repository) {
+    public DirectoryModelService(DirectoryModelRepositoryRestResource repository) {
         super(repository);
     }
 
