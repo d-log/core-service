@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.controller.api;
+package com.loggerproject.coreservice.endpoint.api;
 
 import com.loggerproject.coreservice.service.logdetail.model.LogDetailModel;
 import com.loggerproject.coreservice.service.logdetail.LogDetailModelService;
