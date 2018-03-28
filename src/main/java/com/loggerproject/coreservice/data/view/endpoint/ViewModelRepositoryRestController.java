@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.view.endpoint;
 
-import com.loggerproject.coreservice.data.view.ViewModelService;
+import com.loggerproject.coreservice.data.view.service.ViewModelService;
 import com.loggerproject.coreservice.data.view.model.ViewModel;
 import com.loggerproject.microserviceglobalresource.server.controller.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.directory.endpoint;
 
-import com.loggerproject.coreservice.data.directory.DirectoryModelService;
+import com.loggerproject.coreservice.data.directory.service.DirectoryModelService;
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;
 import com.loggerproject.microserviceglobalresource.server.controller.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;

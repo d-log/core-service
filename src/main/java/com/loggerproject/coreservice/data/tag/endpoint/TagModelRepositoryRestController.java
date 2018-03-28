@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.tag.endpoint;
 
-import com.loggerproject.coreservice.data.tag.TagModelService;
+import com.loggerproject.coreservice.data.tag.service.TagModelService;
 import com.loggerproject.coreservice.data.tag.model.TagModel;
 import com.loggerproject.microserviceglobalresource.server.controller.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;

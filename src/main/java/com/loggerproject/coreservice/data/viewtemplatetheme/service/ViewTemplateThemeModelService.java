@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.viewtemplatetheme;
+package com.loggerproject.coreservice.data.viewtemplatetheme.service;
 
 import com.loggerproject.coreservice.data.viewtemplatetheme.endpoint.ViewTemplateThemeModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.viewtemplatetheme.model.ViewTemplateThemeModel;

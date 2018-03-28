@@ -1,14 +1,14 @@
-package com.loggerproject.coreservice.data.log.service.schema;
+package com.loggerproject.coreservice.data.log.service;
 
 import com.loggerproject.coreservice.data.log.model.SchemaDataSource;
 import com.loggerproject.coreservice.data.log.model.ViewData;
-import com.loggerproject.coreservice.data.view.ViewModelService;
-import com.loggerproject.coreservice.data.viewtemplate.ViewTemplateModelService;
+import com.loggerproject.coreservice.data.view.service.ViewModelService;
+import com.loggerproject.coreservice.data.viewtemplate.service.ViewTemplateModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SchemaDataSourceService implements ISchemaDataSourceService {
+public class SchemaDataSourceService {
 
     @Autowired
     ViewModelService viewModelService;
@@ -16,7 +16,6 @@ public class SchemaDataSourceService implements ISchemaDataSourceService {
     @Autowired
     ViewTemplateModelService viewTemplateModelService;
 
-    @Override
     public ViewData scrubAndValidate(ViewData viewData) throws Exception {
         SchemaDataSource source = viewData.getSchemaDataSource();
 

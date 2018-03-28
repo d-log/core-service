@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.directory;
+package com.loggerproject.coreservice.data.directory.service;
 
 import com.loggerproject.coreservice.data.directory.endpoint.DirectoryModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;

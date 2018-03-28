@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class ViewTemplateCSS {
     String code;
-    List<String> cssModelIDs;
+    List<String> modelIDs;
 }

@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.viewtemplatetheme.endpoint;
 
-import com.loggerproject.coreservice.data.viewtemplatetheme.ViewTemplateThemeModelService;
+import com.loggerproject.coreservice.data.viewtemplatetheme.service.ViewTemplateThemeModelService;
 import com.loggerproject.coreservice.data.viewtemplatetheme.model.ViewTemplateThemeModel;
 import com.loggerproject.microserviceglobalresource.server.controller.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;

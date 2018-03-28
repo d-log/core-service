@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.view;
+package com.loggerproject.coreservice.data.view.service;
 
 import com.loggerproject.coreservice.data.view.endpoint.ViewModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.view.model.DataSchema;

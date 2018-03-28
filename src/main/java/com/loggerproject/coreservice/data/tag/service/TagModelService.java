@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.tag;
+package com.loggerproject.coreservice.data.tag.service;
 
 import com.loggerproject.coreservice.data.tag.endpoint.TagModelRepositoryRestResource;
 import com.loggerproject.coreservice.data.tag.model.TagModel;

@@ -1,18 +1,18 @@
 package com.loggerproject.coreservice.service.logdetail;
 
-import com.loggerproject.coreservice.data.directory.DirectoryModelService;
+import com.loggerproject.coreservice.data.directory.service.DirectoryModelService;
 import com.loggerproject.coreservice.data.directory.model.DirectoryModel;
-import com.loggerproject.coreservice.data.log.LogModelService;
+import com.loggerproject.coreservice.data.log.service.LogModelService;
 import com.loggerproject.coreservice.data.log.model.LogModel;
 import com.loggerproject.coreservice.data.log.model.SchemaDataSource;
 import com.loggerproject.coreservice.data.log.model.ViewData;
-import com.loggerproject.coreservice.data.tag.TagModelService;
+import com.loggerproject.coreservice.data.tag.service.TagModelService;
 import com.loggerproject.coreservice.data.tag.model.TagModel;
-import com.loggerproject.coreservice.data.view.ViewModelService;
+import com.loggerproject.coreservice.data.view.service.ViewModelService;
 import com.loggerproject.coreservice.data.view.model.ViewModel;
-import com.loggerproject.coreservice.data.viewtemplate.ViewTemplateModelService;
+import com.loggerproject.coreservice.data.viewtemplate.service.ViewTemplateModelService;
 import com.loggerproject.coreservice.data.viewtemplate.model.ViewTemplateModel;
-import com.loggerproject.coreservice.data.viewtemplatetheme.ViewTemplateThemeModelService;
+import com.loggerproject.coreservice.data.viewtemplatetheme.service.ViewTemplateThemeModelService;
 import com.loggerproject.coreservice.data.viewtemplatetheme.model.ViewTemplateThemeModel;
 import com.loggerproject.coreservice.service.logdetail.model.LogDetailModel;
 import com.loggerproject.coreservice.service.logdetail.model.ViewDataDetailModel;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class LogDetailModelService {
+
     @Autowired
     LogModelService logModelService;
 

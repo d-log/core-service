@@ -1,7 +1,6 @@
 package com.loggerproject.coreservice.data.log.service;
 
 import com.loggerproject.coreservice.data.log.model.ViewData;
-import com.loggerproject.coreservice.data.log.service.schema.SchemaDataSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
