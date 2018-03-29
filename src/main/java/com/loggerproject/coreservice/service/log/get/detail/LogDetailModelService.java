@@ -1,21 +1,22 @@
 package com.loggerproject.coreservice.service.log.get.detail;
 
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
+import com.loggerproject.coreservice.data.document.log.LogModel;
+import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
+import com.loggerproject.coreservice.data.document.log.ViewData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.document.view.ViewModel;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
-import com.loggerproject.coreservice.service.directory.DirectoryModelService;
-import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
-import com.loggerproject.coreservice.service.log.LogModelService;
-import com.loggerproject.coreservice.data.document.log.LogModel;
-import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
-import com.loggerproject.coreservice.data.document.log.ViewData;
-import com.loggerproject.coreservice.service.tag.TagModelService;
-import com.loggerproject.coreservice.service.view.ViewModelService;
-import com.loggerproject.coreservice.service.viewtemplate.ViewTemplateModelService;
-import com.loggerproject.coreservice.service.viewtemplatetheme.ViewTemplateThemeModelService;
+import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
+import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.log.get.detail.model.LogDetailModel;
 import com.loggerproject.coreservice.service.log.get.detail.model.ViewDataDetailModel;
+import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
+import com.loggerproject.coreservice.service.view.ViewModelUtilService;
+import com.loggerproject.coreservice.service.view.get.ViewModelGetService;
+import com.loggerproject.coreservice.service.viewtemplate.get.ViewTemplateModelGetService;
+import com.loggerproject.coreservice.service.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,25 +27,25 @@ import java.util.stream.Collectors;
 public class LogDetailModelService {
 
     @Autowired
-    LogModelService logModelService;
+    LogModelGetService logModelGetService;
 
     @Autowired
-    TagModelService tagModelService;
+    TagModelGetService tagModelGetService;
 
     @Autowired
-    DirectoryModelService directoryModelService;
+    DirectoryModelGetService directoryModelGetService;
 
     @Autowired
-    ViewModelService viewModelService;
+    ViewModelGetService viewModelGetService;
 
     @Autowired
-    ViewTemplateModelService viewTemplateModelService;
+    ViewTemplateModelGetService viewTemplateModelGetService;
 
     @Autowired
-    ViewTemplateThemeModelService viewTemplateThemeModelService;
+    ViewTemplateThemeModelGetService viewTemplateThemeModelGetService;
 
     public LogDetailModel findOne(String logID) throws Exception {
-        LogModel logModel = logModelService.validateAndFindOne(logID);
+        LogModel logModel = logModelGetService.validateAndFindOne(logID);
         return this.findOne(logModel);
     }
 
@@ -71,17 +72,17 @@ public class LogDetailModelService {
     }
 
     private void setLogDetailDirectoryModels(LogDetailModel logDetailModel, LogModel logModel) {
-        List<DirectoryModel> directoryModels = directoryModelService.findByIds(logModel.getDirectoryIDs());
+        List<DirectoryModel> directoryModels = directoryModelGetService.findByIds(logModel.getDirectoryIDs());
         logDetailModel.setDirectoryModels(directoryModels);
     }
 
     private void setLogDetailTagModels(LogDetailModel logDetailModel, LogModel logModel) {
-        List<TagModel> tagModels = tagModelService.findByIds(logModel.getTagIDs());
+        List<TagModel> tagModels = tagModelGetService.findByIds(logModel.getTagIDs());
         logDetailModel.setTagModels(tagModels);
     }
 
     private void setLogDetailViewTemplateThemeModel(LogDetailModel logDetailModel, LogModel logModel) {
-        ViewTemplateThemeModel viewTemplateThemeModel = viewTemplateThemeModelService.findOne(logModel.getViewTemplateThemeID());
+        ViewTemplateThemeModel viewTemplateThemeModel = viewTemplateThemeModelGetService.findOne(logModel.getViewTemplateThemeID());
         logDetailModel.setViewTemplateThemeModel(viewTemplateThemeModel);
     }
 
@@ -93,7 +94,7 @@ public class LogDetailModelService {
             uniqueViewTemplateIDs.add(viewData.getSchemaDataSource().getViewTemplateID());
         }
 
-        List<ViewModel> viewModels = viewModelService.findByIds(uniqueViewIDs);
+        List<ViewModel> viewModels = viewModelGetService.findByIds(uniqueViewIDs);
 
         uniqueViewTemplateIDs.addAll(
                 viewModels.stream()
@@ -102,7 +103,7 @@ public class LogDetailModelService {
                         .collect(Collectors.toList())
         );
 
-        List<ViewTemplateModel> viewTemplateModels = viewTemplateModelService.findByIds(uniqueViewTemplateIDs);
+        List<ViewTemplateModel> viewTemplateModels = viewTemplateModelGetService.findByIds(uniqueViewTemplateIDs);
 
         logDetailModel.setViewModels(viewModels);
         logDetailModel.setViewTemplateModels(viewTemplateModels);

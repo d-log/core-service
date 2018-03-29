@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Document(collection = "log")
@@ -15,8 +16,8 @@ public class LogModel extends GlobalModel {
      */
     @Id
     String ID;
-    List<String> directoryIDs;
-    List<String> tagIDs;
+    Set<String> directoryIDs;
+    Set<String> tagIDs;
     String viewTemplateThemeID;
     List<ViewData> viewDatas;
 }

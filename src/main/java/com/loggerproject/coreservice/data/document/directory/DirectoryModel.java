@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Document(collection = "directory")
@@ -15,9 +15,9 @@ public class DirectoryModel extends GlobalModel {
      */
     @Id
     String ID;
-    List<String> parentIDs;
-    List<String> childrenIDs;
-    List<String> logIDs;
+    Set<String> parentIDs;
+    Set<String> childrenIDs;
+    Set<String> logIDs;
     String name;
     String description;
 }

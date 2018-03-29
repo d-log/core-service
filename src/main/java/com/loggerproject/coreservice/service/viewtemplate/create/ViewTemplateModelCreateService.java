@@ -1,20 +1,30 @@
-package com.loggerproject.coreservice.service.viewtemplate;
+package com.loggerproject.coreservice.service.viewtemplate.create;
 
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateCSS;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateJS;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.repository.ViewTemplateModelRepositoryRestResource;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
+import com.loggerproject.coreservice.service.viewtemplate.delete.ViewTemplateModelDeleteService;
+import com.loggerproject.coreservice.service.viewtemplate.get.ViewTemplateModelGetService;
+import com.loggerproject.coreservice.service.viewtemplate.update.ViewTemplateModelUpdateService;
+import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class ViewTemplateModelService extends GlobalModelServerService<ViewTemplateModel> {
+public class ViewTemplateModelCreateService extends GlobalServerCreateService<ViewTemplateModel> {
 
     @Autowired
-    public ViewTemplateModelService(ViewTemplateModelRepositoryRestResource repository) {
-        super(repository);
+    ViewTemplateModelRepositoryRestResource ViewTemplateModelRepositoryRestResource;
+
+    @Autowired
+    public ViewTemplateModelCreateService(ViewTemplateModelRepositoryRestResource repository,
+                                          @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
+                                          @Lazy ViewTemplateModelGetService globalServerGetService,
+                                          @Lazy ViewTemplateModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(ViewTemplateModel model) throws Exception {
@@ -38,5 +48,11 @@ public class ViewTemplateModelService extends GlobalModelServerService<ViewTempl
         if (model.getCss() == null) {
             model.setCss(new ViewTemplateCSS());
         }
+    }
+
+    @Override
+    protected void beforeSave(ViewTemplateModel model) throws Exception {
+        scrubAndValidate(model);
+        super.beforeSave(model);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Document(collection = "view")
@@ -17,5 +18,5 @@ public class ViewModel extends GlobalModel {
     String ID;
     DataSchema dataSchema;
     String defaultViewTemplateID;
-    List<String> otherViewTemplateIDs;
+    Set<String> otherViewTemplateIDs;
 }

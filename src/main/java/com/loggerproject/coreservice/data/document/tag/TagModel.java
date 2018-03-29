@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Document(collection = "tag")
@@ -16,5 +16,5 @@ public class TagModel extends GlobalModel {
     @Id
     String ID;
     String name;
-    List<String> logIDs;
+    Set<String> logIDs;
 }

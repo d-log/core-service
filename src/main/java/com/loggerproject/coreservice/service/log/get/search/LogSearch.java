@@ -2,8 +2,8 @@ package com.loggerproject.coreservice.service.log.get.search;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
-import com.loggerproject.coreservice.service.directory.DirectoryModelService;
-import com.loggerproject.coreservice.service.tag.TagModelService;
+import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
+import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +16,20 @@ import java.util.Set;
 public class LogSearch {
 
     @Autowired
-    TagModelService tagModelService;
+    TagModelGetService tagModelGetService;
 
     @Autowired
-    DirectoryModelService directoryModelService;
+    DirectoryModelGetService directoryModelGetService;
 
-    public Collection<String> findByKeyword(String keyword) {
+    public Collection<String> findIDsByKeyword(String keyword) {
         Set<String> logIDs = new HashSet<>();
 
-        List<DirectoryModel> directoryModels = directoryModelService.findByName(keyword);
+        List<DirectoryModel> directoryModels = directoryModelGetService.findByName(keyword);
         for (DirectoryModel model : directoryModels) {
             logIDs.addAll(model.getLogIDs());
         }
 
-        List<TagModel> tagModels = tagModelService.findByName(keyword);
+        List<TagModel> tagModels = tagModelGetService.findByName(keyword);
         for (TagModel model : tagModels) {
             logIDs.addAll(model.getLogIDs());
         }
