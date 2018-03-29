@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.endpoint.api;
 
-import com.loggerproject.coreservice.service.logdetail.model.LogDetailModel;
-import com.loggerproject.coreservice.service.logdetail.LogDetailModelService;
+import com.loggerproject.coreservice.service.log.get.detail.model.LogDetailModel;
+import com.loggerproject.coreservice.service.log.get.detail.LogDetailModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.core.DummyInvocationUtils;
