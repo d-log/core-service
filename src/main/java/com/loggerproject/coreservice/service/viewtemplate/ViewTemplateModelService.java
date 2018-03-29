@@ -1,16 +1,16 @@
 package com.loggerproject.coreservice.service.viewtemplate;
 
-import com.loggerproject.coreservice.data.model.viewtemplate.ViewTemplateCSS;
-import com.loggerproject.coreservice.data.model.viewtemplate.ViewTemplateJS;
-import com.loggerproject.coreservice.data.model.viewtemplate.ViewTemplateModel;
+import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateCSS;
+import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateJS;
+import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.repository.ViewTemplateModelRepositoryRestResource;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class ViewTemplateModelService extends GlobalServerService<ViewTemplateModel> {
+public class ViewTemplateModelService extends GlobalModelServerService<ViewTemplateModel> {
 
     @Autowired
     public ViewTemplateModelService(ViewTemplateModelRepositoryRestResource repository) {

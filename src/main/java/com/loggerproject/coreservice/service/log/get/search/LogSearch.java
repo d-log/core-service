@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.service.log.get.search;
 
-import com.loggerproject.coreservice.data.model.directory.DirectoryModel;
-import com.loggerproject.coreservice.data.model.tag.TagModel;
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
+import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.service.directory.DirectoryModelService;
 import com.loggerproject.coreservice.service.tag.TagModelService;
 import org.springframework.beans.factory.annotation.Autowired;

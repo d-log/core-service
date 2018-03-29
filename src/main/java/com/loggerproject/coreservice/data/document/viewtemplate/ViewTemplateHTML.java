@@ -1,11 +1,11 @@
-package com.loggerproject.coreservice.data.model.viewtemplate;
+package com.loggerproject.coreservice.data.document.viewtemplate;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ViewTemplateJS {
+public class ViewTemplateHTML {
     String code;
     List<String> modelIDs;
 }

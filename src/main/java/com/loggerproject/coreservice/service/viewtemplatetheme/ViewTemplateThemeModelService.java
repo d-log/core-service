@@ -1,13 +1,13 @@
 package com.loggerproject.coreservice.service.viewtemplatetheme;
 
-import com.loggerproject.coreservice.data.model.viewtemplatetheme.ViewTemplateThemeModel;
+import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
 import com.loggerproject.coreservice.data.repository.ViewTemplateThemeModelRepositoryRestResource;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ViewTemplateThemeModelService extends GlobalServerService<ViewTemplateThemeModel> {
+public class ViewTemplateThemeModelService extends GlobalModelServerService<ViewTemplateThemeModel> {
 
     @Autowired
     public ViewTemplateThemeModelService(ViewTemplateThemeModelRepositoryRestResource repository) {

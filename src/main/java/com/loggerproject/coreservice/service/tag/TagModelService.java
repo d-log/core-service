@@ -1,8 +1,8 @@
 package com.loggerproject.coreservice.service.tag;
 
-import com.loggerproject.coreservice.data.model.tag.TagModel;
+import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.TagModelRepositoryRestResource;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TagModelService extends GlobalServerService<TagModel> {
+public class TagModelService extends GlobalModelServerService<TagModel> {
 
     @Autowired
     TagModelRepositoryRestResource repository;

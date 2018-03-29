@@ -1,15 +1,15 @@
 package com.loggerproject.coreservice.service.log.get.detail;
 
-import com.loggerproject.coreservice.data.model.tag.TagModel;
-import com.loggerproject.coreservice.data.model.view.ViewModel;
-import com.loggerproject.coreservice.data.model.viewtemplate.ViewTemplateModel;
-import com.loggerproject.coreservice.data.model.viewtemplatetheme.ViewTemplateThemeModel;
+import com.loggerproject.coreservice.data.document.tag.TagModel;
+import com.loggerproject.coreservice.data.document.view.ViewModel;
+import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
+import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
 import com.loggerproject.coreservice.service.directory.DirectoryModelService;
-import com.loggerproject.coreservice.data.model.directory.DirectoryModel;
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.service.log.LogModelService;
-import com.loggerproject.coreservice.data.model.log.LogModel;
-import com.loggerproject.coreservice.data.model.log.SchemaDataSource;
-import com.loggerproject.coreservice.data.model.log.ViewData;
+import com.loggerproject.coreservice.data.document.log.LogModel;
+import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
+import com.loggerproject.coreservice.data.document.log.ViewData;
 import com.loggerproject.coreservice.service.tag.TagModelService;
 import com.loggerproject.coreservice.service.view.ViewModelService;
 import com.loggerproject.coreservice.service.viewtemplate.ViewTemplateModelService;

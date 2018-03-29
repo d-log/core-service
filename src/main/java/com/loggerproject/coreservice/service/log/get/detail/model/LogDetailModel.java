@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.service.log.get.detail.model;
 
-import com.loggerproject.coreservice.data.model.directory.DirectoryModel;
-import com.loggerproject.coreservice.data.model.tag.TagModel;
-import com.loggerproject.coreservice.data.model.view.ViewModel;
-import com.loggerproject.coreservice.data.model.viewtemplate.ViewTemplateModel;
-import com.loggerproject.coreservice.data.model.viewtemplatetheme.ViewTemplateThemeModel;
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
+import com.loggerproject.coreservice.data.document.tag.TagModel;
+import com.loggerproject.coreservice.data.document.view.ViewModel;
+import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
+import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
 import com.loggerproject.microserviceglobalresource.server.data.MetaData;
 import lombok.Data;
 

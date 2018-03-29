@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.repository;
 
-import com.loggerproject.coreservice.data.model.directory.DirectoryModel;
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

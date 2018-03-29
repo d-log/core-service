@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.model.directory;
+package com.loggerproject.coreservice.data.document.viewtemplatetheme;
 
 import com.loggerproject.microserviceglobalresource.server.data.GlobalModel;
 import lombok.Data;
@@ -8,16 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document(collection = "directory")
-public class DirectoryModel extends GlobalModel {
+@Document(collection = "view-template-theme")
+public class ViewTemplateThemeModel extends GlobalModel {
     /**
      * ID instead of id because @RepositoryRestResource, otherwise it won't export this field
      */
     @Id
     String ID;
-    List<String> parentIDs;
-    List<String> childrenIDs;
-    List<String> logIDs;
-    String name;
-    String description;
+    List<ViewToViewTemplate> map;
 }

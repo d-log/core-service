@@ -2,17 +2,17 @@ package com.loggerproject.coreservice.service.log;
 
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.directory.DirectoryModelService;
-import com.loggerproject.coreservice.data.model.log.LogModel;
+import com.loggerproject.coreservice.data.document.log.LogModel;
 import com.loggerproject.coreservice.service.tag.TagModelService;
 import com.loggerproject.coreservice.service.viewtemplatetheme.ViewTemplateThemeModelService;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-public class LogModelService extends GlobalServerService<LogModel> {
+public class LogModelService extends GlobalModelServerService<LogModel> {
 
     @Autowired
     DirectoryModelService directoryModelService;
@@ -32,11 +32,11 @@ public class LogModelService extends GlobalServerService<LogModel> {
         model.setDirectoryIDs(model.getDirectoryIDs() != null ? model.getDirectoryIDs() : new ArrayList());
         model.setTagIDs(model.getTagIDs() != null ? model.getTagIDs() : new ArrayList());
 
-        directoryModelService.validateIds(model.getDirectoryIDs());
-        tagModelService.validateIds(model.getTagIDs());
+        this.directoryModelService.validateIds(model.getDirectoryIDs());
+        this.tagModelService.validateIds(model.getTagIDs());
 
         if (model.getViewTemplateThemeID() != null) {
-            viewTemplateThemeModelService.validateId(model.getViewTemplateThemeID());
+            this.viewTemplateThemeModelService.validateId(model.getViewTemplateThemeID());
         }
     }
 }

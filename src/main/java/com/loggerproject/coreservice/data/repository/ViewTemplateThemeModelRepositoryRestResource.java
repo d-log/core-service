@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.repository;
 
-import com.loggerproject.coreservice.data.model.viewtemplatetheme.ViewTemplateThemeModel;
+import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

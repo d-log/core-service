@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.model.log;
+package com.loggerproject.coreservice.data.document.log;
 
 import lombok.Data;
 

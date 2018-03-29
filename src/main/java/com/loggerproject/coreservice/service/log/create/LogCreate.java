@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.service.log.create;
 
-import com.loggerproject.coreservice.data.model.log.LogModel;
-import com.loggerproject.coreservice.data.model.log.ViewData;
+import com.loggerproject.coreservice.data.document.log.LogModel;
+import com.loggerproject.coreservice.data.document.log.ViewData;
 import com.loggerproject.coreservice.service.log.LogModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

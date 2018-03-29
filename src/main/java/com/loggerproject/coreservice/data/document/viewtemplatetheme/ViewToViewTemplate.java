@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.model.viewtemplatetheme;
+package com.loggerproject.coreservice.data.document.viewtemplatetheme;
 
 import lombok.Data;
 

@@ -1,9 +1,9 @@
 package com.loggerproject.coreservice.service.view;
 
-import com.loggerproject.coreservice.data.model.view.DataSchema;
-import com.loggerproject.coreservice.data.model.view.ViewModel;
+import com.loggerproject.coreservice.data.document.view.DataSchema;
+import com.loggerproject.coreservice.data.document.view.ViewModel;
 import com.loggerproject.coreservice.data.repository.ViewModelRepositoryRestResource;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.SchemaException;
 import org.everit.json.schema.ValidationException;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @SuppressWarnings("unchecked")
-public class ViewModelService extends GlobalServerService<ViewModel> {
+public class ViewModelService extends GlobalModelServerService<ViewModel> {
 
     @Autowired
     public ViewModelService(ViewModelRepositoryRestResource repository) {
@@ -47,7 +47,7 @@ public class ViewModelService extends GlobalServerService<ViewModel> {
 
     public void validateJsonData(String viewModelID, String data) throws Exception {
         ViewModel model = repository.findOne(viewModelID);
-        if (model == null) throw new Exception("ERROR cannot find view model with id: '" + viewModelID + "'");
+        if (model == null) throw new Exception("ERROR cannot find view document with id: '" + viewModelID + "'");
 
         try {
             // this validates the jsonSchema based on $schema property
@@ -62,7 +62,7 @@ public class ViewModelService extends GlobalServerService<ViewModel> {
         }
         catch (ValidationException e) {
             // json subject failed custom json schema
-            throw new Exception("ERROR model failed validation against custom json schema - " + e.getMessage() + "\nCUSTOM SCHEMA\n"
+            throw new Exception("ERROR document failed validation against custom json schema - " + e.getMessage() + "\nCUSTOM SCHEMA\n"
                     + model.getDataSchema().getJson()
                     + "\nJSON DATA\n"
                     + data);

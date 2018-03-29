@@ -1,16 +1,15 @@
 package com.loggerproject.coreservice.service.directory;
 
 import com.loggerproject.coreservice.data.repository.DirectoryModelRepositoryRestResource;
-import com.loggerproject.coreservice.data.model.directory.DirectoryModel;
-import com.loggerproject.microserviceglobalresource.server.service.GlobalServerService;
+import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
+import com.loggerproject.microserviceglobalresource.server.service.GlobalModelServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class DirectoryModelService extends GlobalServerService<DirectoryModel> {
+public class DirectoryModelService extends GlobalModelServerService<DirectoryModel> {
 
     @Autowired
     DirectoryModelRepositoryRestResource repository;
@@ -18,10 +17,6 @@ public class DirectoryModelService extends GlobalServerService<DirectoryModel> {
     @Autowired
     public DirectoryModelService(DirectoryModelRepositoryRestResource repository) {
         super(repository);
-    }
-
-    public List<DirectoryModel> findByName(String name) {
-        return this.repository.findByName(name);
     }
 
     @Override
