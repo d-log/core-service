@@ -5,6 +5,7 @@ import com.loggerproject.coreservice.data.repository.DirectoryModelRepositoryRes
 import com.loggerproject.coreservice.service.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.directory.update.DirectoryModelUpdateService;
+import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -17,6 +18,9 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
 
     @Autowired
     DirectoryModelRepositoryRestResource directoryModelRepositoryRestResource;
+
+    @Autowired
+    LogModelGetService logModelGetService;
 
     @Autowired
     public DirectoryModelCreateService(DirectoryModelRepositoryRestResource repository,
@@ -33,6 +37,7 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         model.setName(model.getName() == null ? "" : model.getName());
         model.setDescription(model.getDescription() == null ? "" : model.getDescription());
 
+        logModelGetService.validateIds(model.getLogIDs());
         globalServerGetService.validateIds(model.getChildrenIDs());
         globalServerGetService.validateIds(model.getParentIDs());
     }

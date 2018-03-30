@@ -4,6 +4,7 @@ import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateCSS;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateJS;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.repository.ViewTemplateModelRepositoryRestResource;
+import com.loggerproject.coreservice.service.view.get.ViewModelGetService;
 import com.loggerproject.coreservice.service.viewtemplate.delete.ViewTemplateModelDeleteService;
 import com.loggerproject.coreservice.service.viewtemplate.get.ViewTemplateModelGetService;
 import com.loggerproject.coreservice.service.viewtemplate.update.ViewTemplateModelUpdateService;
@@ -20,6 +21,9 @@ public class ViewTemplateModelCreateService extends GlobalServerCreateService<Vi
     ViewTemplateModelRepositoryRestResource ViewTemplateModelRepositoryRestResource;
 
     @Autowired
+    ViewModelGetService viewModelGetService;
+
+    @Autowired
     public ViewTemplateModelCreateService(ViewTemplateModelRepositoryRestResource repository,
                                           @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
                                           @Lazy ViewTemplateModelGetService globalServerGetService,
@@ -28,6 +32,9 @@ public class ViewTemplateModelCreateService extends GlobalServerCreateService<Vi
     }
 
     public void scrubAndValidate(ViewTemplateModel model) throws Exception {
+        model.setName(model.getName() != null ? model.getName() : "");
+        viewModelGetService.validateId(model.getViewID());
+
         this.scrubAndValidateHTML(model);
         this.scrubAndValidateJS(model);
         this.scrubAndValidateCSS(model);

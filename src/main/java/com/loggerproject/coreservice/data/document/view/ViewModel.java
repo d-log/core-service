@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.data.document.view;
 
-import com.loggerproject.microserviceglobalresource.server.data.GlobalModel;
+import com.loggerproject.microserviceglobalresource.server.document.model.GlobalModel;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

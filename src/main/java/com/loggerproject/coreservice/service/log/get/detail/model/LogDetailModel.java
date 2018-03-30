@@ -5,7 +5,7 @@ import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.document.view.ViewModel;
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
-import com.loggerproject.microserviceglobalresource.server.data.MetaData;
+import com.loggerproject.microserviceglobalresource.server.document.model.MetaData;
 import lombok.Data;
 
 import java.util.List;

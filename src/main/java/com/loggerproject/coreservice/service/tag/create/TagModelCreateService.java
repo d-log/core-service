@@ -2,6 +2,7 @@ package com.loggerproject.coreservice.service.tag.create;
 
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.TagModelRepositoryRestResource;
+import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.tag.delete.TagModelDeleteService;
 import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.tag.update.TagModelUpdateService;
@@ -19,6 +20,9 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
     TagModelRepositoryRestResource tagModelRepositoryRestResource;
 
     @Autowired
+    LogModelGetService logModelGetService;
+
+    @Autowired
     public TagModelCreateService(TagModelRepositoryRestResource repository,
                                  @Lazy TagModelDeleteService globalServerDeleteService,
                                  @Lazy TagModelGetService globalServerGetService,
@@ -29,6 +33,8 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
     public void scrubAndValidate(TagModel model) throws Exception {
         model.setLogIDs(model.getLogIDs() != null ? model.getLogIDs() : new HashSet<>());
         model.setName(model.getName() == null ? "" : model.getName());
+
+        logModelGetService.validateIds(model.getLogIDs());
     }
 
     @Override
