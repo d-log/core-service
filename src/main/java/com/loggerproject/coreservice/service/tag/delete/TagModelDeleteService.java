@@ -24,4 +24,12 @@ public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
                                  @Lazy TagModelUpdateService globalServerUpdateService) {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
+
+    @Override
+    public void beforeDelete(String id) throws Exception {
+        TagModel model = (TagModel) globalServerGetService.validateAndFindOne(id);
+        if(model.getLogIDs().size() > 0) {
+            throw new Exception("Cannot delete tags that are bounded to log(s): " + model.getLogIDs().toString());
+        }
+    }
 }

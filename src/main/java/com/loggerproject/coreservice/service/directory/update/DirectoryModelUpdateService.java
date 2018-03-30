@@ -5,6 +5,7 @@ import com.loggerproject.coreservice.data.repository.DirectoryModelRepositoryRes
 import com.loggerproject.coreservice.service.directory.create.DirectoryModelCreateService;
 import com.loggerproject.coreservice.service.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
+import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
 import com.loggerproject.microserviceglobalresource.server.service.delete.GlobalServerDeleteService;
 import com.loggerproject.microserviceglobalresource.server.service.get.GlobalServerGetService;
@@ -21,6 +22,9 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
 
     @Autowired
     DirectoryModelRepositoryRestResource directoryModelRepositoryRestResource;
+
+    @Autowired
+    LogModelGetService logModelGetService;
 
     @Autowired
     public DirectoryModelUpdateService(DirectoryModelRepositoryRestResource repository,

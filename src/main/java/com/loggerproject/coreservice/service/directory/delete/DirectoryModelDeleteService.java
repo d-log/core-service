@@ -24,4 +24,17 @@ public class DirectoryModelDeleteService extends GlobalServerDeleteService<Direc
                                        @Lazy DirectoryModelUpdateService globalServerUpdateService) {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
+
+    public void canDelete(String id) throws Exception {
+        DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(id);
+        if(model.getLogIDs().size() > 0) {
+            throw new Exception("Cannot delete directories that are bounded to log(s): " + model.getLogIDs().toString());
+        }
+    }
+
+    @Override
+    public void beforeDelete(String id) throws Exception {
+        canDelete(id);
+        super.beforeDelete(id);
+    }
 }

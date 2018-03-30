@@ -82,8 +82,11 @@ public class LogDetailModelService {
     }
 
     private void setLogDetailViewTemplateThemeModel(LogDetailModel logDetailModel, LogModel logModel) {
-        ViewTemplateThemeModel viewTemplateThemeModel = viewTemplateThemeModelGetService.findOne(logModel.getViewTemplateThemeID());
-        logDetailModel.setViewTemplateThemeModel(viewTemplateThemeModel);
+        String id = logModel.getViewTemplateThemeID();
+        if (id != null) {
+            ViewTemplateThemeModel viewTemplateThemeModel = viewTemplateThemeModelGetService.findOne(id);
+            logDetailModel.setViewTemplateThemeModel(viewTemplateThemeModel);
+        }
     }
 
     private void setLogDetailViewModelAndViewTemplateModel(LogDetailModel logDetailModel, LogModel logModel) {

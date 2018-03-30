@@ -41,7 +41,7 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
         return directoryModelRepositoryRestResource.findByName(name);
     }
 
-    public List<DirectoryModel> findAllChildren(String id, Integer level) throws Exception {
+    public List<DirectoryModel> findChildren(String id, Integer level) throws Exception {
         List<DirectoryModel> children = new ArrayList<>();
 
         if (level > 0) {
@@ -55,14 +55,14 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
 
             List<DirectoryModel> grandChildren = new ArrayList<>();
             for (DirectoryModel child : children) {
-                grandChildren.addAll(findAllChildren(child.getID(), level--));
+                grandChildren.addAll(findChildren(child.getID(), level--));
             }
         }
 
         return children;
     }
 
-    public List<DirectoryModel> findAllParents(String id) throws Exception {
+    public List<DirectoryModel> findParents(String id) throws Exception {
         DirectoryModel model = this.validateAndFindOne(id);
         Set<String> parentIDs = model.getParentIDs();
 
