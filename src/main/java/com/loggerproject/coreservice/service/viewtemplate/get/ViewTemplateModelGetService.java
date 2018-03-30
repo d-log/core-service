@@ -20,7 +20,8 @@ public class ViewTemplateModelGetService extends GlobalServerGetService<ViewTemp
     public ViewTemplateModelGetService(ViewTemplateModelRepositoryRestResource repository,
                                        @Lazy ViewTemplateModelCreateService globalServerCreateService,
                                        @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
+                                       @Lazy ViewTemplateModelGetService globalServerGetService,
                                        @Lazy ViewTemplateModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

@@ -22,8 +22,9 @@ public class TagModelGetService extends GlobalServerGetService<TagModel> {
     public TagModelGetService(TagModelRepositoryRestResource repository,
                               @Lazy TagModelCreateService globalServerCreateService,
                               @Lazy TagModelDeleteService globalServerDeleteService,
+                              @Lazy TagModelGetService globalServerGetService,
                               @Lazy TagModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public List<TagModel> findByName(String name) {

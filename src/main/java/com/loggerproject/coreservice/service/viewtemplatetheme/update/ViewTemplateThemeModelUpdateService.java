@@ -20,7 +20,8 @@ public class ViewTemplateThemeModelUpdateService extends GlobalServerUpdateServi
     public ViewTemplateThemeModelUpdateService(ViewTemplateThemeModelRepositoryRestResource repository,
                                                @Lazy ViewTemplateThemeModelCreateService globalServerCreateService,
                                                @Lazy ViewTemplateThemeModelDeleteService globalServerDeleteService,
-                                               @Lazy ViewTemplateThemeModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                               @Lazy ViewTemplateThemeModelGetService globalServerGetService,
+                                               @Lazy ViewTemplateThemeModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

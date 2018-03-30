@@ -28,10 +28,11 @@ public class ViewModelCreateService extends GlobalServerCreateService<ViewModel>
 
     @Autowired
     public ViewModelCreateService(ViewModelRepositoryRestResource repository,
+                                  @Lazy ViewModelCreateService globalServerCrearteService,
                                   @Lazy ViewModelDeleteService globalServerDeleteService,
                                   @Lazy ViewModelGetService globalServerGetService,
                                   @Lazy ViewModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCrearteService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(ViewModel model) throws Exception {

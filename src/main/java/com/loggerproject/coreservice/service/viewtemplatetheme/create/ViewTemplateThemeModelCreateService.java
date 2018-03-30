@@ -31,10 +31,11 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
 
     @Autowired
     public ViewTemplateThemeModelCreateService(ViewTemplateThemeModelRepositoryRestResource repository,
+                                               @Lazy ViewTemplateThemeModelCreateService globalServerCreateService,
                                                @Lazy ViewTemplateThemeModelDeleteService globalServerDeleteService,
                                                @Lazy ViewTemplateThemeModelGetService globalServerGetService,
                                                @Lazy ViewTemplateThemeModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(ViewTemplateThemeModel model) throws Exception {

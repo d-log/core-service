@@ -18,9 +18,10 @@ public class ViewModelDeleteService extends GlobalServerDeleteService<ViewModel>
 
     @Autowired
     public ViewModelDeleteService(ViewModelRepositoryRestResource repository,
-                                  @Lazy ViewModelCreateService globalServerCreateService,
+                                  @Lazy ViewModelCreateService globalServerCrearteService,
+                                  @Lazy ViewModelDeleteService globalServerDeleteService,
                                   @Lazy ViewModelGetService globalServerGetService,
                                   @Lazy ViewModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCrearteService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

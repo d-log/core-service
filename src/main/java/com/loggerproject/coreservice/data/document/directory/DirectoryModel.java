@@ -5,11 +5,12 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @Document(collection = "directory")
-public class DirectoryModel extends GlobalModel {
+public class DirectoryModel extends GlobalModel implements Serializable {
     /**
      * ID instead of id because @RepositoryRestResource, otherwise it won't export this field
      */

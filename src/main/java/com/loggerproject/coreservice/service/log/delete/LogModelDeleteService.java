@@ -19,8 +19,9 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
     @Autowired
     public LogModelDeleteService(LogModelRepositoryRestResource repository,
                                  @Lazy LogModelCreateService globalServerCreateService,
+                                 @Lazy LogModelDeleteService globalServerDeleteService,
                                  @Lazy LogModelGetService globalServerGetService,
                                  @Lazy LogModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

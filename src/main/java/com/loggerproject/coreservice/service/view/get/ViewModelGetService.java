@@ -18,9 +18,10 @@ public class ViewModelGetService extends GlobalServerGetService<ViewModel> {
 
     @Autowired
     public ViewModelGetService(ViewModelRepositoryRestResource repository,
-                               @Lazy ViewModelCreateService globalServerCreateService,
+                               @Lazy ViewModelCreateService globalServerCrearteService,
                                @Lazy ViewModelDeleteService globalServerDeleteService,
+                               @Lazy ViewModelGetService globalServerGetService,
                                @Lazy ViewModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerUpdateService);
+        super(repository, globalServerCrearteService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

@@ -19,8 +19,9 @@ public class DirectoryModelDeleteService extends GlobalServerDeleteService<Direc
     @Autowired
     public DirectoryModelDeleteService(DirectoryModelRepositoryRestResource repository,
                                        @Lazy DirectoryModelCreateService globalServerCreateService,
+                                       @Lazy DirectoryModelDeleteService globalServerDeleteService,
                                        @Lazy DirectoryModelGetService globalServerGetService,
                                        @Lazy DirectoryModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

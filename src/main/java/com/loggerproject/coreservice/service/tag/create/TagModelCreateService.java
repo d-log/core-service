@@ -24,10 +24,11 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
 
     @Autowired
     public TagModelCreateService(TagModelRepositoryRestResource repository,
+                                 @Lazy TagModelCreateService globalServerCreateService,
                                  @Lazy TagModelDeleteService globalServerDeleteService,
                                  @Lazy TagModelGetService globalServerGetService,
                                  @Lazy TagModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(TagModel model) throws Exception {

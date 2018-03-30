@@ -19,8 +19,9 @@ public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
     @Autowired
     public TagModelDeleteService(TagModelRepositoryRestResource repository,
                                  @Lazy TagModelCreateService globalServerCreateService,
+                                 @Lazy TagModelDeleteService globalServerDeleteService,
                                  @Lazy TagModelGetService globalServerGetService,
                                  @Lazy TagModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

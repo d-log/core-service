@@ -25,10 +25,11 @@ public class ViewTemplateModelCreateService extends GlobalServerCreateService<Vi
 
     @Autowired
     public ViewTemplateModelCreateService(ViewTemplateModelRepositoryRestResource repository,
+                                          @Lazy ViewTemplateModelCreateService globalServerCreateService,
                                           @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
                                           @Lazy ViewTemplateModelGetService globalServerGetService,
                                           @Lazy ViewTemplateModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(ViewTemplateModel model) throws Exception {

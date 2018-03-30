@@ -20,7 +20,8 @@ public class ViewTemplateModelUpdateService extends GlobalServerUpdateService<Vi
     public ViewTemplateModelUpdateService(ViewTemplateModelRepositoryRestResource repository,
                                           @Lazy ViewTemplateModelCreateService globalServerCreateService,
                                           @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
-                                          @Lazy ViewTemplateModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                          @Lazy ViewTemplateModelGetService globalServerGetService,
+                                          @Lazy ViewTemplateModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

@@ -20,8 +20,9 @@ public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
     public TagModelUpdateService(TagModelRepositoryRestResource repository,
                                  @Lazy TagModelCreateService globalServerCreateService,
                                  @Lazy TagModelDeleteService globalServerDeleteService,
-                                 @Lazy TagModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                 @Lazy TagModelGetService globalServerGetService,
+                                 @Lazy TagModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void changeName(String id, String name) throws Exception {

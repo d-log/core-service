@@ -19,8 +19,9 @@ public class ViewTemplateThemeModelDeleteService extends GlobalServerDeleteServi
     @Autowired
     public ViewTemplateThemeModelDeleteService(ViewTemplateThemeModelRepositoryRestResource repository,
                                                @Lazy ViewTemplateThemeModelCreateService globalServerCreateService,
+                                               @Lazy ViewTemplateThemeModelDeleteService globalServerDeleteService,
                                                @Lazy ViewTemplateThemeModelGetService globalServerGetService,
                                                @Lazy ViewTemplateThemeModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

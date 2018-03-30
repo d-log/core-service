@@ -19,8 +19,9 @@ public class ViewTemplateModelDeleteService extends GlobalServerDeleteService<Vi
     @Autowired
     public ViewTemplateModelDeleteService(ViewTemplateModelRepositoryRestResource repository,
                                           @Lazy ViewTemplateModelCreateService globalServerCreateService,
+                                          @Lazy ViewTemplateModelDeleteService globalServerDeleteService,
                                           @Lazy ViewTemplateModelGetService globalServerGetService,
                                           @Lazy ViewTemplateModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

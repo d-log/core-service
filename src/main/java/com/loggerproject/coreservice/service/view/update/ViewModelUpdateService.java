@@ -18,9 +18,10 @@ public class ViewModelUpdateService extends GlobalServerUpdateService<ViewModel>
 
     @Autowired
     public ViewModelUpdateService(ViewModelRepositoryRestResource repository,
-                                  @Lazy ViewModelCreateService globalServerCreateService,
+                                  @Lazy ViewModelCreateService globalServerCrearteService,
                                   @Lazy ViewModelDeleteService globalServerDeleteService,
-                                  @Lazy ViewModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                  @Lazy ViewModelGetService globalServerGetService,
+                                  @Lazy ViewModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCrearteService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

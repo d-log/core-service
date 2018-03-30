@@ -24,10 +24,11 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
 
     @Autowired
     public DirectoryModelCreateService(DirectoryModelRepositoryRestResource repository,
+                                       @Lazy DirectoryModelCreateService globalServerCreateService,
                                        @Lazy DirectoryModelDeleteService globalServerDeleteService,
                                        @Lazy DirectoryModelGetService globalServerGetService,
                                        @Lazy DirectoryModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(DirectoryModel model) throws Exception {

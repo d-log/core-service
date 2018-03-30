@@ -18,18 +18,27 @@ import java.util.Set;
 public class DirectoryModelGetService extends GlobalServerGetService<DirectoryModel> {
 
     @Autowired
+    DirectoryModelGetService directoryModelGetService;
+
+    @Autowired
     DirectoryModelRepositoryRestResource directoryModelRepositoryRestResource;
 
     @Autowired
     public DirectoryModelGetService(DirectoryModelRepositoryRestResource repository,
                                     @Lazy DirectoryModelCreateService globalServerCreateService,
                                     @Lazy DirectoryModelDeleteService globalServerDeleteService,
+                                    @Lazy DirectoryModelGetService globalServerGetService,
                                     @Lazy DirectoryModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+    }
+
+    @Override
+    public DirectoryModel findOne(String id) {
+        return super.findOne(id);
     }
 
     public List<DirectoryModel> findByName(String name) {
-        return this.directoryModelRepositoryRestResource.findByName(name);
+        return directoryModelRepositoryRestResource.findByName(name);
     }
 
     public List<DirectoryModel> findAllChildren(String id, Integer level) throws Exception {

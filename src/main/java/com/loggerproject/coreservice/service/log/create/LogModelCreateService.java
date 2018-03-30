@@ -36,10 +36,11 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
 
     @Autowired
     public LogModelCreateService(LogModelRepositoryRestResource repository,
+                                 @Lazy LogModelCreateService globalServerCreateService,
                                  @Lazy LogModelDeleteService globalServerDeleteService,
                                  @Lazy LogModelGetService globalServerGetService,
                                  @Lazy LogModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void scrubAndValidate(LogModel model) throws Exception {

@@ -26,8 +26,9 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
     public DirectoryModelUpdateService(DirectoryModelRepositoryRestResource repository,
                                        @Lazy DirectoryModelCreateService globalServerCreateService,
                                        @Lazy DirectoryModelDeleteService globalServerDeleteService,
-                                       @Lazy DirectoryModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                       @Lazy DirectoryModelGetService globalServerGetService,
+                                       @Lazy DirectoryModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
     public void changeName(String id, String name) throws Exception {

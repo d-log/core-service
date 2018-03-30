@@ -20,7 +20,8 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
     public LogModelUpdateService(LogModelRepositoryRestResource repository,
                                  @Lazy LogModelCreateService globalServerCreateService,
                                  @Lazy LogModelDeleteService globalServerDeleteService,
-                                 @Lazy LogModelGetService globalServerGetService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService);
+                                 @Lazy LogModelGetService globalServerGetService,
+                                 @Lazy LogModelUpdateService globalServerUpdateService) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }
