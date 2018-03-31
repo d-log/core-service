@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.endpoint.api.viewtemplate;
 
 import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
-import com.loggerproject.coreservice.service.viewtemplate.create.ViewTemplateModelCreateService;
-import com.loggerproject.coreservice.service.viewtemplate.delete.ViewTemplateModelDeleteService;
-import com.loggerproject.coreservice.service.viewtemplate.get.ViewTemplateModelGetService;
-import com.loggerproject.coreservice.service.viewtemplate.update.ViewTemplateModelUpdateService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.create.ViewTemplateModelCreateService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.delete.ViewTemplateModelDeleteService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.get.ViewTemplateModelGetService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.update.ViewTemplateModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

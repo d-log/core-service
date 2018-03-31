@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.endpoint.api.viewtemplatetheme;
 
 import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
-import com.loggerproject.coreservice.service.viewtemplatetheme.create.ViewTemplateThemeModelCreateService;
-import com.loggerproject.coreservice.service.viewtemplatetheme.delete.ViewTemplateThemeModelDeleteService;
-import com.loggerproject.coreservice.service.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
-import com.loggerproject.coreservice.service.viewtemplatetheme.update.ViewTemplateThemeModelUpdateService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.create.ViewTemplateThemeModelCreateService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.delete.ViewTemplateThemeModelDeleteService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
+import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.update.ViewTemplateThemeModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

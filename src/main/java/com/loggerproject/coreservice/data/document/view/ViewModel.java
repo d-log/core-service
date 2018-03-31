@@ -16,7 +16,7 @@ public class ViewModel extends GlobalModel {
      */
     @Id
     String ID;
-    DataSchema dataSchema;
+    String dataSchemaJSON;
     String defaultViewTemplateID;
     Set<String> otherViewTemplateIDs;
 }

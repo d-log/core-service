@@ -14,8 +14,7 @@ public class ViewTemplateModel extends GlobalModel {
     @Id
     String ID;
     String viewID;
-    String name;
-    ViewTemplateHTML html;
-    ViewTemplateJS js;
-    ViewTemplateCSS css;
+    String html;
+    String js;
+    String css;
 }

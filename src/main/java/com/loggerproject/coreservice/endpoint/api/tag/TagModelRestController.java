@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.endpoint.api.tag;
 
 import com.loggerproject.coreservice.data.document.tag.TagModel;
-import com.loggerproject.coreservice.service.tag.create.TagModelCreateService;
-import com.loggerproject.coreservice.service.tag.delete.TagModelDeleteService;
-import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
-import com.loggerproject.coreservice.service.tag.update.TagModelUpdateService;
+import com.loggerproject.coreservice.service.data.tag.create.TagModelCreateService;
+import com.loggerproject.coreservice.service.data.tag.delete.TagModelDeleteService;
+import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
+import com.loggerproject.coreservice.service.data.tag.update.TagModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
