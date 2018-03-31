@@ -2,11 +2,13 @@ package com.loggerproject.coreservice.service.log.update;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.log.LogModel;
+import com.loggerproject.coreservice.data.document.log.ViewData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.directory.update.DirectoryModelUpdateService;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
+import com.loggerproject.coreservice.service.log.create.ViewDataService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
@@ -16,11 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
+@SuppressWarnings(value = "unchecked")
 public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
 
     @Autowired
     LogModelRepositoryRestResource LogModelRepositoryRestResource;
+
+    @Autowired
+    LogModelGetService logModelGetService;
 
     @Autowired
     DirectoryModelGetService directoryModelGetService;
@@ -35,6 +44,9 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
     TagModelUpdateService tagModelUpdateService;
 
     @Autowired
+    ViewDataService viewDataService;
+
+    @Autowired
     public LogModelUpdateService(LogModelRepositoryRestResource repository,
                                  @Lazy LogModelCreateService globalServerCreateService,
                                  @Lazy LogModelDeleteService globalServerDeleteService,
@@ -43,52 +55,68 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void bindFromDirectoryToDirectory(String logID, String oldDirectoryID, String newDirectoryID) throws Exception {
-        LogModel log = (LogModel)globalServerGetService.validateAndFindOne(logID);
-        DirectoryModel oldDirectory = directoryModelGetService.validateAndFindOne(oldDirectoryID);
-        DirectoryModel newDirectory = directoryModelGetService.validateAndFindOne(newDirectoryID);
+    public LogModel bindUnbindDirectories(String logID, List<String> bindDirectoryIDs, List<String> unbindDirectoryIDs) throws Exception {
+        LogModel log = logModelGetService.validateAndFindOne(logID);
 
-        log.getDirectoryIDs().remove(oldDirectoryID);
-        log.getDirectoryIDs().add(newDirectoryID);
+        List<DirectoryModel> bindDirectories = new ArrayList<>();
+        List<DirectoryModel> unbindDirectories = new ArrayList<>();
 
-        oldDirectory.getLogIDs().remove(logID);
-        newDirectory.getLogIDs().add(logID);
+        for (String directoryID : bindDirectoryIDs) {
+            DirectoryModel directory = directoryModelGetService.validateAndFindOne(directoryID);
+            bindDirectories.add(directory);
+        }
+        for (String directoryID : unbindDirectoryIDs) {
+            DirectoryModel directory = directoryModelGetService.validateAndFindOne(directoryID);
+            unbindDirectories.add(directory);
+        }
 
-        globalServerUpdateService.update(logID, log);
-        directoryModelUpdateService.update(oldDirectoryID, oldDirectory);
-        directoryModelUpdateService.update(newDirectoryID, newDirectory);
+        for (DirectoryModel directory : bindDirectories) {
+            log.getDirectoryIDs().add(directory.getID());
+            directory.getLogIDs().add(logID);
+            directoryModelUpdateService.update(directory);
+        }
+        for (DirectoryModel directory : unbindDirectories) {
+            log.getDirectoryIDs().remove(directory.getID());
+            directory.getLogIDs().remove(logID);
+            directoryModelUpdateService.update(directory);
+        }
+
+        return update(log);
     }
 
-    public void bindToDirectory(String logID, String directoryID) throws Exception {
-        LogModel log = (LogModel)globalServerGetService.validateAndFindOne(logID);
-        DirectoryModel directory = directoryModelGetService.validateAndFindOne(directoryID);
+    public LogModel bindUnbindTags(String logID, List<String> bindTagIDs, List<String> unbindTagIDs) throws Exception {
+        LogModel log = logModelGetService.validateAndFindOne(logID);
 
-        log.getDirectoryIDs().add(directoryID);
-        directory.getLogIDs().add(logID);
+        List<TagModel> bindTags = new ArrayList<>();
+        List<TagModel> unbindTags = new ArrayList<>();
 
-        globalServerUpdateService.update(logID, log);
-        directoryModelUpdateService.update(directoryID, directory);
+        for (String tagID : bindTagIDs) {
+            TagModel tag = tagModelGetService.validateAndFindOne(tagID);
+            bindTags.add(tag);
+        }
+        for (String tagID : unbindTagIDs) {
+            TagModel tag = tagModelGetService.validateAndFindOne(tagID);
+            unbindTags.add(tag);
+        }
+
+        for (TagModel tag : bindTags) {
+            log.getTagIDs().add(tag.getID());
+            tag.getLogIDs().add(logID);
+            tagModelUpdateService.update(tag);
+        }
+        for (TagModel tag : unbindTags) {
+            log.getTagIDs().remove(tag.getID());
+            tag.getLogIDs().remove(logID);
+            tagModelUpdateService.update(tag);
+        }
+
+        return update(log);
     }
 
-    public void bindToTag(String logID, String tagID) throws Exception {
-        LogModel log = (LogModel)globalServerGetService.validateAndFindOne(logID);
-        TagModel tag = tagModelGetService.validateAndFindOne(tagID);
-
-        log.getTagIDs().add(tagID);
-        tag.getLogIDs().add(logID);
-
-        globalServerUpdateService.update(logID, log);
-        tagModelUpdateService.update(tagID, tag);
-    }
-
-    public void unbindTag(String logID, String tagID) throws Exception {
-        LogModel log = (LogModel)globalServerGetService.validateAndFindOne(logID);
-        TagModel tag = tagModelGetService.validateAndFindOne(tagID);
-
-        log.getTagIDs().remove(tagID);
-        tag.getLogIDs().remove(logID);
-
-        globalServerUpdateService.update(logID, log);
-        tagModelUpdateService.update(tagID, tag);
+    public LogModel updateViewDatas(String id, List<ViewData> viewDatas) throws Exception {
+        LogModel log = logModelGetService.validateAndFindOne(id);
+        viewDataService.scrubAndValidate(viewDatas);
+        log.setViewDatas(viewDatas);
+        return update(log);
     }
 }

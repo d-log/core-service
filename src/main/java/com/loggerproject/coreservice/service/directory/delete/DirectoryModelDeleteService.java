@@ -6,9 +6,13 @@ import com.loggerproject.coreservice.service.directory.create.DirectoryModelCrea
 import com.loggerproject.coreservice.service.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.directory.update.DirectoryModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.service.delete.GlobalServerDeleteService;
+import com.loggerproject.microserviceglobalresource.server.service.delete.model.DeleteAllResponse;
+import com.loggerproject.microserviceglobalresource.server.service.delete.model.ModelBoundedToLogException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DirectoryModelDeleteService extends GlobalServerDeleteService<DirectoryModel> {
@@ -28,7 +32,7 @@ public class DirectoryModelDeleteService extends GlobalServerDeleteService<Direc
     public void canDelete(String id) throws Exception {
         DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(id);
         if(model.getLogIDs().size() > 0) {
-            throw new Exception("Cannot delete directories that are bounded to log(s): " + model.getLogIDs().toString());
+            throw new ModelBoundedToLogException(id, model.getLogIDs());
         }
     }
 

@@ -38,7 +38,7 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
     public void changeName(String id, String name) throws Exception {
         DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(id);
         model.setName(name);
-        update(id, model);
+        update(model);
     }
 
     public void assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
@@ -52,9 +52,9 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
         child.getParentIDs().add(newParentID);
         newParent.getChildrenIDs().add(childID);
 
-        update(childID, child);
-        update(oldParentID, oldParent);
-        update(newParentID, newParent);
+        update(child);
+        update(oldParent);
+        update(newParent);
     }
 
     public void assignAdditionalParent(String childID, String parentID) throws Exception {
@@ -64,7 +64,7 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
         child.getParentIDs().add(parentID);
         parent.getChildrenIDs().add(childID);
 
-        update(childID, child);
-        update(parentID, parent);
+        update(child);
+        update(parent);
     }
 }

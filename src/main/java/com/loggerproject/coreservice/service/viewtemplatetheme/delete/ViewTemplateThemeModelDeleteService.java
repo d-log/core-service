@@ -24,4 +24,6 @@ public class ViewTemplateThemeModelDeleteService extends GlobalServerDeleteServi
                                                @Lazy ViewTemplateThemeModelUpdateService globalServerUpdateService) {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
+
+
 }

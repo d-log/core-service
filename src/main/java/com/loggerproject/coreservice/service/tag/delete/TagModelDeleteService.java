@@ -6,9 +6,13 @@ import com.loggerproject.coreservice.service.tag.create.TagModelCreateService;
 import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.tag.update.TagModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.service.delete.GlobalServerDeleteService;
+import com.loggerproject.microserviceglobalresource.server.service.delete.model.DeleteAllResponse;
+import com.loggerproject.microserviceglobalresource.server.service.delete.model.ModelBoundedToLogException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
@@ -29,7 +33,7 @@ public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
     public void beforeDelete(String id) throws Exception {
         TagModel model = (TagModel) globalServerGetService.validateAndFindOne(id);
         if(model.getLogIDs().size() > 0) {
-            throw new Exception("Cannot delete tags that are bounded to log(s): " + model.getLogIDs().toString());
+            throw new ModelBoundedToLogException(id, model.getLogIDs());
         }
     }
 }

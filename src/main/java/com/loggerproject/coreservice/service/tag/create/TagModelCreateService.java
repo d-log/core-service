@@ -10,6 +10,7 @@ import com.loggerproject.microserviceglobalresource.server.service.create.Global
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
 
@@ -32,10 +33,12 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
     }
 
     public void scrubAndValidate(TagModel model) throws Exception {
-        model.setLogIDs(model.getLogIDs() != null ? model.getLogIDs() : new HashSet<>());
-        model.setName(model.getName() == null ? "" : model.getName());
+        if(!CollectionUtils.isEmpty(model.getLogIDs())) {
+            throw new Exception("logIDs must be empty");
+        }
 
-        logModelGetService.validateIds(model.getLogIDs());
+        model.setLogIDs(new HashSet<>());
+        model.setName(model.getName() == null ? "" : model.getName());
     }
 
     @Override

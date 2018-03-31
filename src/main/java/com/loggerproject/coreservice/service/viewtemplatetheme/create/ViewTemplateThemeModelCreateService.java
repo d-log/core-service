@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,9 +40,8 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void scrubAndValidate(ViewTemplateThemeModel model) throws Exception {
-        Assert.notNull(model.getMap(), "ViewTemplateThemeModel.map cannot be null");
-        if(model.getMap().size() == 0) {
+    public void scrubAndValidate(@NotNull ViewTemplateThemeModel model) throws Exception {
+        if(CollectionUtils.isEmpty(model.getMap())) {
             throw new IllegalArgumentException("ViewTemplateThemeModel.map size cannot be empty");
         }
 

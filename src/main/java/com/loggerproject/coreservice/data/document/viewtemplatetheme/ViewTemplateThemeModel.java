@@ -15,5 +15,6 @@ public class ViewTemplateThemeModel extends GlobalModel {
      */
     @Id
     String ID;
+    List<String> logIDs;
     List<ViewToViewTemplate> map;
 }

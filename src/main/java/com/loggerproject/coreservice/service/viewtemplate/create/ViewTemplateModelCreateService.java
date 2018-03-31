@@ -43,7 +43,7 @@ public class ViewTemplateModelCreateService extends GlobalServerCreateService<Vi
 
     private void scrubAndValidateHTML(ViewTemplateModel model) throws Exception {
         Assert.notNull(model.getHtml(), "ViewTemplateModel.viewTemplateHtml cannot be null");
-        Assert.hasLength(model.getHtml().getCode(), "ViewTemplateModel.viewTemplateHtml.code cannot be empty");
+        Assert.hasLength(model.getHtml().getCode(), "ViewTemplateModel.viewTemplateHtml.code cannot be blank");
     }
 
     private void scrubAndValidateJS(ViewTemplateModel model) throws Exception {

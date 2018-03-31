@@ -35,6 +35,9 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
     DirectoryModelUpdateService directoryModelUpdateService;
 
     @Autowired
+    LogModelGetService logModelGetService;
+
+    @Autowired
     public LogModelDeleteService(LogModelRepositoryRestResource repository,
                                  @Lazy LogModelCreateService globalServerCreateService,
                                  @Lazy LogModelDeleteService globalServerDeleteService,
@@ -48,18 +51,22 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
     }
 
     public void updateDocuments(String id) throws Exception {
-        LogModel log = (LogModel)globalServerGetService.validateAndFindOne(id);
+        LogModel log = logModelGetService.validateAndFindOne(id);
 
         for (String dID : log.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.findOne(dID);
-            d.getLogIDs().remove(id);
-            directoryModelUpdateService.update(dID, d);
+            if (d != null) {
+                d.getLogIDs().remove(id);
+                directoryModelUpdateService.update(d);
+            }
         }
 
         for (String tID : log.getTagIDs()) {
             TagModel t = tagModelGetService.findOne(tID);
-            t.getLogIDs().remove(id);
-            tagModelUpdateService.update(tID, t);
+            if (t != null) {
+                t.getLogIDs().remove(id);
+                tagModelUpdateService.update(t);
+            }
         }
     }
 

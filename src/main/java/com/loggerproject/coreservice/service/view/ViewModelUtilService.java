@@ -17,8 +17,7 @@ public class ViewModelUtilService {
     ViewModelGetService viewModelGetService;
 
     public void validateJsonData(String viewModelID, String data) throws Exception {
-        ViewModel model = viewModelGetService.findOne(viewModelID);
-        if (model == null) throw new Exception("ERROR cannot find view document with id: '" + viewModelID + "'");
+        ViewModel model = viewModelGetService.validateAndFindOne(viewModelID);
 
         try {
             // this validates the jsonSchema based on $schema property

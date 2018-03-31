@@ -1,18 +1,30 @@
 package com.loggerproject.coreservice.endpoint.api.log;
 
 import com.loggerproject.coreservice.data.document.log.LogModel;
+import com.loggerproject.coreservice.endpoint.api.log.model.UpdateBindUnbindRequest;
+import com.loggerproject.coreservice.endpoint.api.log.model.UpdateViewDatasRequest;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.log.update.LogModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.GlobalModelController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+
+import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/api/log")
 public class LogModelRestController extends GlobalModelController<LogModel> {
+
+    @Autowired
+    LogModelUpdateService logModelUpdateService;
 
     @Autowired
     public LogModelRestController(LogModelCreateService globalServerCreateService,
@@ -20,5 +32,30 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
                                   LogModelGetService globalServerGetService,
                                   LogModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+    }
+
+    @PutMapping(value = {"/bind-unbind/tags"}, produces = {"application/hal+json"})
+    public ResponseEntity<?> bindUnbindTag(@RequestBody UpdateBindUnbindRequest request) throws Exception {
+        LogModel modelUpdated = logModelUpdateService.bindUnbindTags(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
+        return temp(modelUpdated, methodOn(getClass()).bindUnbindTag(request));
+    }
+
+    @PutMapping(value = {"/bind-unbind/directories"}, produces = {"application/hal+json"})
+    public ResponseEntity<?> bindDirectory(@RequestBody UpdateBindUnbindRequest request) throws Exception {
+        LogModel modelUpdated = logModelUpdateService.bindUnbindDirectories(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
+        return temp(modelUpdated, methodOn(getClass()).bindDirectory(request));
+    }
+
+    @PutMapping(value = {"/view-data"}, produces = {"application/hal+json"})
+    public ResponseEntity<?> bindDirectory(@RequestBody UpdateViewDatasRequest request) throws Exception {
+        LogModel modelUpdated = logModelUpdateService.updateViewDatas(request.getId(), request.getViewDatas());
+        return temp(modelUpdated, methodOn(getClass()).bindDirectory(request));
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    private ResponseEntity<?> temp(LogModel model, Object invocationValue) {
+        Resources<LogModel> resources = new Resources(Collections.singletonList(model));
+        resources.add(linkTo(invocationValue).withSelfRel());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(resources);
     }
 }

@@ -17,6 +17,7 @@ import com.loggerproject.microserviceglobalresource.server.service.create.Global
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
 
@@ -54,14 +55,17 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
     }
 
     public void scrubAndValidate(LogModel model) throws Exception {
-        model.setDirectoryIDs(model.getDirectoryIDs() != null ? model.getDirectoryIDs() : new HashSet());
+        if (CollectionUtils.isEmpty(model.getDirectoryIDs())) {
+            throw new Exception("LogModel.directoryIDs cannot be empty");
+        }
+
         model.setTagIDs(model.getTagIDs() != null ? model.getTagIDs() : new HashSet());
 
         directoryModelGetService.validateIds(model.getDirectoryIDs());
         tagModelGetService.validateIds(model.getTagIDs());
 
         if (model.getViewTemplateThemeID() != null) {
-            this.viewTemplateThemeModelGetService.validateId(model.getViewTemplateThemeID());
+            viewTemplateThemeModelGetService.validateId(model.getViewTemplateThemeID());
         }
 
         for (ViewData viewData : model.getViewDatas()) {
@@ -73,13 +77,13 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         for (String id : model.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.validateAndFindOne(id);
             d.getLogIDs().add(model.getID());
-            directoryModelUpdateService.update(d.getID(), d);
+            directoryModelUpdateService.update(d);
         }
 
         for (String id : model.getTagIDs()) {
             TagModel t = tagModelGetService.validateAndFindOne(id);
             t.getLogIDs().add(model.getID());
-            tagModelUpdateService.update(t.getID(), t);
+            tagModelUpdateService.update(t);
         }
     }
 
@@ -92,6 +96,6 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
     @Override
     protected void afterSave(LogModel model) throws Exception {
         updateOtherDocuments(model);
-        super.beforeSave(model);
+        super.afterSave(model);
     }
 }

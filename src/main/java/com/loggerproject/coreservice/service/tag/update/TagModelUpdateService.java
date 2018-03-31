@@ -28,6 +28,6 @@ public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
     public void changeName(String id, String name) throws Exception {
         TagModel model = (TagModel) globalServerGetService.validateAndFindOne(id);
         model.setName(name);
-        this.update(model.getID(), model);
+        this.update(model);
     }
 }
