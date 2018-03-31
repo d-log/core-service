@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
 public class ViewModelCreateService extends GlobalServerCreateService<ViewModel> {
 
@@ -33,27 +31,5 @@ public class ViewModelCreateService extends GlobalServerCreateService<ViewModel>
                                   @Lazy ViewModelGetService globalServerGetService,
                                   @Lazy ViewModelUpdateService globalServerUpdateService) {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
-    }
-
-    public void scrubAndValidate(ViewModel model) throws Exception {
-        viewTemplateModelGetService.validateId(model.getDefaultViewTemplateID());
-
-        model.setOtherViewTemplateIDs(model.getOtherViewTemplateIDs() != null ? model.getOtherViewTemplateIDs() : new HashSet<>());
-        model.setDataSchemaJSON(model.getDataSchemaJSON() != null ? model.getDataSchemaJSON() : "");
-
-        viewTemplateModelGetService.validateIds(model.getOtherViewTemplateIDs());
-
-        viewModelUtilService.scrubAndValidateDataSchemaJSON(model);
-    }
-
-    @Override
-    protected void beforeSave(ViewModel model) throws Exception {
-        scrubAndValidate(model);
-        super.beforeSave(model);
-    }
-
-    @Override
-    public ViewModel save(ViewModel model) throws Exception {
-        throw new Exception("Use ViewManagerService to save ViewModels");
     }
 }

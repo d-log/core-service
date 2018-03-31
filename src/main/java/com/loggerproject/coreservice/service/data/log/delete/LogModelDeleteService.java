@@ -46,17 +46,15 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void validateDelete(String id) {
+    public void validateDelete(LogModel model) {
 
     }
 
-    public void updateDocuments(String id) throws Exception {
-        LogModel log = logModelGetService.validateAndFindOne(id);
-
+    public void updateDocuments(LogModel log) throws Exception {
         for (String dID : log.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.findOne(dID);
             if (d != null) {
-                d.getLogIDs().remove(id);
+                d.getLogIDs().remove(log.getID());
                 directoryModelUpdateService.update(d);
             }
         }
@@ -64,16 +62,16 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
         for (String tID : log.getTagIDs()) {
             TagModel t = tagModelGetService.findOne(tID);
             if (t != null) {
-                t.getLogIDs().remove(id);
+                t.getLogIDs().remove(log.getID());
                 tagModelUpdateService.update(t);
             }
         }
     }
 
     @Override
-    public void beforeDelete(String id) throws Exception {
-        validateDelete(id);
-        updateDocuments(id);
-        super.beforeDelete(id);
+    public void beforeDelete(LogModel model) throws Exception {
+        validateDelete(model);
+        updateDocuments(model);
+        super.beforeDelete(model);
     }
 }

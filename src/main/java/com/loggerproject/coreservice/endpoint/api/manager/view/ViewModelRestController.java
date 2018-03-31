@@ -1,6 +1,7 @@
-package com.loggerproject.coreservice.endpoint.api.view;
+package com.loggerproject.coreservice.endpoint.api.manager.view;
 
 import com.loggerproject.coreservice.data.document.view.ViewModel;
+import com.loggerproject.coreservice.endpoint.api.manager.manager.ViewManagerRestController;
 import com.loggerproject.coreservice.service.data.view.manager.view.create.ViewModelCreateService;
 import com.loggerproject.coreservice.service.data.view.manager.view.delete.ViewModelDeleteService;
 import com.loggerproject.coreservice.service.data.view.manager.view.get.ViewModelGetService;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
@@ -32,6 +34,14 @@ public class ViewModelRestController extends GlobalModelController<ViewModel> {
                                    ViewModelGetService globalServerGetService,
                                    ViewModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+    }
+
+    @Override
+    @PostMapping(produces = {"application/hal+json"})
+    public ResponseEntity<?> save(@RequestBody ViewModel model) throws Exception {
+        Resources resources = new Resources(new ArrayList());
+        resources.add(linkTo(methodOn(ViewManagerRestController.class).save(null)).withSelfRel());
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).body(resources);
     }
 
     @PutMapping(value = {"/{id}/data-schema-json"}, produces = {"application/hal+json"})

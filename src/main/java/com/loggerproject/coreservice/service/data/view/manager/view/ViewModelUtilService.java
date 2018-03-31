@@ -9,6 +9,7 @@ import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class ViewModelUtilService {
@@ -16,21 +17,19 @@ public class ViewModelUtilService {
     @Autowired
     ViewModelGetService viewModelGetService;
 
-    public void scrubAndValidateDataSchemaJSON(ViewModel model) throws Exception {
-        String dataSchemaJSON = model.getDataSchemaJSON();
+    public String scrubAndValidateDataSchemaJSON(String dataSchemaJSON) throws Exception {
+        Assert.notNull(dataSchemaJSON, "dataSchemaJSON is null");
 
-        if (dataSchemaJSON != null) {
-            // this validates the custom jsonSchema based on $schema value (exp. http://json-schema.org/draft-07/schema#)
-            // throws SchemaException when custom json schema failed against $schema definition
-            try {
-                SchemaLoader.load(new JSONObject(dataSchemaJSON));
-            } catch (Exception e) {
-                throw new Exception("ERROR parsing json string of ViewModel.dataSchemaJSON - " + e.getMessage());
-            }
-
-            // turn custom JSON schema to oneline
-            model.setDataSchemaJSON(new JSONObject(dataSchemaJSON).toString());
+        // this validates the custom jsonSchema based on $schema value (exp. http://json-schema.org/draft-07/schema#)
+        // throws SchemaException when custom json schema failed against $schema definition
+        try {
+            SchemaLoader.load(new JSONObject(dataSchemaJSON));
+        } catch (Exception e) {
+            throw new Exception("ERROR parsing json schema - " + e.getMessage());
         }
+
+        // turn custom JSON schema to oneline
+        return new JSONObject(dataSchemaJSON).toString();
     }
 
     public void validateJsonDataAgainstSchema(String viewModelID, String data) throws Exception {

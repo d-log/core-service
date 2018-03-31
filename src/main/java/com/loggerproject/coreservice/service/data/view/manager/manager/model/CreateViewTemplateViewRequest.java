@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.service.data.view.manager.manager.model;
 import lombok.Data;
 
 @Data
-public class ViewTemplateView {
+public class CreateViewTemplateViewRequest {
     String jsonSchema;
     String html;
     String js;

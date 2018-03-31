@@ -40,16 +40,18 @@ public class ViewModelUpdateService extends GlobalServerUpdateService<ViewModel>
     public ViewModel updateDataSchemaJSON(String id, String json) throws Exception {
         ViewModel model = viewModelGetService.validateAndFindOne(id);
         model.setDataSchemaJSON(json);
-        viewModelUtilService.scrubAndValidateDataSchemaJSON(model);
+        model.setDataSchemaJSON(viewModelUtilService.scrubAndValidateDataSchemaJSON(model.getDataSchemaJSON()));
         return update(model);
     }
 
     public ViewModel updateDefaultViewTemplateID(String id, String viewTemplateID) throws Exception {
         ViewModel view = viewModelGetService.validateAndFindOne(id);
         ViewTemplateModel viewTemplate = viewTemplateModelGetService.validateAndFindOne(viewTemplateID);
+
         if (!viewTemplate.getViewID().equals(id)) {
             throw new Exception("ViewTemplate.viewID does not match View.id");
         }
+
         view.setDefaultViewTemplateID(viewTemplateID);
         return update(view);
     }

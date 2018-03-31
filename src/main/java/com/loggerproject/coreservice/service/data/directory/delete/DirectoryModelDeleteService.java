@@ -26,16 +26,15 @@ public class DirectoryModelDeleteService extends GlobalServerDeleteService<Direc
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void canDelete(String id) throws Exception {
-        DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(id);
+    public void validateDelete(DirectoryModel model) throws Exception {
         if(model.getLogIDs().size() > 0) {
-            throw new ModelBoundedToLogException(id, model.getLogIDs());
+            throw new ModelBoundedToLogException(model.getID(), model.getLogIDs());
         }
     }
 
     @Override
-    public void beforeDelete(String id) throws Exception {
-        canDelete(id);
-        super.beforeDelete(id);
+    public void beforeDelete(DirectoryModel model) throws Exception {
+        validateDelete(model);
+        super.beforeDelete(model);
     }
 }
