@@ -12,7 +12,7 @@ import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.data.log.update.LogModelUpdateService;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.data.tag.update.TagModelUpdateService;
-import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
+import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

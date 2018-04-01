@@ -13,9 +13,9 @@ import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.data.log.get.detail.model.LogDetailModel;
 import com.loggerproject.coreservice.service.data.log.get.detail.model.ViewDataDetailModel;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
-import com.loggerproject.coreservice.service.data.view.manager.view.get.ViewModelGetService;
-import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.get.ViewTemplateModelGetService;
-import com.loggerproject.coreservice.service.data.view.manager.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
+import com.loggerproject.coreservice.service.data.view.view.get.ViewModelGetService;
+import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
+import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

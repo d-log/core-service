@@ -2,8 +2,8 @@ package com.loggerproject.coreservice.service.data.log.create;
 
 import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
 import com.loggerproject.coreservice.data.document.log.ViewData;
-import com.loggerproject.coreservice.service.data.view.manager.view.ViewModelUtilService;
-import com.loggerproject.coreservice.service.data.view.manager.viewtemplate.get.ViewTemplateModelGetService;
+import com.loggerproject.coreservice.service.data.view.view.ViewModelUtilService;
+import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
