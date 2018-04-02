@@ -29,36 +29,41 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void changeName(String id, String name) throws Exception {
+    public DirectoryModel changeName(String id, String name) throws Exception {
         DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(id);
         model.setName(name);
-        update(model);
+        model = update(model);
+        return model;
     }
 
-    public void assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
-        DirectoryModel child = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
+    public DirectoryModel assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
+        DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
         DirectoryModel oldParent = (DirectoryModel)globalServerGetService.validateAndFindOne(oldParentID);
         DirectoryModel newParent = (DirectoryModel)globalServerGetService.validateAndFindOne(newParentID);
 
-        child.getParentIDs().remove(oldParentID);
+        model.getParentIDs().remove(oldParentID);
         oldParent.getChildrenIDs().remove(childID);
 
-        child.getParentIDs().add(newParentID);
+        model.getParentIDs().add(newParentID);
         newParent.getChildrenIDs().add(childID);
 
-        update(child);
         update(oldParent);
         update(newParent);
+        model = update(model);
+
+        return model;
     }
 
-    public void assignAdditionalParent(String childID, String parentID) throws Exception {
-        DirectoryModel child = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
+    public DirectoryModel assignAdditionalParent(String childID, String parentID) throws Exception {
+        DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
         DirectoryModel parent = (DirectoryModel)globalServerGetService.validateAndFindOne(parentID);
 
-        child.getParentIDs().add(parentID);
+        model.getParentIDs().add(parentID);
         parent.getChildrenIDs().add(childID);
 
-        update(child);
         update(parent);
+        update(model);
+
+        return model;
     }
 }

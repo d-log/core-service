@@ -26,15 +26,17 @@ public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void validateDelete(TagModel model) throws Exception {
+    public TagModel validateDelete(TagModel model) throws Exception {
         if(model.getLogIDs().size() > 0) {
             throw new ModelBoundedToLogException(model.getID(), model.getLogIDs());
         }
+
+        return model;
     }
 
     @Override
-    public void beforeDelete(TagModel model) throws Exception {
-        validateDelete(model);
-        super.beforeDelete(model);
+    public TagModel beforeDelete(TagModel model) throws Exception {
+        model = validateDelete(model);
+        return super.beforeDelete(model);
     }
 }

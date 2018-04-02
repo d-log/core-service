@@ -40,7 +40,7 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void scrubAndValidate(@NotNull ViewTemplateThemeModel model) throws Exception {
+    public ViewTemplateThemeModel scrubAndValidate(@NotNull ViewTemplateThemeModel model) throws Exception {
         if(CollectionUtils.isEmpty(model.getMap())) {
             throw new IllegalArgumentException("ViewTemplateThemeModel.map size cannot be empty");
         }
@@ -58,11 +58,13 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
 
         viewModelGetService.validateIds(viewModelIDs);
         viewTemplateModelGetService.validateIds(viewTemplateIDs);
+
+        return model;
     }
 
     @Override
-    protected void beforeSave(ViewTemplateThemeModel model) throws Exception {
-        scrubAndValidate(model);
-        super.beforeSave(model);
+    protected ViewTemplateThemeModel beforeSave(ViewTemplateThemeModel model) throws Exception {
+        model = scrubAndValidate(model);
+        return super.beforeSave(model);
     }
 }

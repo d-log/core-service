@@ -35,28 +35,30 @@ public class ViewTemplateModelCreateService extends GlobalServerCreateService<Vi
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void scrubAndValidate(ViewTemplateModel model) throws Exception {
+    public ViewTemplateModel scrubAndValidate(ViewTemplateModel model) throws Exception {
         viewModelGetService.validateId(model.getViewID());
         model.setHtml(viewTemplateModelUtilService.scrubAndValidateHTML(model.getHtml()));
         model.setJs(viewTemplateModelUtilService.scrubAndValidateJS(model.getJs()));
         model.setCss(viewTemplateModelUtilService.scrubAndValidateCSS(model.getCss()));
+        return model;
     }
 
-    protected void updateOtherDocuments(ViewTemplateModel model) throws Exception {
+    protected ViewTemplateModel updateOtherDocuments(ViewTemplateModel model) throws Exception {
         ViewModel view = viewModelGetService.findOne(model.getViewID());
         view.getOtherViewTemplateIDs().add(model.getID());
         viewModelUpdateService.update(view);
+        return model;
     }
 
     @Override
-    protected void beforeSave(ViewTemplateModel model) throws Exception {
-        scrubAndValidate(model);
-        super.beforeSave(model);
+    protected ViewTemplateModel beforeSave(ViewTemplateModel model) throws Exception {
+        model = scrubAndValidate(model);
+        return super.beforeSave(model);
     }
 
     @Override
-    protected void afterSave(ViewTemplateModel model) throws Exception {
-        updateOtherDocuments(model);
-        super.afterSave(model);
+    protected ViewTemplateModel afterSave(ViewTemplateModel model) throws Exception {
+        model = updateOtherDocuments(model);
+        return super.afterSave(model);
     }
 }

@@ -29,15 +29,16 @@ public class ViewModelDeleteService extends GlobalServerDeleteService<ViewModel>
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    protected void updateOtherDocuments(ViewModel model) throws Exception {
+    protected ViewModel updateOtherDocuments(ViewModel model) throws Exception {
         for (String viewTemplateID : model.getOtherViewTemplateIDs()) {
             viewTemplateModelDeleteService.delete(viewTemplateID);
         }
+        return model;
     }
 
     @Override
-    protected void afterDelete(ViewModel model) throws Exception {
-        updateOtherDocuments(model);
-        super.afterDelete(model);
+    protected ViewModel afterDelete(ViewModel model) throws Exception {
+        model = updateOtherDocuments(model);
+        return super.afterDelete(model);
     }
 }

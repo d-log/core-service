@@ -31,7 +31,7 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    private void scrubAndValidate(DirectoryModel model) throws Exception {
+    private DirectoryModel scrubAndValidate(DirectoryModel model) throws Exception {
         if (!CollectionUtils.isEmpty(model.getLogIDs())) {
             throw new Exception("DirectoryModel.logIDs should be empty");
         }
@@ -46,25 +46,29 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         model.setDescription(model.getDescription() == null ? "" : model.getDescription());
 
         globalServerGetService.validateIds(model.getParentIDs());
+
+        return model;
     }
 
-    private void updateOtherDocuments(DirectoryModel model) throws Exception {
+    private DirectoryModel updateOtherDocuments(DirectoryModel model) throws Exception {
         for(String parentID : model.getParentIDs()) {
             DirectoryModel parent = (DirectoryModel)globalServerGetService.findOne(parentID);
             parent.getChildrenIDs().add(model.getID());
             directoryModelUpdateService.update(parent);
         }
+
+        return model;
     }
 
     @Override
-    protected void beforeSave(DirectoryModel model) throws Exception {
-        scrubAndValidate(model);
-        super.beforeSave(model);
+    protected DirectoryModel beforeSave(DirectoryModel model) throws Exception {
+        model = scrubAndValidate(model);
+        return super.beforeSave(model);
     }
 
     @Override
-    protected void afterSave(DirectoryModel model) throws Exception {
-        updateOtherDocuments(model);
-        super.afterSave(model);
+    protected DirectoryModel afterSave(DirectoryModel model) throws Exception {
+        model = updateOtherDocuments(model);
+        return super.afterSave(model);
     }
 }

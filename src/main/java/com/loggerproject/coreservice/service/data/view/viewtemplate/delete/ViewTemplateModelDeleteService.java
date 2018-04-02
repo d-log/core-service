@@ -9,12 +9,10 @@ import com.loggerproject.coreservice.service.data.view.viewtemplate.create.ViewT
 import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import com.loggerproject.coreservice.service.data.view.viewtemplate.update.ViewTemplateModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.service.delete.GlobalServerDeleteService;
-import com.loggerproject.microserviceglobalresource.server.service.delete.model.ModelBoundedToLogException;
+import com.loggerproject.microserviceglobalresource.server.service.delete.model.ValidateDeleteModelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 public class ViewTemplateModelDeleteService extends GlobalServerDeleteService<ViewTemplateModel> {
@@ -41,30 +39,29 @@ public class ViewTemplateModelDeleteService extends GlobalServerDeleteService<Vi
         ViewModel view = viewModelGetService.findOne(model.getViewID());
         if (view != null) {
             if (view.getDefaultViewTemplateID().equals(model.getID())) {
-                // TODO throw different exception bc 'ViewTemplateModel is default of ViewModel'
-                // GlobalServerDeleteService.deleteAll requires ModelBoundedToLogException to be thrown in order to catch it
-                throw new ModelBoundedToLogException(model.getID(), Collections.singletonList(view.getID()));
+                throw new ValidateDeleteModelException(model.getID(), "ViewTemplateModel: '" + model.getID() + "' is default of ViewModel:'" + view.getID() + "'");
             }
         }
     }
 
     @Override
-    protected void beforeDelete(ViewTemplateModel model) throws Exception {
+    protected ViewTemplateModel beforeDelete(ViewTemplateModel model) throws Exception {
         validateDelete(model);
-        super.beforeDelete(model);
+        return super.beforeDelete(model);
     }
 
-    protected void updateOtherDocuments(ViewTemplateModel model) throws Exception {
+    protected ViewTemplateModel updateOtherDocuments(ViewTemplateModel model) throws Exception {
         ViewModel view = viewModelGetService.findOne(model.getViewID());
         if (view != null) {
             view.getOtherViewTemplateIDs().remove(model.getID());
             viewModelUpdateService.update(view);
         }
+        return model;
     }
 
     @Override
-    protected void afterDelete(ViewTemplateModel model) throws Exception {
-        updateOtherDocuments(model);
-        super.afterDelete(model);
+    protected ViewTemplateModel afterDelete(ViewTemplateModel model) throws Exception {
+        model = updateOtherDocuments(model);
+        return super.afterDelete(model);
     }
 }

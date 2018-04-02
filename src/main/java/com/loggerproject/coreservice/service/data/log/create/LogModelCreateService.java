@@ -54,7 +54,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void scrubAndValidate(LogModel model) throws Exception {
+    public LogModel scrubAndValidate(LogModel model) throws Exception {
         if (CollectionUtils.isEmpty(model.getDirectoryIDs())) {
             throw new Exception("LogModel.directoryIDs cannot be empty");
         }
@@ -71,9 +71,11 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         for (ViewData viewData : model.getViewDatas()) {
             viewDataService.scrubAndValidate(viewData);
         }
+
+        return model;
     }
 
-    public void updateOtherDocuments(LogModel model) throws Exception {
+    public LogModel updateOtherDocuments(LogModel model) throws Exception {
         for (String id : model.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.validateAndFindOne(id);
             d.getLogIDs().add(model.getID());
@@ -85,17 +87,19 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
             t.getLogIDs().add(model.getID());
             tagModelUpdateService.update(t);
         }
+
+        return model;
     }
 
     @Override
-    protected void beforeSave(LogModel model) throws Exception {
-        scrubAndValidate(model);
-        super.beforeSave(model);
+    protected LogModel beforeSave(LogModel model) throws Exception {
+        model = scrubAndValidate(model);
+        return super.beforeSave(model);
     }
 
     @Override
-    protected void afterSave(LogModel model) throws Exception {
-        updateOtherDocuments(model);
-        super.afterSave(model);
+    protected LogModel afterSave(LogModel model) throws Exception {
+        model = updateOtherDocuments(model);
+        return super.afterSave(model);
     }
 }

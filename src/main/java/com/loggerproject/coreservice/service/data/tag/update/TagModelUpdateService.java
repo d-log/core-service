@@ -17,6 +17,9 @@ public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
     TagModelRepositoryRestResource tagModelRepositoryRestResource;
 
     @Autowired
+    TagModelGetService tagModelGetService;
+
+    @Autowired
     public TagModelUpdateService(TagModelRepositoryRestResource repository,
                                  @Lazy TagModelCreateService globalServerCreateService,
                                  @Lazy TagModelDeleteService globalServerDeleteService,
@@ -25,9 +28,9 @@ public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public void changeName(String id, String name) throws Exception {
-        TagModel model = (TagModel) globalServerGetService.validateAndFindOne(id);
+    public TagModel changeName(String id, String name) throws Exception {
+        TagModel model = tagModelGetService.validateAndFindOne(id);
         model.setName(name);
-        this.update(model);
+        return this.update(model);
     }
 }
