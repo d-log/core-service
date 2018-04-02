@@ -39,7 +39,6 @@ public class ViewModelUpdateService extends GlobalServerUpdateService<ViewModel>
 
     public ViewModel updateDataSchemaJSON(String id, String json) throws Exception {
         ViewModel model = viewModelGetService.validateAndFindOne(id);
-        model.setDataSchemaJSON(json);
         model.setDataSchemaJSON(viewModelUtilService.scrubAndValidateDataSchemaJSON(model.getDataSchemaJSON()));
 
         return update(model);

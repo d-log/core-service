@@ -1,5 +1,7 @@
 package com.loggerproject.coreservice.data.document.view;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.loggerproject.microserviceglobalresource.server.document.model.GlobalModel;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -18,4 +20,10 @@ public class ViewModel extends GlobalModel {
     String dataSchemaJSON;
     String defaultTemplateName;
     Map<String, Template> templates; // String template name -> Template
+
+    @JsonSetter("dataSchemaJSON")
+    void setDataSchemaJSONString(JsonNode data)
+    {
+        this.dataSchemaJSON = data.toString();
+    }
 }
