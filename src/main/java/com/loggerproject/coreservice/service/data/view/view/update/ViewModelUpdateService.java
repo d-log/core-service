@@ -1,13 +1,13 @@
 package com.loggerproject.coreservice.service.data.view.view.update;
 
+import com.loggerproject.coreservice.data.document.view.Template;
 import com.loggerproject.coreservice.data.document.view.ViewModel;
-import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.repository.ViewModelRepositoryRestResource;
+import com.loggerproject.coreservice.service.data.view.view.TemplateUtilService;
 import com.loggerproject.coreservice.service.data.view.view.ViewModelUtilService;
 import com.loggerproject.coreservice.service.data.view.view.create.ViewModelCreateService;
 import com.loggerproject.coreservice.service.data.view.view.delete.ViewModelDeleteService;
 import com.loggerproject.coreservice.service.data.view.view.get.ViewModelGetService;
-import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import com.loggerproject.microserviceglobalresource.server.service.update.GlobalServerUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -26,7 +26,7 @@ public class ViewModelUpdateService extends GlobalServerUpdateService<ViewModel>
     ViewModelUtilService viewModelUtilService;
 
     @Autowired
-    ViewTemplateModelGetService viewTemplateModelGetService;
+    TemplateUtilService templateUtilService;
 
     @Autowired
     public ViewModelUpdateService(ViewModelRepositoryRestResource repository,
@@ -41,18 +41,41 @@ public class ViewModelUpdateService extends GlobalServerUpdateService<ViewModel>
         ViewModel model = viewModelGetService.validateAndFindOne(id);
         model.setDataSchemaJSON(json);
         model.setDataSchemaJSON(viewModelUtilService.scrubAndValidateDataSchemaJSON(model.getDataSchemaJSON()));
+
         return update(model);
     }
 
-    public ViewModel updateDefaultViewTemplateID(String id, String viewTemplateID) throws Exception {
-        ViewModel view = viewModelGetService.validateAndFindOne(id);
-        ViewTemplateModel viewTemplate = viewTemplateModelGetService.validateAndFindOne(viewTemplateID);
-
-        if (!viewTemplate.getViewID().equals(id)) {
-            throw new Exception("ViewTemplate.viewID does not match View.id");
+    public ViewModel addTemplate(String viewID, String templateName, Template template) throws Exception {
+        ViewModel view = viewModelGetService.validateAndFindOne(viewID);
+        if(view.getTemplates().get(templateName) != null) {
+            throw new Exception("ViewModel: '" + viewID + "' already contains template with name: '" + templateName + "' existing names: " + view.getTemplates().keySet().toString());
         }
 
-        view.setDefaultViewTemplateID(viewTemplateID);
+        templateUtilService.scrubAndValidateTemplate(template);
+        view.getTemplates().put(templateName, template);
+
+        return update(view);
+    }
+
+    public ViewModel updateDefaultViewTemplateName(String viewID, String templateName) throws Exception {
+        ViewModel view = viewModelGetService.validateAndFindOne(viewID);
+        templateUtilService.validateId(viewID, templateName);
+        view.setDefaultTemplateName(templateName);
+
+        return update(view);
+    }
+
+    public ViewModel updateTemplate(String viewID, String templateName, Template template) throws Exception {
+        ViewModel view = viewModelGetService.validateAndFindOne(viewID);
+
+        Template oldTemplate = templateUtilService.validateAndFindOne(viewID, templateName);
+        oldTemplate.setHtml(template.getHtml());
+        oldTemplate.setJs(template.getJs());
+        oldTemplate.setCss(template.getCss());
+        templateUtilService.scrubAndValidateTemplate(oldTemplate);
+
+        view.getTemplates().put(templateName, oldTemplate);
+
         return update(view);
     }
 }

@@ -32,7 +32,7 @@ public class ViewModelUtilService {
         return new JSONObject(dataSchemaJSON).toString();
     }
 
-    public void validateJsonDataAgainstSchema(String viewModelID, String data) throws Exception {
+    public void validateJsonDataAgainstViewJsonDataSchema(String viewModelID, String data) throws Exception {
         ViewModel model = viewModelGetService.validateAndFindOne(viewModelID);
 
         try {

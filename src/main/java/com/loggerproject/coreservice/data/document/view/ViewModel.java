@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
+import java.util.Map;
 
 @Data
 @Document(collection = "view")
@@ -16,6 +16,6 @@ public class ViewModel extends GlobalModel {
     @Id
     String ID;
     String dataSchemaJSON;
-    String defaultViewTemplateID;
-    Set<String> otherViewTemplateIDs;
+    String defaultTemplateName;
+    Map<String, Template> templates; // String template name -> Template
 }

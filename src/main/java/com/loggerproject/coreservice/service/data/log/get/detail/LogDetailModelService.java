@@ -2,11 +2,9 @@ package com.loggerproject.coreservice.service.data.log.get.detail;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.log.LogModel;
-import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
 import com.loggerproject.coreservice.data.document.log.ViewData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.document.view.ViewModel;
-import com.loggerproject.coreservice.data.document.viewtemplate.ViewTemplateModel;
 import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplateThemeModel;
 import com.loggerproject.coreservice.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
@@ -14,13 +12,14 @@ import com.loggerproject.coreservice.service.data.log.get.detail.model.LogDetail
 import com.loggerproject.coreservice.service.data.log.get.detail.model.ViewDataDetailModel;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.data.view.view.get.ViewModelGetService;
-import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class LogDetailModelService {
@@ -38,9 +37,6 @@ public class LogDetailModelService {
     ViewModelGetService viewModelGetService;
 
     @Autowired
-    ViewTemplateModelGetService viewTemplateModelGetService;
-
-    @Autowired
     ViewTemplateThemeModelGetService viewTemplateThemeModelGetService;
 
     public LogDetailModel findOne(String logID) throws Exception {
@@ -56,7 +52,7 @@ public class LogDetailModelService {
         this.setLogDetailDirectoryModels(logDetailModel, logModel);
         this.setLogDetailTagModels(logDetailModel, logModel);
         this.setLogDetailViewTemplateThemeModel(logDetailModel, logModel);
-        this.setLogDetailViewModelAndViewTemplateModel(logDetailModel, logModel);
+        this.setLogDetailViewModel(logDetailModel, logModel);
         this.setLogDetailViewDataDetailModel(logDetailModel, logModel);
 
         return logDetailModel;
@@ -88,27 +84,13 @@ public class LogDetailModelService {
         }
     }
 
-    private void setLogDetailViewModelAndViewTemplateModel(LogDetailModel logDetailModel, LogModel logModel) {
+    private void setLogDetailViewModel(LogDetailModel logDetailModel, LogModel logModel) {
         Set<String> uniqueViewIDs = new HashSet<>();
-        Set<String> uniqueViewTemplateIDs = new HashSet<>();
         for (ViewData viewData : logModel.getViewDatas()) {
-            uniqueViewIDs.add(viewData.getSchemaDataSource().getViewID());
-            uniqueViewTemplateIDs.add(viewData.getSchemaDataSource().getViewTemplateID());
+            uniqueViewIDs.add(viewData.getViewID());
         }
-
         List<ViewModel> viewModels = viewModelGetService.findByIds(uniqueViewIDs);
-
-        uniqueViewTemplateIDs.addAll(
-                viewModels.stream()
-                        .map(ViewModel::getDefaultViewTemplateID)
-                        .filter(Objects::nonNull)
-                        .collect(Collectors.toList())
-        );
-
-        List<ViewTemplateModel> viewTemplateModels = viewTemplateModelGetService.findByIds(uniqueViewTemplateIDs);
-
         logDetailModel.setViewModels(viewModels);
-        logDetailModel.setViewTemplateModels(viewTemplateModels);
     }
 
     private void setLogDetailViewDataDetailModel(LogDetailModel logDetailModel, LogModel logModel) {
@@ -117,9 +99,8 @@ public class LogDetailModelService {
         for (ViewData vd : logModel.getViewDatas()) {
             ViewDataDetailModel viewDataDetailModel = new ViewDataDetailModel();
 
-            SchemaDataSource sds = vd.getSchemaDataSource();
-            viewDataDetailModel.setViewModelID(sds.getViewID());
-            viewDataDetailModel.setAssignedViewTemplateModelID(sds.getViewTemplateID());
+            viewDataDetailModel.setViewModelID(vd.getViewID());
+            viewDataDetailModel.setAssignedViewTemplateModelID(vd.getViewTemplateID());
             viewDataDetailModel.setData(vd.getData());
 
             viewDataDetailModels.add(viewDataDetailModel);

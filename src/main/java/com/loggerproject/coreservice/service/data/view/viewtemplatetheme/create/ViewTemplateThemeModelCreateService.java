@@ -4,7 +4,6 @@ import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewTemplat
 import com.loggerproject.coreservice.data.document.viewtemplatetheme.ViewToViewTemplate;
 import com.loggerproject.coreservice.data.repository.ViewTemplateThemeModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.data.view.view.get.ViewModelGetService;
-import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.delete.ViewTemplateThemeModelDeleteService;
 import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.update.ViewTemplateThemeModelUpdateService;
@@ -27,9 +26,6 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
 
     @Autowired
     ViewModelGetService viewModelGetService;
-
-    @Autowired
-    ViewTemplateModelGetService viewTemplateModelGetService;
 
     @Autowired
     public ViewTemplateThemeModelCreateService(ViewTemplateThemeModelRepositoryRestResource repository,
@@ -57,7 +53,7 @@ public class ViewTemplateThemeModelCreateService extends GlobalServerCreateServi
         }
 
         viewModelGetService.validateIds(viewModelIDs);
-        viewTemplateModelGetService.validateIds(viewTemplateIDs);
+//        viewTemplateModelGetService.validateIds(viewTemplateIDs);
 
         return model;
     }

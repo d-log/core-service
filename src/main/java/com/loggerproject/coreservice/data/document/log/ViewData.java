@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ViewData {
-    SchemaDataSource schemaDataSource;
+    String viewID;
+    String viewTemplateID;
     String data;
 }

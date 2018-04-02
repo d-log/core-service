@@ -1,9 +1,8 @@
 package com.loggerproject.coreservice.service.data.log.create;
 
-import com.loggerproject.coreservice.data.document.log.SchemaDataSource;
 import com.loggerproject.coreservice.data.document.log.ViewData;
+import com.loggerproject.coreservice.service.data.view.view.TemplateUtilService;
 import com.loggerproject.coreservice.service.data.view.view.ViewModelUtilService;
-import com.loggerproject.coreservice.service.data.view.viewtemplate.get.ViewTemplateModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -17,7 +16,7 @@ public class ViewDataService {
     ViewModelUtilService viewModelUtilService;
 
     @Autowired
-    ViewTemplateModelGetService viewTemplateModelService;
+    TemplateUtilService templateUtilService;
 
     public void scrubAndValidate(List<ViewData> viewDatas) throws Exception {
         for (ViewData viewData : viewDatas) {
@@ -26,15 +25,12 @@ public class ViewDataService {
     }
 
     public void scrubAndValidate(ViewData viewData) throws Exception {
-        Assert.notNull(viewData.getSchemaDataSource(), "SchemaDataSource cannot be null");
-
-        SchemaDataSource source = viewData.getSchemaDataSource();
-
-        if (source.getViewTemplateID() != null) {
-            viewTemplateModelService.validateId(source.getViewTemplateID());
+        Assert.isNull(viewData.getViewID(), "ViewData.viewID cannot be empty");
+        if (viewData.getViewTemplateID() != null) {
+            templateUtilService.validateId(viewData.getViewID(), viewData.getViewTemplateID());
         }
 
         // validate both view id and the json data against view's json schema
-        viewModelUtilService.validateJsonDataAgainstSchema(source.getViewID(), viewData.getData());
+        viewModelUtilService.validateJsonDataAgainstViewJsonDataSchema(viewData.getViewID(), viewData.getData());
     }
 }
