@@ -17,10 +17,13 @@ public class ViewModel extends GlobalModel {
      */
     @Id
     String ID;
+    String name;
     String dataSchemaJSON;
     String defaultTemplateName;
     Map<String, Template> templates; // String template name -> Template
 
+    // this allows to serialize actual json which is within this ViewModel json
+    // without it the ViewModel.dataSchemaJSON must be in string format with escaped " quotations
     @JsonSetter("dataSchemaJSON")
     void setDataSchemaJSONString(JsonNode data)
     {

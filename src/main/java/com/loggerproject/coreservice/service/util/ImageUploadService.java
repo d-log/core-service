@@ -62,6 +62,7 @@ public class ImageUploadService {
 
         String extension = getImageFileFormatName(file);
 
+        // TODO make more efficient
         // .extension is needed for amazonS3 upload/putObject so resulting link would display image
         // otherwise link would cause download to pop-up
         File newFile = new File(file.getAbsolutePath() + "." + extension.toLowerCase());
