@@ -54,7 +54,8 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public LogModel scrubAndValidate(LogModel model) throws Exception {
+    @Override
+    public LogModel beforeSaveScrubAndValidate(LogModel model) throws Exception {
         if (CollectionUtils.isEmpty(model.getDirectoryIDs())) {
             throw new Exception("LogModel.directoryIDs cannot be empty");
         }
@@ -89,12 +90,6 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         }
 
         return model;
-    }
-
-    @Override
-    protected LogModel beforeSave(LogModel model) throws Exception {
-        model = scrubAndValidate(model);
-        return super.beforeSave(model);
     }
 
     @Override

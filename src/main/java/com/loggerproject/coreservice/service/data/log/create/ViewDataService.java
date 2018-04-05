@@ -25,12 +25,12 @@ public class ViewDataService {
     }
 
     public void scrubAndValidate(ViewData viewData) throws Exception {
-        Assert.isNull(viewData.getViewID(), "ViewData.viewID cannot be empty");
+        Assert.notNull(viewData.getViewID(), "ViewData.viewID cannot be empty");
         if (viewData.getViewTemplateID() != null) {
             templateUtilService.validateId(viewData.getViewID(), viewData.getViewTemplateID());
         }
 
         // validate both view id and the json data against view's json schema
-        viewModelUtilService.validateJsonDataAgainstViewJsonDataSchema(viewData.getViewID(), viewData.getData());
+        viewModelUtilService.validateJsonData(viewData.getData(), viewData.getViewID());
     }
 }

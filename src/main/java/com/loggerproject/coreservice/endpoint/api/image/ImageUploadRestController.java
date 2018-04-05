@@ -1,12 +1,10 @@
 package com.loggerproject.coreservice.endpoint.api.image;
 
 import com.loggerproject.coreservice.data.document.image.ImageModel;
-import com.loggerproject.coreservice.data.document.log.LogModel;
 import com.loggerproject.coreservice.endpoint.api.image.model.SingleSourceImageURL;
 import com.loggerproject.coreservice.service.util.ImageUploadService;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.EmptiableResources;
 import com.loggerproject.microserviceglobalresource.server.endpoint.api.model.GlobalResponse;
-import com.loggerproject.microserviceglobalresource.server.service.get.model.ModelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Resources;

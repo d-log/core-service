@@ -31,7 +31,8 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    private DirectoryModel scrubAndValidate(DirectoryModel model) throws Exception {
+    @Override
+    public DirectoryModel beforeSaveScrubAndValidate(DirectoryModel model) throws Exception {
         if (!CollectionUtils.isEmpty(model.getLogIDs())) {
             throw new Exception("DirectoryModel.logIDs should be empty");
         }
@@ -58,12 +59,6 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         }
 
         return model;
-    }
-
-    @Override
-    protected DirectoryModel beforeSave(DirectoryModel model) throws Exception {
-        model = scrubAndValidate(model);
-        return super.beforeSave(model);
     }
 
     @Override

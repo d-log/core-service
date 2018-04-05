@@ -17,6 +17,9 @@ public class ViewModelUtilService {
     @Autowired
     ViewModelGetService viewModelGetService;
 
+    @Autowired
+    ViewDataStatementService viewDataStatementService;
+
     public String scrubAndValidateDataSchemaJSON(String dataSchemaJSON) throws Exception {
         Assert.notNull(dataSchemaJSON, "dataSchemaJSON is null");
 
@@ -32,9 +35,14 @@ public class ViewModelUtilService {
         return new JSONObject(dataSchemaJSON).toString();
     }
 
-    public void validateJsonDataAgainstViewJsonDataSchema(String viewModelID, String data) throws Exception {
+    public void validateJsonData(String data, String viewModelID) throws Exception {
         ViewModel model = viewModelGetService.validateAndFindOne(viewModelID);
 
+        validateJsonAgainstSchema(data, model);
+        viewDataStatementService.executeValidateDataStatementAgainstData(data, model.getValidateDataStatement());
+    }
+
+    private void validateJsonAgainstSchema(String data, ViewModel model) throws Exception {
         try {
             // this validates the jsonSchema based on $schema property
             Schema schema = SchemaLoader.load(new JSONObject(model.getDataSchemaJSON()));
@@ -44,7 +52,7 @@ public class ViewModelUtilService {
         }
         catch (SchemaException e) {
             // custom json schema failed $schema definition
-            throw new Exception("ERROR database is in invalid state - view id: " + viewModelID + " contains an invalid custom json schema: " + model.getDataSchemaJSON());
+            throw new Exception("ERROR database is in invalid state - view id: " + model.getID() + " contains an invalid custom json schema: " + model.getDataSchemaJSON());
         }
         catch (ValidationException e) {
             // json subject failed custom json schema

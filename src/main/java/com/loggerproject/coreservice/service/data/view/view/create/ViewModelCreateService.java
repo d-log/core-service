@@ -9,6 +9,7 @@ import com.loggerproject.coreservice.service.data.view.view.delete.ViewModelDele
 import com.loggerproject.coreservice.service.data.view.view.get.ViewModelGetService;
 import com.loggerproject.coreservice.service.data.view.view.update.ViewModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -35,14 +36,26 @@ public class ViewModelCreateService extends GlobalServerCreateService<ViewModel>
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public ViewModel scrubAndValidate(ViewModel model) throws Exception {
+    @Override
+    public ViewModel beforeSaveScrubAndValidate(ViewModel model) throws Exception {
         Assert.notNull(model.getDefaultTemplateName(), "ViewModel.defaultTemplateName cannot be empty");
         Assert.notEmpty(model.getTemplates(), "ViewModel.templates must not be empty");
         Assert.notNull(model.getTemplates().get(model.getDefaultTemplateName()), "ViewModel.defaultTemplateName: '" + model.getDefaultTemplateName() + "' does not exist in ViewModel.templates");
         Assert.notNull(model.getDataSchemaJSON(), "ViewModel.dataSchemaJSON must not be empty");
+        Assert.notNull(model.getName(), "ViewModel.name cannot be empty");
+
+        if (!StringUtils.isAlpha(model.getName())) {
+            throw new Exception("ViewModel.name: '" + model.getName() + "' should only contain alpha characters");
+        }
+
+        if (viewModelRepositoryRestResource.findByName(model.getName()).size() > 0) {
+            throw new Exception("ViewModel.name: '" + model.getName() + "' already exists");
+        }
 
         for (String name : model.getTemplates().keySet()) {
-            validateTemplateName(name);
+            if (!StringUtils.isAlpha(name)) {
+                throw new Exception("ViewModel.templates name:'" + name + "' should only contain alpha characters");
+            }
             Template template = model.getTemplates().get(name);
             templateUtilService.scrubAndValidateTemplate(template);
         }
@@ -51,29 +64,4 @@ public class ViewModelCreateService extends GlobalServerCreateService<ViewModel>
 
         return model;
     }
-
-    public void validateTemplateName(String templateName) throws Exception {
-        if (!isAlpha(templateName)) {
-            throw new Exception("ViewModel.templates name:'" + templateName + "' should only contain alpha characters");
-        }
-    }
-
-    private Boolean isAlpha(String name) {
-        char[] chars = name.toCharArray();
-
-        for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    protected ViewModel beforeSave(ViewModel model) throws Exception {
-        model = scrubAndValidate(model);
-        return super.beforeSave(model);
-    }
-
 }

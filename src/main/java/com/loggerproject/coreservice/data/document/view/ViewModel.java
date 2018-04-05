@@ -2,6 +2,7 @@ package com.loggerproject.coreservice.data.document.view;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.loggerproject.coreservice.data.document.view.model.ValidateDataStatement;
 import com.loggerproject.microserviceglobalresource.server.document.model.GlobalModel;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -19,8 +20,9 @@ public class ViewModel extends GlobalModel {
     String ID;
     String name;
     String dataSchemaJSON;
+    ValidateDataStatement validateDataStatement; // additional validations of data
     String defaultTemplateName;
-    Map<String, Template> templates; // String template name -> Template
+    Map<String, Template> templates; // String template id/name -> Template
 
     // this allows to serialize actual json which is within this ViewModel json
     // without it the ViewModel.dataSchemaJSON must be in string format with escaped " quotations

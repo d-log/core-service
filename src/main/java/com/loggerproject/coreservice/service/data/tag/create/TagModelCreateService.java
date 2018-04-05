@@ -32,7 +32,8 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public TagModel scrubAndValidate(TagModel model) throws Exception {
+    @Override
+    public TagModel beforeSaveScrubAndValidate(TagModel model) throws Exception {
         if(!CollectionUtils.isEmpty(model.getLogIDs())) {
             throw new Exception("logIDs must be empty");
         }
@@ -41,11 +42,5 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
         model.setName(model.getName() == null ? "" : model.getName());
 
         return model;
-    }
-
-    @Override
-    protected TagModel beforeSave(TagModel model) throws Exception {
-        model = scrubAndValidate(model);
-        return super.beforeSave(model);
     }
 }

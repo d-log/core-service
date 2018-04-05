@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ViewTemplateThemeModelGetService extends GlobalServerGetService<ViewTemplateThemeModel> {
 
     @Autowired
-    ViewTemplateThemeModelRepositoryRestResource ViewTemplateThemeModelRepositoryRestResource;
+    ViewTemplateThemeModelRepositoryRestResource viewTemplateThemeModelRepositoryRestResource;
 
     @Autowired
     public ViewTemplateThemeModelGetService(ViewTemplateThemeModelRepositoryRestResource repository,

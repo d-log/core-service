@@ -18,43 +18,43 @@ public class TemplateUtilService {
     @Autowired
     ViewModelGetService viewModelGetService;
 
-    public Template validateAndFindOne(String viewID, String templateName) throws Exception {
-        Template t = findOne(viewID, templateName);
+    public Template validateAndFindOne(String viewID, String templateID) throws Exception {
+        Template t = findOne(viewID, templateID);
         if (t == null) {
-            throwModelNotFoundException(viewID, templateName, t);
+            throwModelNotFoundException(viewID, templateID);
         }
         return t;
     }
 
-    public void validateId(String viewID, String templateName) throws Exception {
-        Template t = findOne(viewID, templateName);
+    public void validateId(String viewID, String templateID) throws Exception {
+        Template t = findOne(viewID, templateID);
         if (t == null) {
-            throwModelNotFoundException(viewID, templateName, t);
+            throwModelNotFoundException(viewID, templateID);
         }
     }
 
-    public void validateIds(String viewID, Collection<String> templateNames) throws Exception {
-        for (String templateName : templateNames) {
-            validateId(viewID, templateName);
+    public void validateIds(String viewID, Collection<String> templateIDs) throws Exception {
+        for (String templateID : templateIDs) {
+            validateId(viewID, templateID);
         }
     }
 
-    public List<Template> findByIds(String viewID, Collection<String> templateNames) throws Exception {
+    public List<Template> findByIds(String viewID, Collection<String> templateIDs) throws Exception {
         List<Template> models = new ArrayList<>();
-        for (String templateName : templateNames) {
-            Template t = findOne(viewID, templateName);
+        for (String templateID : templateIDs) {
+            Template t = findOne(viewID, templateID);
             models.add(t);
         }
         return models;
     }
 
-    public Template findOne(String viewID, String templateName) throws Exception {
+    public Template findOne(String viewID, String templateID) throws Exception {
         ViewModel view = viewModelGetService.validateAndFindOne(viewID);
-        return view.getTemplates().get(templateName);
+        return view.getTemplates().get(templateID);
     }
 
-    protected void throwModelNotFoundException(String viewID, String templateName, Template t) throws Exception {
-        throw new ModelNotFoundException(templateName, "ViewModel: '" + viewID + "' does not contain template: '" + templateName + "'");
+    protected void throwModelNotFoundException(String viewID, String templateID) throws Exception {
+        throw new ModelNotFoundException(templateID, "ViewModel: '" + viewID + "' does not contain template: '" + templateID + "'");
     }
 
     public Template scrubAndValidateTemplate(Template template) throws Exception {
