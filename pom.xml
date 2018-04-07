@@ -26,24 +26,23 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.loggerproject</groupId>
-			<artifactId>global-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- SPRING BOOT - START -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
+		<!-- commented out because it breaks Json Serializer of objects of type @Document that has superType variables with Hateoas Resources -->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-data-rest</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 		<!-- SPRING BOOT - END -->
 
@@ -96,21 +95,22 @@
 
 		<!-- SWAGGER UI - START -->
 		<!-- http(s)://hostname:port/server.context-path/swagger-ui.html -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-data-rest</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.8.0</version>
-		</dependency>
+		<!-- commented out because it breaks Json Serializer of objects of type @Document that has superType variables -->
+		<!--<dependency>-->
+			<!--<groupId>io.springfox</groupId>-->
+			<!--<artifactId>springfox-data-rest</artifactId>-->
+			<!--<version>2.8.0</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>io.springfox</groupId>-->
+			<!--<artifactId>springfox-swagger-ui</artifactId>-->
+			<!--<version>2.8.0</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>io.springfox</groupId>-->
+			<!--<artifactId>springfox-swagger2</artifactId>-->
+			<!--<version>2.8.0</version>-->
+		<!--</dependency>-->
 		<!-- SWAGGER UI - END -->
 
 		<!-- TEST DEPENDENCIES - START -->
