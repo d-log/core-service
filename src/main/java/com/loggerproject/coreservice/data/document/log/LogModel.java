@@ -24,18 +24,13 @@ public class LogModel extends GlobalModel {
 
     // required
     LogType logType;
-    List<ALogData> logDatas;
-
+    List<ALogData> logDatas; // size must be >= 1
     Set<String> directoryIDs; // size must be >= 1
-    Set<String> tagIDs; // Optional
 
     // Optional
+    Set<String> tagIDs;
     TileView tileView;
     PageView pageView;
     PopupView popupView;
-//    String themeID;
 
-    // soon to be removed
-//    List<ViewData> viewDatas;
-//    String viewTemplateThemeID;
 }

@@ -4,11 +4,11 @@ import lombok.Data;
 import org.springframework.core.GenericTypeResolver;
 
 @Data
-public abstract class LogDataScrubberValidator<T> {
+public abstract class ALogDataScrubberValidator<T> {
     Class genericClass;
 
-    public LogDataScrubberValidator() {
-        this.genericClass = GenericTypeResolver.resolveTypeArgument(getClass(), LogDataScrubberValidator.class);
+    public ALogDataScrubberValidator() {
+        this.genericClass = GenericTypeResolver.resolveTypeArgument(getClass(), ALogDataScrubberValidator.class);
     }
 
     public abstract void scrubAndValidateLogData(T t) throws Exception;

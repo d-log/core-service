@@ -9,6 +9,7 @@ import com.loggerproject.coreservice.service.data.directory.update.DirectoryMode
 import com.loggerproject.coreservice.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.data.log.update.LogModelUpdateService;
+import com.loggerproject.coreservice.service.data.log.LogDataScrubberValidatorService;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.data.tag.update.TagModelUpdateService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
@@ -38,7 +39,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
     TagModelUpdateService tagModelUpdateService;
 
     @Autowired
-    LogDataService logDataService;
+    LogDataScrubberValidatorService logDataScrubberValidatorService;
 
     @Autowired
     public LogModelCreateService(LogModelRepositoryRestResource repository,
@@ -60,7 +61,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         directoryModelGetService.validateIds(model.getDirectoryIDs());
         tagModelGetService.validateIds(model.getTagIDs());
 
-        logDataService.scrubAndValidate(model.getLogDatas());
+        logDataScrubberValidatorService.scrubAndValidate(model.getLogDatas());
 
         return model;
     }

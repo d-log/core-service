@@ -1,7 +1,7 @@
-package com.loggerproject.coreservice.service.data.log.create;
+package com.loggerproject.coreservice.service.data.log;
 
 import com.loggerproject.coreservice.data.document.log.model.logdata.ALogData;
-import com.loggerproject.coreservice.data.document.log.model.logdata.LogDataScrubberValidator;
+import com.loggerproject.coreservice.data.document.log.model.logdata.ALogDataScrubberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +11,16 @@ import java.util.List;
 
 
 @Service
-public class LogDataService {
+public class LogDataScrubberValidatorService {
 
     @Autowired
-    public List<LogDataScrubberValidator> logDataScrubberValidators;
+    public List<ALogDataScrubberValidator> logDataScrubberValidators;
 
-    private HashMap<Class, LogDataScrubberValidator> map = new HashMap<>();
+    private HashMap<Class, ALogDataScrubberValidator> map = new HashMap<>();
 
     @PostConstruct
     public void postConstruct() {
-        for (LogDataScrubberValidator logDataScrubberValidator : logDataScrubberValidators) {
+        for (ALogDataScrubberValidator logDataScrubberValidator : logDataScrubberValidators) {
             map.put(logDataScrubberValidator.getGenericClass(), logDataScrubberValidator);
         }
     }
@@ -33,7 +33,7 @@ public class LogDataService {
 
     @SuppressWarnings(value= "unchecked")
     public void scrubAndValidate(ALogData logData) throws Exception {
-        LogDataScrubberValidator validator = map.get(logData.getClass());
+        ALogDataScrubberValidator validator = map.get(logData.getClass());
         if (validator != null) {
             validator.scrubAndValidateLogData(logData);
         } else {

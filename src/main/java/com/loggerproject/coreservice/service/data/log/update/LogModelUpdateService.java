@@ -7,7 +7,7 @@ import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.data.directory.update.DirectoryModelUpdateService;
-import com.loggerproject.coreservice.service.data.log.create.LogDataService;
+import com.loggerproject.coreservice.service.data.log.LogDataScrubberValidatorService;
 import com.loggerproject.coreservice.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
@@ -44,7 +44,7 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
     TagModelUpdateService tagModelUpdateService;
 
     @Autowired
-    LogDataService logDataService;
+    LogDataScrubberValidatorService logDataScrubberValidatorService;
 
     @Autowired
     public LogModelUpdateService(LogModelRepositoryRestResource repository,
@@ -115,7 +115,7 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
 
     public LogModel updateLogDatas(String id, List<ALogData> logDatas) throws Exception {
         LogModel log = logModelGetService.validateAndFindOne(id);
-        logDataService.scrubAndValidate(logDatas);
+        logDataScrubberValidatorService.scrubAndValidate(logDatas);
         log.setLogDatas(logDatas);
         return update(log);
     }
