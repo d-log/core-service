@@ -2,7 +2,7 @@ package com.loggerproject.coreservice.endpoint.api.log;
 
 import com.loggerproject.coreservice.data.document.log.LogModel;
 import com.loggerproject.coreservice.endpoint.api.log.model.UpdateBindUnbindRequest;
-import com.loggerproject.coreservice.endpoint.api.log.model.UpdateViewDatasRequest;
+import com.loggerproject.coreservice.endpoint.api.log.model.UpdateLogDatasRequest;
 import com.loggerproject.coreservice.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
@@ -50,9 +50,9 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindDirectory(request));
     }
 
-    @PutMapping(value = {"/view-data"}, produces = {"application/hal+json"})
-    public ResponseEntity<?> bindDirectory(@RequestBody UpdateViewDatasRequest request) throws Exception {
-        LogModel modelUpdated = logModelUpdateService.updateViewDatas(request.getId(), request.getViewDatas());
+    @PutMapping(value = {"/log-datas"}, produces = {"application/hal+json"})
+    public ResponseEntity<?> bindDirectory(@RequestBody UpdateLogDatasRequest request) throws Exception {
+        LogModel modelUpdated = logModelUpdateService.updateLogDatas(request.getId(), request.getALogData());
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindDirectory(request));
     }
 

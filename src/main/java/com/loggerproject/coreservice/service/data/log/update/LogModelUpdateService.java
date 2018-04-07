@@ -2,13 +2,13 @@ package com.loggerproject.coreservice.service.data.log.update;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.log.LogModel;
-import com.loggerproject.coreservice.data.document.log.model.ViewData;
+import com.loggerproject.coreservice.data.document.log.model.logdata.ALogData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.service.data.directory.update.DirectoryModelUpdateService;
+import com.loggerproject.coreservice.service.data.log.create.LogDataService;
 import com.loggerproject.coreservice.service.data.log.create.LogModelCreateService;
-import com.loggerproject.coreservice.service.data.log.create.ViewDataService;
 import com.loggerproject.coreservice.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
@@ -44,7 +44,7 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
     TagModelUpdateService tagModelUpdateService;
 
     @Autowired
-    ViewDataService viewDataService;
+    LogDataService logDataService;
 
     @Autowired
     public LogModelUpdateService(LogModelRepositoryRestResource repository,
@@ -113,10 +113,10 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         return update(log);
     }
 
-    public LogModel updateViewDatas(String id, List<ViewData> viewDatas) throws Exception {
+    public LogModel updateLogDatas(String id, List<ALogData> ALogData) throws Exception {
         LogModel log = logModelGetService.validateAndFindOne(id);
-        viewDataService.scrubAndValidate(viewDatas);
-        log.setViewDatas(viewDatas);
+        logDataService.scrubAndValidate(ALogData);
+        log.setALogData(ALogData);
         return update(log);
     }
 }

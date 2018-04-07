@@ -1,7 +1,10 @@
 package com.loggerproject.coreservice.data.document.log;
 
 import com.loggerproject.coreservice.data.document.log.model.LogType;
-import com.loggerproject.coreservice.data.document.log.model.ViewData;
+import com.loggerproject.coreservice.data.document.log.model.logdata.ALogData;
+import com.loggerproject.coreservice.data.document.log.model.view.PageView;
+import com.loggerproject.coreservice.data.document.log.model.view.PopupView;
+import com.loggerproject.coreservice.data.document.log.model.view.TileView;
 import com.loggerproject.microserviceglobalresource.server.document.model.GlobalModel;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -18,9 +21,21 @@ public class LogModel extends GlobalModel {
      */
     @Id
     String ID;
+
+    // required
     LogType logType;
-    Set<String> directoryIDs;
-    Set<String> tagIDs;
-    String viewTemplateThemeID;
-    List<ViewData> viewDatas;
+    List<ALogData> ALogData;
+
+    Set<String> directoryIDs; // size must be >= 1
+    Set<String> tagIDs; // Optional
+
+    // Optional
+    TileView tileView;
+    PageView pageView;
+    PopupView popupView;
+//    String themeID;
+
+    // soon to be removed
+//    List<ViewData> viewDatas;
+//    String viewTemplateThemeID;
 }

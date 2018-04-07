@@ -2,7 +2,6 @@ package com.loggerproject.coreservice.service.data.log.create;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.log.LogModel;
-import com.loggerproject.coreservice.data.document.log.model.ViewData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.data.directory.get.DirectoryModelGetService;
@@ -12,7 +11,6 @@ import com.loggerproject.coreservice.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.service.data.log.update.LogModelUpdateService;
 import com.loggerproject.coreservice.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.data.tag.update.TagModelUpdateService;
-import com.loggerproject.coreservice.service.data.view.viewtemplatetheme.get.ViewTemplateThemeModelGetService;
 import com.loggerproject.microserviceglobalresource.server.service.create.GlobalServerCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -40,10 +38,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
     TagModelUpdateService tagModelUpdateService;
 
     @Autowired
-    ViewTemplateThemeModelGetService viewTemplateThemeModelGetService;
-
-    @Autowired
-    ViewDataService viewDataService;
+    LogDataService logDataService;
 
     @Autowired
     public LogModelCreateService(LogModelRepositoryRestResource repository,
@@ -65,13 +60,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         directoryModelGetService.validateIds(model.getDirectoryIDs());
         tagModelGetService.validateIds(model.getTagIDs());
 
-        if (model.getViewTemplateThemeID() != null) {
-            viewTemplateThemeModelGetService.validateId(model.getViewTemplateThemeID());
-        }
-
-        for (ViewData viewData : model.getViewDatas()) {
-            viewDataService.scrubAndValidate(viewData);
-        }
+        logDataService.scrubAndValidate(model.getALogData());
 
         return model;
     }
