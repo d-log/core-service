@@ -113,10 +113,10 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         return update(log);
     }
 
-    public LogModel updateLogDatas(String id, List<ALogData> ALogData) throws Exception {
+    public LogModel updateLogDatas(String id, List<ALogData> logDatas) throws Exception {
         LogModel log = logModelGetService.validateAndFindOne(id);
-        logDataService.scrubAndValidate(ALogData);
-        log.setALogData(ALogData);
+        logDataService.scrubAndValidate(logDatas);
+        log.setLogDatas(logDatas);
         return update(log);
     }
 }

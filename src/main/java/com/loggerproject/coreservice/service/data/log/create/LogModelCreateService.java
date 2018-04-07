@@ -60,7 +60,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         directoryModelGetService.validateIds(model.getDirectoryIDs());
         tagModelGetService.validateIds(model.getTagIDs());
 
-        logDataService.scrubAndValidate(model.getALogData());
+        logDataService.scrubAndValidate(model.getLogDatas());
 
         return model;
     }

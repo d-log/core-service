@@ -24,7 +24,7 @@ public class LogModel extends GlobalModel {
 
     // required
     LogType logType;
-    List<ALogData> ALogData;
+    List<ALogData> logDatas;
 
     Set<String> directoryIDs; // size must be >= 1
     Set<String> tagIDs; // Optional
