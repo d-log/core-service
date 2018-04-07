@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.endpoint.api.log.model;
 
-import com.loggerproject.coreservice.data.document.log.ViewData;
+import com.loggerproject.coreservice.data.document.log.model.ViewData;
 import lombok.Data;
 
 import java.util.List;

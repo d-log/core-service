@@ -2,7 +2,7 @@ package com.loggerproject.coreservice.service.data.log.update;
 
 import com.loggerproject.coreservice.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.data.document.log.LogModel;
-import com.loggerproject.coreservice.data.document.log.ViewData;
+import com.loggerproject.coreservice.data.document.log.model.ViewData;
 import com.loggerproject.coreservice.data.document.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepositoryRestResource;
 import com.loggerproject.coreservice.service.data.directory.get.DirectoryModelGetService;
