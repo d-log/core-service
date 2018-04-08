@@ -2,6 +2,7 @@ package com.loggerproject.coreservice.server.data.document.log.extra.logdata.imp
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.ALogData;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 @Data
 public class CustomLogData extends ALogData {
 
+    @JsonIgnore
     Map<String, Object> properties = new LinkedHashMap<>();
 
     @JsonAnySetter

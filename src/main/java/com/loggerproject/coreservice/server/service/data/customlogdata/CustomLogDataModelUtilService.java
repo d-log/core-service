@@ -35,14 +35,22 @@ public class CustomLogDataModelUtilService {
         return new JSONObject(dataSchemaJSON).toString();
     }
 
-    public void validateJsonData(String data, String viewModelID) throws Exception {
-        CustomLogDataModel model = customLogDataModelGetService.validateAndFindOne(viewModelID);
+    public void validateDataByLogDataType(String data, String logDataType) throws Exception {
+        CustomLogDataModel model = customLogDataModelGetService.validateAndFindByLogDataType(logDataType);
+        validateDataByModel(data, model);
+    }
 
-        validateJsonAgainstSchema(data, model);
+    public void validateDataByID(String data, String customLogDataID) throws Exception {
+        CustomLogDataModel model = customLogDataModelGetService.validateAndFindOne(customLogDataID);
+        validateDataByModel(data, model);
+    }
+    
+    private void validateDataByModel(String data, CustomLogDataModel model) throws Exception {
+        validateDataAgainstSchema(data, model);
         logDataStatementService.executeValidateDataStatementAgainstData(data, model.getValidateDataStatement());
     }
 
-    private void validateJsonAgainstSchema(String data, CustomLogDataModel model) throws Exception {
+    private void validateDataAgainstSchema(String data, CustomLogDataModel model) throws Exception {
         try {
             // this validates the jsonSchema based on $schema property
             Schema schema = SchemaLoader.load(new JSONObject(model.getDataSchemaJSON()));

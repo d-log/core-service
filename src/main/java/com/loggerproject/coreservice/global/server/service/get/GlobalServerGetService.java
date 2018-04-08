@@ -91,6 +91,6 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     }
 
     protected void throwModelNotFoundException(String id) throws Exception {
-        throw new ModelNotFoundException(id, "non-existent " + genericName + " ID: '" + id + "'");
+        throw new ModelNotFoundException("non-existent " + genericName + " ID: '" + id + "'");
     }
 }

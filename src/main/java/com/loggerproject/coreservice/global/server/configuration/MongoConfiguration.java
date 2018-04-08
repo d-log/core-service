@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.server.configuration;
+package com.loggerproject.coreservice.global.server.configuration;
 
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;

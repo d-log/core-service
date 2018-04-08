@@ -87,6 +87,11 @@
 
 		<!-- JSON STUFF - START -->
 		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.everit.json</groupId>
 			<artifactId>org.everit.json.schema</artifactId>
 			<version>1.3.0</version>
