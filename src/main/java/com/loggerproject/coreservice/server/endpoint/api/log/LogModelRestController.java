@@ -52,7 +52,7 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
 
     @PutMapping(value = {"/log-datas"}, produces = {"application/hal+json"})
     public ResponseEntity<?> bindDirectory(@RequestBody UpdateLogDatasRequest request) throws Exception {
-        LogModel modelUpdated = logModelUpdateService.updateLogDatas(request.getId(), request.getALogData());
+        LogModel modelUpdated = logModelUpdateService.updateLogDatas(request.getId(), request.getLogDatas());
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindDirectory(request));
     }
 

@@ -2,7 +2,7 @@ package com.loggerproject.coreservice.server.data.document.log;
 
 import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.log.extra.LogType;
-import com.loggerproject.coreservice.server.data.document.log.extra.logdata.ALogData;
+import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.data.document.log.extra.view.PageView;
 import com.loggerproject.coreservice.server.data.document.log.extra.view.PopupView;
 import com.loggerproject.coreservice.server.data.document.log.extra.view.TileView;
@@ -22,7 +22,7 @@ public class LogModel extends GlobalModel {
 
     // required
     LogType logType;
-    List<ALogData> logDatas; // size must be >= 1
+    List<LogData> logDatas; // size must be >= 1
     Set<String> directoryIDs; // size must be >= 1
 
     // Optional

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImageExternalLogDataScrubberValidator extends ALogDataScrubberValidator<ImageExternalLogData> {
     @Override
-    public void scrubAndValidateLogData(ImageExternalLogData data) {
-
+    public ImageExternalLogData scrubAndValidateLogData(ImageExternalLogData data) {
+        return data;
     }
 }

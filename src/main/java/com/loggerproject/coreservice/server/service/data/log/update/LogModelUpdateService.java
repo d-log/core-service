@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.server.service.data.log.update;
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
-import com.loggerproject.coreservice.server.data.document.log.extra.logdata.ALogData;
+import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogDataScrubberValidatorService;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.data.repository.LogModelRepository;
@@ -113,7 +113,7 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         return update(log);
     }
 
-    public LogModel updateLogDatas(String id, List<ALogData> logDatas) throws Exception {
+    public LogModel updateLogDatas(String id, List<LogData> logDatas) throws Exception {
         LogModel log = logModelGetService.validateAndFindOne(id);
         logDataScrubberValidatorService.scrubAndValidate(logDatas);
         log.setLogDatas(logDatas);

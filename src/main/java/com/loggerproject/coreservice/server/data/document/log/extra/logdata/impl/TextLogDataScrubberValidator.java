@@ -7,7 +7,8 @@ import org.springframework.util.Assert;
 @Service
 public class TextLogDataScrubberValidator extends ALogDataScrubberValidator<TextLogData> {
     @Override
-    public void scrubAndValidateLogData(TextLogData data) {
+    public TextLogData scrubAndValidateLogData(TextLogData data) {
         Assert.notNull(data.getTextType(), "TextLogData.textType cannot be empty");
+        return data;
     }
 }

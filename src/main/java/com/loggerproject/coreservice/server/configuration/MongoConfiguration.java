@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.global.server.configuration;
+package com.loggerproject.coreservice.server.configuration;
 
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,12 +26,12 @@ public class MongoConfiguration {
     private String database;
 
     @Bean
-    public MongoDbFactory mongoDbFactory() throws Exception {
+    public MongoDbFactory mongoDbFactory() {
         return new SimpleMongoDbFactory(new MongoClient(host, port), database);
     }
 
     @Bean
-    public MappingMongoConverter mappingMongoConverter() throws Exception {
+    public MappingMongoConverter mappingMongoConverter() {
         //remove _class
         MongoMappingContext mappingContext = new MongoMappingContext();
         DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory());
@@ -41,7 +41,7 @@ public class MongoConfiguration {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
+    public MongoTemplate mongoTemplate() {
         return new MongoTemplate(
                 mongoDbFactory(),
                 mappingMongoConverter());
