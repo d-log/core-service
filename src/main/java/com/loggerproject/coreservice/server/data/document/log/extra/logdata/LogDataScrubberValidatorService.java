@@ -1,8 +1,6 @@
 package com.loggerproject.coreservice.server.data.document.log.extra.logdata;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loggerproject.coreservice.server.service.data.customlogdata.CustomLogDataModelUtilService;
-import com.loggerproject.coreservice.server.service.data.customlogdata.get.CustomLogDataModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -12,24 +10,14 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Service
 public class LogDataScrubberValidatorService {
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    CustomLogDataModelGetService customLogDataModelGetService;
-
-    @Autowired
     CustomLogDataModelUtilService customLogDataModelUtilService;
 
-    // simple class name to Class
-    private HashMap<String, Class> map2Class = new HashMap<>();
-
     // simple class name to validator objects
-    private HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
+    HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
 
     @Autowired
     List<ALogDataScrubberValidator> logDataScrubberValidators;
@@ -37,7 +25,6 @@ public class LogDataScrubberValidatorService {
     @PostConstruct
     public void postConstruct() {
         for (ALogDataScrubberValidator logDataScrubberValidator : logDataScrubberValidators) {
-            map2Class.put(logDataScrubberValidator.getGenericClassName(), logDataScrubberValidator.getGenericClass());
             map2Validator.put(logDataScrubberValidator.getGenericClassName(), logDataScrubberValidator);
         }
     }
@@ -55,7 +42,6 @@ public class LogDataScrubberValidatorService {
 
         Assert.isTrue(!StringUtils.isEmpty(logDataType), "LogData.logDataType cannot be empty");
         Assert.isTrue(!StringUtils.isEmpty(data), "LogData.data cannot be empty");
-
 
         ALogDataScrubberValidator validator = map2Validator.get(logDataType);
         if (validator != null) {
