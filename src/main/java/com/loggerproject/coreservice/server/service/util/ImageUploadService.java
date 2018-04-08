@@ -1,8 +1,8 @@
 package com.loggerproject.coreservice.server.service.util;
 
 import com.loggerproject.coreservice.server.data.document.image.ImageModel;
-import com.loggerproject.coreservice.server.data.document.image.ImageSource;
-import com.loggerproject.coreservice.server.data.document.image.ImageSourceType;
+import com.loggerproject.coreservice.server.data.document.image.extra.ImageSource;
+import com.loggerproject.coreservice.server.data.document.image.extra.ImageSourceType;
 import com.loggerproject.coreservice.server.service.data.image.create.ImageModelCreateService;
 import com.loggerproject.coreservice.server.service.data.image.update.ImageModelUpdateService;
 import org.apache.commons.io.FileUtils;

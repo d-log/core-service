@@ -3,11 +3,11 @@ package com.loggerproject.coreservice.server.service.data.log.get.detail;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
+import com.loggerproject.coreservice.server.service.data.customlogdata.get.CustomLogDataModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.detail.model.LogDetailModel;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
-import com.loggerproject.coreservice.server.service.data.view.get.ViewModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class LogDetailModelService {
     DirectoryModelGetService directoryModelGetService;
 
     @Autowired
-    ViewModelGetService viewModelGetService;
+    CustomLogDataModelGetService customLogDataModelGetService;
 
     public LogDetailModel findOne(String logID) throws Exception {
         LogModel logModel = logModelGetService.validateAndFindOne(logID);
@@ -78,8 +78,8 @@ public class LogDetailModelService {
 //        for (ViewData viewData : logModel.getViewDatas()) {
 //            uniqueViewIDs.add(viewData.getViewID());
 //        }
-//        List<ViewModel> viewModels = viewModelGetService.findByIds(uniqueViewIDs);
-//        logDetailModel.setViewModels(viewModels);
+//        List<CustomLogDataModel> customLogDataModels = viewModelGetService.findByIds(uniqueViewIDs);
+//        logDetailModel.setCustomLogDataModels(customLogDataModels);
 //    }
 //
 //    private void setLogDetailViewDataDetailModel(LogDetailModel logDetailModel, LogModel logModel) {

@@ -1,6 +1,5 @@
 package com.loggerproject.coreservice.global.server.service.delete.model;
 
-import com.loggerproject.coreservice.global.server.service.delete.model.ValidateDeleteModelException;
 import lombok.Data;
 
 import java.util.Collection;

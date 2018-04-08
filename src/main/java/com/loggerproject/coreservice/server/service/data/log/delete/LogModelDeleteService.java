@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.server.service.data.log.delete;
 
+import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDeleteService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
@@ -11,7 +12,6 @@ import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetServ
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpdateService;
-import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

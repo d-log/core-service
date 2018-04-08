@@ -1,6 +1,5 @@
 package com.loggerproject.coreservice.global.server.document.model;
 
-import com.loggerproject.coreservice.global.server.document.model.MetaData;
 import lombok.Data;
 
 @Data

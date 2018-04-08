@@ -1,12 +1,12 @@
 package com.loggerproject.coreservice.server.service.data.tag.delete;
 
+import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDeleteService;
+import com.loggerproject.coreservice.global.server.service.delete.model.ModelBoundedToLogException;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.data.repository.TagModelRepository;
 import com.loggerproject.coreservice.server.service.data.tag.create.TagModelCreateService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpdateService;
-import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDeleteService;
-import com.loggerproject.coreservice.global.server.service.delete.model.ModelBoundedToLogException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

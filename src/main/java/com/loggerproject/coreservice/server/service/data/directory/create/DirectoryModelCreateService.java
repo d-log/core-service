@@ -1,11 +1,11 @@
 package com.loggerproject.coreservice.server.service.data.directory.create;
 
+import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
 import com.loggerproject.coreservice.server.service.data.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
-import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

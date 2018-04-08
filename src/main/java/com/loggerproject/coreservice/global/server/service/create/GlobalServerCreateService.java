@@ -31,7 +31,7 @@ public abstract class GlobalServerCreateService<T extends GlobalModel> {
     }
 
     /**
-     * Running this on the same model should be idempotent
+     * Running this on the same extra should be idempotent
      * @param t
      * @return
      * @throws Exception

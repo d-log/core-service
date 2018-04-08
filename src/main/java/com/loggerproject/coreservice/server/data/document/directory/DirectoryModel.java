@@ -11,9 +11,7 @@ import java.util.Set;
 @Data
 @Document(collection = "directory")
 public class DirectoryModel extends GlobalModel implements Serializable {
-    /**
-     * ID instead of id because @RepositoryRestResource, otherwise it won't export this field
-     */
+
     @Id
     String ID;
     Set<String> parentIDs;

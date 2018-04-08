@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.server.endpoint.api.image;
 
+import com.loggerproject.coreservice.global.server.endpoint.api.EmptiableResources;
+import com.loggerproject.coreservice.global.server.endpoint.api.model.GlobalResponse;
 import com.loggerproject.coreservice.server.data.document.image.ImageModel;
 import com.loggerproject.coreservice.server.endpoint.api.image.model.SingleSourceImageURL;
 import com.loggerproject.coreservice.server.service.util.ImageUploadService;
-import com.loggerproject.coreservice.global.server.endpoint.api.EmptiableResources;
-import com.loggerproject.coreservice.global.server.endpoint.api.model.GlobalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Resources;

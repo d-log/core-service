@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.server.service.data.log.get.search;
 
+import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
@@ -8,7 +9,6 @@ import com.loggerproject.coreservice.server.service.data.log.get.detail.model.Lo
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchResponse;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
-import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

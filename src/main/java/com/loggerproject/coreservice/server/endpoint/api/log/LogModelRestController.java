@@ -3,7 +3,6 @@ package com.loggerproject.coreservice.server.endpoint.api.log;
 import com.loggerproject.coreservice.global.server.endpoint.api.EmptiableResources;
 import com.loggerproject.coreservice.global.server.endpoint.api.GlobalModelController;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
-import com.loggerproject.coreservice.server.data.document.log.model.logdata.impl.ImageInternalLogData;
 import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateBindUnbindRequest;
 import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateLogDatasRequest;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
@@ -14,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 

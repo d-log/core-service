@@ -10,9 +10,7 @@ import java.util.Set;
 @Data
 @Document(collection = "tag")
 public class TagModel extends GlobalModel {
-    /**
-     * ID instead of id because @RepositoryRestResource, otherwise it won't export this field
-     */
+
     @Id
     String ID;
     String name;
