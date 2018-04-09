@@ -33,6 +33,13 @@ public class CustomLogDataModelUpdateService extends GlobalServerUpdateService<C
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
+    public CustomLogDataModel updateLogDataType(String id, String logDataType) throws Exception {
+        CustomLogDataModel model = customLogDataModelGetService.validateAndFindOne(id);
+        customLogDataModelUtilService.validateLogDataTypeName(logDataType);
+        model.setLogDataType(logDataType);
+        return update(model);
+    }
+
     public CustomLogDataModel updateDataSchemaJSON(String id, String json) throws Exception {
         CustomLogDataModel model = customLogDataModelGetService.validateAndFindOne(id);
         String dataSchemaJSON = customLogDataModelUtilService.scrubAndValidateDataSchemaJSON(json);

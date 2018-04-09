@@ -40,9 +40,7 @@ public class LogDetailModelService {
         this.setLogDetailMetaData(logDetailModel, logModel);
         this.setLogDetailDirectoryModels(logDetailModel, logModel);
         this.setLogDetailTagModels(logDetailModel, logModel);
-//        this.setLogDetailViewTemplateThemeModel(logDetailModel, logModel);
-//        this.setLogDetailViewModel(logDetailModel, logModel);
-//        this.setLogDetailViewDataDetailModel(logDetailModel, logModel);
+        this.setLogDetailLogDatas(logDetailModel, logModel);
 
         return logDetailModel;
     }
@@ -65,36 +63,7 @@ public class LogDetailModelService {
         logDetailModel.setTagModels(tagModels);
     }
 
-//    private void setLogDetailViewTemplateThemeModel(LogDetailModel logDetailModel, LogModel logModel) {
-//        String id = logModel.getViewTemplateThemeID();
-//        if (id != null) {
-//            ThemeModel themeModel = themeModelGetService.findOne(id);
-//            logDetailModel.setThemeModel(themeModel);
-//        }
-//    }
-//
-//    private void setLogDetailViewModel(LogDetailModel logDetailModel, LogModel logModel) {
-//        Set<String> uniqueViewIDs = new HashSet<>();
-//        for (ViewData viewData : logModel.getViewDatas()) {
-//            uniqueViewIDs.add(viewData.getViewID());
-//        }
-//        List<CustomLogDataModel> customLogDataModels = viewModelGetService.findByIds(uniqueViewIDs);
-//        logDetailModel.setCustomLogDataModels(customLogDataModels);
-//    }
-//
-//    private void setLogDetailViewDataDetailModel(LogDetailModel logDetailModel, LogModel logModel) {
-//        List<ViewDataDetailModel> viewDataDetailModels = new ArrayList<>();
-//
-//        for (ViewData vd : logModel.getViewDatas()) {
-//            ViewDataDetailModel viewDataDetailModel = new ViewDataDetailModel();
-//
-//            viewDataDetailModel.setViewModelID(vd.getViewID());
-//            viewDataDetailModel.setAssignedViewTemplateModelID(vd.getViewTemplateID());
-//            viewDataDetailModel.setData(vd.getData());
-//
-//            viewDataDetailModels.add(viewDataDetailModel);
-//        }
-//
-//        logDetailModel.setViewDataDetailModels(viewDataDetailModels);
-//    }
+    private void setLogDetailLogDatas(LogDetailModel logDetailModel, LogModel logModel) {
+        logDetailModel.setLogDatas(logModel.getLogDatas());
+    }
 }

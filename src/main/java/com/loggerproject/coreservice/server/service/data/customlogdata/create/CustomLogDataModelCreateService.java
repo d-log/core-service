@@ -34,18 +34,8 @@ public class CustomLogDataModelCreateService extends GlobalServerCreateService<C
     @Override
     public CustomLogDataModel beforeSaveScrubAndValidate(CustomLogDataModel model) throws Exception {
         Assert.notNull(model.getDataSchemaJSON(), "CustomLogDataModel.dataSchemaJSON must not be empty");
-        Assert.notNull(model.getLogDataType(), "CustomLogDataModel.logDataType cannot be empty");
-
-        if (!StringUtils.isAlpha(model.getLogDataType())) {
-            throw new Exception("CustomLogDataModel.logDataType: '" + model.getLogDataType() + "' should only contain alpha characters");
-        }
-
-        if (customLogDataModelRepository.findByLogDataType(model.getLogDataType()).size() > 0) {
-            throw new Exception("CustomLogDataModel.logDataType: '" + model.getLogDataType() + "' already exists");
-        }
-
+        customLogDataModelUtilService.validateLogDataTypeName(model.getLogDataType());
         model.setDataSchemaJSON((customLogDataModelUtilService.scrubAndValidateDataSchemaJSON(model.getDataSchemaJSON())));
-
         return model;
     }
 }

@@ -2,6 +2,7 @@ package com.loggerproject.coreservice.server.service.data.customlogdata;
 
 import com.loggerproject.coreservice.server.data.document.customlogdata.CustomLogDataModel;
 import com.loggerproject.coreservice.server.service.data.customlogdata.get.CustomLogDataModelGetService;
+import org.apache.commons.lang3.StringUtils;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.SchemaException;
 import org.everit.json.schema.ValidationException;
@@ -19,6 +20,32 @@ public class CustomLogDataModelUtilService {
 
     @Autowired
     LogDataStatementService logDataStatementService;
+
+    public void validateLogDataTypeName(String logDataTypeName) throws Exception {
+        Assert.notNull(logDataTypeName, "CustomLogDataModel.logDataType cannot be empty");
+
+        if (!StringUtils.isAlpha(logDataTypeName)) {
+            throw new Exception("CustomLogDataModel.logDataType: '" + logDataTypeName + "' should only contain alpha characters");
+        }
+
+        if (customLogDataModelGetService.findByLogDataType(logDataTypeName) != null) {
+            throw new Exception("CustomLogDataModel.logDataType: '" + logDataTypeName + "' already exists");
+        }
+
+        Integer length = logDataTypeName.length();
+        if (length < 8) {
+            throw new Exception("CustomLogDataModel.logDataType: '" + logDataTypeName + "' should contain 8 or more alpha characters");
+        }
+
+        String lastSeven = logDataTypeName.substring(logDataTypeName.length() - 7);
+        if (!lastSeven.equals("LogData")) {
+            throw new Exception("CustomLogDataModel.logDataType: '" + logDataTypeName + "' should have 'LogData' as the last 7 characters");
+        }
+
+        if (!Character.isUpperCase(logDataTypeName.charAt(0))) {
+            throw new Exception("CustomLogDataModel.logDataType: '" + logDataTypeName + "' should start with an upper case character");
+        }
+    }
 
     public String scrubAndValidateDataSchemaJSON(String dataSchemaJSON) throws Exception {
         Assert.notNull(dataSchemaJSON, "dataSchemaJSON is null");

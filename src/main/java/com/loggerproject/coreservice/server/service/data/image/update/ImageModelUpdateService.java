@@ -17,9 +17,6 @@ public class ImageModelUpdateService extends GlobalServerUpdateService<ImageMode
     ImageModelRepository ImageModelRepository;
 
     @Autowired
-    ImageModelGetService imageModelGetService;
-
-    @Autowired
     public ImageModelUpdateService(ImageModelRepository repository,
                                    @Lazy ImageModelCreateService globalServerCreateService,
                                    @Lazy ImageModelDeleteService globalServerDeleteService,

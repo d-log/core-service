@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -29,11 +31,27 @@ public class CustomLogDataModelGetService extends GlobalServerGetService<CustomL
     }
 
     public CustomLogDataModel validateAndFindByLogDataType(String logDataType) throws Exception {
-        List<CustomLogDataModel> models = customLogDataModelRepository.findByLogDataType(logDataType);
-        if (models.size() == 0) {
+        CustomLogDataModel model = findByLogDataType(logDataType);
+        if (model == null) {
             throw new ModelNotFoundException("non-existent " + genericName + " with logDataType: '" + logDataType + "'");
-        } else {
-            return models.get(0);
         }
+        return model;
+    }
+
+    public List<CustomLogDataModel> findByLogDataTypes(Collection<String> logDataTypes) {
+        List<CustomLogDataModel> models = new ArrayList<>();
+        for (String logDataType : logDataTypes) {
+            models.add(findByLogDataType(logDataType));
+        }
+        return models;
+    }
+
+    public CustomLogDataModel findByLogDataType(String logDataType) {
+        CustomLogDataModel model = null;
+        List<CustomLogDataModel> models = customLogDataModelRepository.findByLogDataType(logDataType);
+        if (models.size() != 0) {
+            model = models.get(0);
+        }
+        return model;
     }
 }
