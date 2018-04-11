@@ -56,7 +56,7 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
         return t;
     }
 
-    public List<T> validateAndFindByIDs(List<String> ids) throws Exception {
+    public List<T> validateAndFindByIDs(Collection<String> ids) throws Exception {
         Assert.notNull(ids, genericName + " ids cannot be null");
         List<T> models = new ArrayList<>();
         for (String id : ids) {

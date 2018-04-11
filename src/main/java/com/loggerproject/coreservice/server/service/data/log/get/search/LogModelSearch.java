@@ -1,13 +1,12 @@
 package com.loggerproject.coreservice.server.service.data.log.get.search;
 
-import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchResponse;
-import com.loggerproject.coreservice.server.service.data.log.get.type.detail.LogDetailModelService;
-import com.loggerproject.coreservice.server.service.data.log.get.type.detail.LogDetailModel;
+import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,23 +26,24 @@ public class LogModelSearch {
     DirectoryModelGetService directoryModelGetService;
 
     @Autowired
-    LogDetailModelService logDetailModelService;
+    LogTypeGetManagerService logTypeGetManagerService;
+
+    @Autowired
+    LogModelGetService logModelGetService;
+
 
     public SearchResponse findLogs(SearchRequest request) throws Exception {
-        Set<String> logIDs = findIDsByKeyword(request.getKeyword());
-        List<LogDetailModel> logDetailModels = new ArrayList<>();
-        for (String logID : logIDs) {
-            try {
-                LogDetailModel logDetailModel = logDetailModelService.getByID(logID);
-                logDetailModels.add(logDetailModel);
-            }
-            catch (ModelNotFoundException e) {
-                // continue
-            }
+        Set<String> ids = findIDsByKeyword(request.getKeyword());
+        List<Object> logs = new ArrayList<>();
+
+        if (request.getLogType() != null) {
+            logs.addAll(logTypeGetManagerService.getByIDs(ids, request.getLogType()));
+        } else {
+            logs.addAll(logModelGetService.findByIds(ids));
         }
 
         SearchResponse response = new SearchResponse();
-        response.setLogDetails(logDetailModels);
+        response.setLogs(logs);
         return response;
     }
 

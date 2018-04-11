@@ -5,6 +5,7 @@ import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetServ
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class ALogTypeGetService<T> {
@@ -17,12 +18,12 @@ public abstract class ALogTypeGetService<T> {
         return getByLogModel(log);
     }
 
-    public List<T> getByIDs(List<String> ids) throws Exception {
+    public List<T> getByIDs(Collection<String> ids) throws Exception {
         List<LogModel> logs = logModelGetService.validateAndFindByIDs(ids);
         return getByLogModels(logs);
     }
 
-    public List<T> getByLogModels(List<LogModel> logs) {
+    public List<T> getByLogModels(Collection<LogModel> logs) {
         List<T> logTiles = new ArrayList<>();
         for (LogModel log : logs) {
             T logTile = getByLogModel(log);

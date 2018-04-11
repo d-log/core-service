@@ -4,5 +4,10 @@ import lombok.Data;
 
 @Data
 public class SearchRequest {
+
+    // required
     String keyword;
+
+    // nullable
+    String logType;
 }

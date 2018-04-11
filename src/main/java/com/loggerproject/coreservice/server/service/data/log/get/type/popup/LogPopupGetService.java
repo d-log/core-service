@@ -8,6 +8,23 @@ import org.springframework.stereotype.Service;
 public class LogPopupGetService extends ALogTypeGetService<LogPopupModel> {
     @Override
     public LogPopupModel getByLogModel(LogModel log) {
-        return null;
+        LogPopupModel logPopup = getBaseLogPopupModel(log);
+        setLogPopupModel(logPopup, log);
+        return logPopup;
+    }
+
+    private LogPopupModel getBaseLogPopupModel(LogModel log) {
+        LogPopupModel logPopup;
+
+        try {
+            logPopup = log.getLogTypes().getLogPopupModel();
+        } catch (NullPointerException e) {
+            logPopup = new LogPopupModel();
+        }
+
+        return logPopup;
+    }
+
+    private void setLogPopupModel(LogPopupModel logPopupModel, LogModel log) {
     }
 }

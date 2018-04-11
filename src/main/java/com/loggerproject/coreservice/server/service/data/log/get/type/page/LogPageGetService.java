@@ -8,6 +8,23 @@ import org.springframework.stereotype.Service;
 public class LogPageGetService extends ALogTypeGetService<LogPageModel> {
     @Override
     public LogPageModel getByLogModel(LogModel log) {
-        return null;
+        LogPageModel logPage = getBaseLogPageModel(log);
+        setLogPageModel(logPage, log);
+        return logPage;
+    }
+
+    private LogPageModel getBaseLogPageModel(LogModel log) {
+        LogPageModel logPage;
+
+        try {
+            logPage = log.getLogTypes().getLogPageModel();
+        } catch (NullPointerException e) {
+            logPage = new LogPageModel();
+        }
+
+        return logPage;
+    }
+
+    private void setLogPageModel(LogPageModel logPageModel, LogModel log) {
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class LogTypeGetManagerService {
         return getServiceByModel(model).getByID(id);
     }
 
-    public Object getByIDs(List<String> id, String model) throws Exception {
+    public List<Object> getByIDs(Collection<String> id, String model) throws Exception {
         return getServiceByModel(model).getByIDs(id);
     }
 
@@ -34,7 +35,7 @@ public class LogTypeGetManagerService {
         return getServiceByModel(model).getByLogModel(log);
     }
 
-    public Object getByLogModels(List<LogModel> logs, String model) throws Exception {
+    public List<Object> getByLogModels(Collection<LogModel> logs, String model) throws Exception {
         return getServiceByModel(model).getByLogModels(logs);
     }
 

@@ -10,8 +10,24 @@ public class LogTileGetService extends ALogTypeGetService<LogTileModel> {
 
     @Override
     public LogTileModel getByLogModel(LogModel log) {
-        LogTileModel logTile = log.getLogTypes().getLogTileModel();
+        LogTileModel logTile = getBaseLogTileModel(log);
+        setLogTileModel(logTile, log);
+        return logTile;
+    }
 
+    private LogTileModel getBaseLogTileModel(LogModel log) {
+        LogTileModel logTile;
+
+        try {
+            logTile = log.getLogTypes().getLogTileModel();
+        } catch (NullPointerException e) {
+            logTile = new LogTileModel();
+        }
+
+        return logTile;
+    }
+
+    private void setLogTileModel(LogTileModel logTile, LogModel log) {
         if (logTile.getID() == null) {
             logTile.setID(log.getID());
         }
@@ -33,8 +49,6 @@ public class LogTileGetService extends ALogTypeGetService<LogTileModel> {
         }
 
         setLogDataToDisplay(logTile, log);
-
-        return logTile;
     }
 
     private void setLogDataToDisplay(LogTileModel logTile, LogModel log) {
