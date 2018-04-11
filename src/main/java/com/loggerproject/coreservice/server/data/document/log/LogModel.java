@@ -28,5 +28,6 @@ public class LogModel extends GlobalModel {
     Set<String> tagIDs; // if null, instantiate empty collection
 
     // if null, instantiate with default
+    // when creating/updating log only set anything inside LogTypes to override default return values of ALogTypes
     LogTypes logTypes;
 }

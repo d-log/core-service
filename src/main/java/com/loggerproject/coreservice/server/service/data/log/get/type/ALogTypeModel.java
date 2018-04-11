@@ -5,12 +5,10 @@ import lombok.Data;
 
 import java.util.Set;
 
-/**
- * Once a class extends this and is used in production DO NOT change class name as
- * it is used to map the class name to its corresponding ALogTypeGetService
- */
 @Data
 public abstract class ALogTypeModel extends GlobalModel {
+    LogType logType;
+
     String ID;
 
     String title;

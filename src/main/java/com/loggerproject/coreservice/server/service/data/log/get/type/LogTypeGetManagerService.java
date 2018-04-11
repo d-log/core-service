@@ -12,39 +12,39 @@ import java.util.List;
 @Service
 public class LogTypeGetManagerService {
 
-    // model simple-name to get-service
-    private HashMap<String, ALogTypeGetService> mapModel2GetService = new HashMap<>();
+    // LogType to get-service
+    private HashMap<LogType, ALogTypeGetService> mapModel2GetService = new HashMap<>();
 
     @Autowired
-    public LogTypeGetManagerService(List<ALogTypeGetService> logTypeGetServices) {
+    public LogTypeGetManagerService(List<ALogTypeGetService> logTypeGetServices) throws Exception {
         for (ALogTypeGetService logTypeGetService : logTypeGetServices) {
-            String name = GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).getSimpleName();
-            mapModel2GetService.put(name, logTypeGetService);
+            ALogTypeModel logTypeModel = (ALogTypeModel)GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).newInstance();
+            mapModel2GetService.put(logTypeModel.getLogType(), logTypeGetService);
         }
     }
 
-    public Object getByID(String id, String model) throws Exception {
-        return getServiceByModel(model).getByID(id);
+    public Object getByID(String id, LogType logType) throws Exception {
+        return getServiceByModel(logType).getByID(id);
     }
 
-    public List<Object> getByIDs(Collection<String> id, String model) throws Exception {
-        return getServiceByModel(model).getByIDs(id);
+    public List<Object> getByIDs(Collection<String> id, LogType logType) throws Exception {
+        return getServiceByModel(logType).getByIDs(id);
     }
 
-    public Object getByLogModel(LogModel log, String model) throws Exception {
-        return getServiceByModel(model).getByLogModel(log);
+    public Object getByLogModel(LogModel log, LogType logType) throws Exception {
+        return getServiceByModel(logType).getByLogModel(log);
     }
 
-    public List<Object> getByLogModels(Collection<LogModel> logs, String model) throws Exception {
-        return getServiceByModel(model).getByLogModels(logs);
+    public List<Object> getByLogModels(Collection<LogModel> logs, LogType logType) throws Exception {
+        return getServiceByModel(logType).getByLogModels(logs);
     }
 
-    private ALogTypeGetService getServiceByModel(String model) throws Exception {
-        ALogTypeGetService getService = mapModel2GetService.get(model);
+    private ALogTypeGetService getServiceByModel(LogType logType) throws Exception {
+        ALogTypeGetService getService = mapModel2GetService.get(logType);
         if (getService != null) {
             return getService;
         } else {
-            throw new Exception("LogTypeGetManagerService does not contain key: '" + model + "' available keys are: " + mapModel2GetService.keySet().toString());
+            throw new Exception("LogTypeGetManagerService does not contain key: '" + logType.toString() + "' available keys are: " + mapModel2GetService.keySet().toString());
         }
     }
 }
