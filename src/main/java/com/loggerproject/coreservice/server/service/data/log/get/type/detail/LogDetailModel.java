@@ -1,7 +1,6 @@
-package com.loggerproject.coreservice.server.service.data.log.get.detail.model;
+package com.loggerproject.coreservice.server.service.data.log.get.type.detail;
 
 import com.loggerproject.coreservice.global.server.document.model.MetaData;
-import com.loggerproject.coreservice.server.data.document.customlogdata.CustomLogDataModel;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;

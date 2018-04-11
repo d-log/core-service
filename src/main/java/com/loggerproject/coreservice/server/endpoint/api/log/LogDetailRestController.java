@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.server.endpoint.api.log;
 
-import com.loggerproject.coreservice.server.service.data.log.get.detail.LogDetailModelService;
-import com.loggerproject.coreservice.server.service.data.log.get.detail.model.LogDetailModel;
+import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
+import com.loggerproject.coreservice.server.service.data.log.get.type.detail.LogDetailModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.core.DummyInvocationUtils;
@@ -22,9 +22,12 @@ public class LogDetailRestController {
     @Autowired
     LogDetailModelService logDetailModelService;
 
+    @Autowired
+    LogTypeGetManagerService logTypeGetManagerService;
+
     @GetMapping(value = "/{id}", produces = {"application/hal+json"})
     public ResponseEntity<?> getLogDetailModel(@PathVariable("id") String id) throws Exception {
-        LogDetailModel logDetailModel = logDetailModelService.findOne(id);
+        Object logDetailModel = logTypeGetManagerService.getByID(id, "LogDetailModel");//logDetailModelService.getByID(id);
         Resources resources = new Resources<>(Collections.singletonList(logDetailModel));
         resources.add(ControllerLinkBuilder.linkTo((DummyInvocationUtils.methodOn(this.getClass())).getLogDetailModel(id)).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);

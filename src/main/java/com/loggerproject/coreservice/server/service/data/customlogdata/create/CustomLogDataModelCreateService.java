@@ -7,7 +7,6 @@ import com.loggerproject.coreservice.server.service.data.customlogdata.CustomLog
 import com.loggerproject.coreservice.server.service.data.customlogdata.delete.CustomLogDataModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.customlogdata.get.CustomLogDataModelGetService;
 import com.loggerproject.coreservice.server.service.data.customlogdata.update.CustomLogDataModelUpdateService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

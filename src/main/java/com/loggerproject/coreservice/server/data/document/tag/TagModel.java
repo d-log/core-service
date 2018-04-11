@@ -15,4 +15,5 @@ public class TagModel extends GlobalModel {
     String ID;
     String name;
     Set<String> logIDs;
+    String imageID;
 }

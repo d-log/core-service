@@ -1,7 +1,9 @@
 package com.loggerproject.coreservice.server.data.document.log.extra.logdata;
 
 import com.loggerproject.coreservice.server.service.data.customlogdata.CustomLogDataModelUtilService;
+import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeGetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -17,15 +19,13 @@ public class LogDataScrubberValidatorService {
     CustomLogDataModelUtilService customLogDataModelUtilService;
 
     // simple class name to validator objects
-    HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
+    private HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
 
     @Autowired
-    List<ALogDataScrubberValidator> logDataScrubberValidators;
-
-    @PostConstruct
-    public void postConstruct() {
+    public void LogDataScrubberValidatorService(List<ALogDataScrubberValidator> logDataScrubberValidators) {
         for (ALogDataScrubberValidator logDataScrubberValidator : logDataScrubberValidators) {
-            map2Validator.put(logDataScrubberValidator.getGenericClassName(), logDataScrubberValidator);
+            String name = GenericTypeResolver.resolveTypeArgument(logDataScrubberValidator.getClass(), ALogDataScrubberValidator.class).getSimpleName();
+            map2Validator.put(name, logDataScrubberValidator);
         }
     }
 

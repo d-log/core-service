@@ -19,4 +19,5 @@ public class DirectoryModel extends GlobalModel implements Serializable {
     Set<String> logIDs;
     String name;
     String description;
+    String imageID;
 }

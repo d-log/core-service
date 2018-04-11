@@ -44,7 +44,7 @@ public class AmazonS3BucketService {
      */
     public String uploadFile(String key, File file) {
         amazonS3Client.putObject(new PutObjectRequest(bucketName, key, file));
-//        TODO returns https but isn't secure
+//        TODO commented out statement returns https but it isn't secure
 //        return amazonS3Client.getResourceUrl(bucketName, keyName);
         return "https://s3.amazonaws.com/" + bucketName + "/" + key;
     }

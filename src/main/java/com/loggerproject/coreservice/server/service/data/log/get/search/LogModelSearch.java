@@ -4,10 +4,10 @@ import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFou
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
-import com.loggerproject.coreservice.server.service.data.log.get.detail.LogDetailModelService;
-import com.loggerproject.coreservice.server.service.data.log.get.detail.model.LogDetailModel;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchResponse;
+import com.loggerproject.coreservice.server.service.data.log.get.type.detail.LogDetailModelService;
+import com.loggerproject.coreservice.server.service.data.log.get.type.detail.LogDetailModel;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class LogModelSearch {
         List<LogDetailModel> logDetailModels = new ArrayList<>();
         for (String logID : logIDs) {
             try {
-                LogDetailModel logDetailModel = logDetailModelService.findOne(logID);
+                LogDetailModel logDetailModel = logDetailModelService.getByID(logID);
                 logDetailModels.add(logDetailModel);
             }
             catch (ModelNotFoundException e) {

@@ -8,14 +8,12 @@ import org.springframework.core.GenericTypeResolver;
 @Data
 public abstract class ALogDataScrubberValidator<T> {
     Class genericClass;
-    String genericClassName;
 
     @Autowired
     ObjectMapper objectMapper;
 
     public ALogDataScrubberValidator() {
         this.genericClass = GenericTypeResolver.resolveTypeArgument(getClass(), ALogDataScrubberValidator.class);
-        this.genericClassName = genericClass.getSimpleName();
     }
 
     public abstract T scrubAndValidateLogData(T t) throws Exception;
