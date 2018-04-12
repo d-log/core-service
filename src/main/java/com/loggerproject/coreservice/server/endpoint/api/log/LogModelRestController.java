@@ -8,17 +8,19 @@ import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateLogData
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
+import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.core.DummyInvocationUtils;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -31,11 +33,31 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
     LogModelUpdateService logModelUpdateService;
 
     @Autowired
+    LogTypeGetManagerService logTypeGetManagerService;
+
+    @Autowired
     public LogModelRestController(LogModelCreateService globalServerCreateService,
                                   LogModelDeleteService globalServerDeleteService,
                                   LogModelGetService globalServerGetService,
                                   LogModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+    }
+
+    @GetMapping(value = "/{id}/{log-type}", produces = {"application/hal+json"})
+    public ResponseEntity<?> getLogType(@PathVariable("id") String id, @PathVariable("log-type") LogType logType) throws Exception {
+        Object logTypeModel = logTypeGetManagerService.getByID(id, logType);
+        Resources resources = new EmptiableResources(genericType, Collections.singletonList(logTypeModel));
+        resources.add(linkTo(methodOn(getClass()).getLogType(id, logType)).withSelfRel());
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
+    }
+
+    @GetMapping(value = "/all/{log-type}", produces="application/hal+json")
+    public ResponseEntity<?> getAllLogType(@PathVariable("log-type") LogType logType) throws Exception {
+        List<LogModel> logs = globalServerGetService.findAll();
+        List<Object> logTypes = logTypeGetManagerService.getByLogModels(logs, logType);
+        Resources resources = new EmptiableResources(genericType, logTypes);
+        resources.add(linkTo(methodOn(getClass()).getAllLogType(logType)).withSelfRel());
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
     @PutMapping(value = {"/bind-unbind/tags"}, produces = {"application/hal+json"})
