@@ -1,9 +1,9 @@
 package com.loggerproject.coreservice.server.data.document.log.extra.logdata.impl;
 
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.ALogDataScrubberValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.apache.commons.lang3.StringUtils;
 
 @Service
 public class TextPlainLogDataScrubberValidator extends ALogDataScrubberValidator<TextPlainLogData> {
