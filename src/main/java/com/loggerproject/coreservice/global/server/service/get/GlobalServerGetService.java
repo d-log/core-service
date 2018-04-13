@@ -6,6 +6,8 @@ import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDe
 import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.util.Assert;
 
@@ -42,9 +44,11 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     }
 
     public List<T> findAll() {
-        List<T> ts = new ArrayList<>();
-        ts.addAll(repository.findAll());
-        return ts;
+        return repository.findAll();
+    }
+
+    public Page<T> findAll(PageRequest pageRequest) {
+        return repository.findAll(pageRequest);
     }
 
     public T validateAndFindOne(String id) throws Exception {

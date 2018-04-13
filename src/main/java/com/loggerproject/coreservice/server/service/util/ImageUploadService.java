@@ -83,7 +83,7 @@ public class ImageUploadService {
         String extension = FilenameUtils.getExtension(imageFile.getName());
 
         ImageModel imageModel = new ImageModel();
-        imageModel = imageModelCreateService.save(imageModel);
+        imageModel = imageModelCreateService.create(imageModel);
 
         String key = getDirectoryPath() + imageModel.getID() + "." + extension;
 

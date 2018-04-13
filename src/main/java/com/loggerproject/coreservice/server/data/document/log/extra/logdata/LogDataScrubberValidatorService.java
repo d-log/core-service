@@ -38,8 +38,8 @@ public class LogDataScrubberValidatorService {
         String logDataType = logData.getLogDataType();
         String data = logData.getData();
 
-        Assert.isTrue(!StringUtils.isEmpty(logDataType), "LogData.logDataType cannot be empty");
-        Assert.isTrue(!StringUtils.isEmpty(data), "LogData.data cannot be empty");
+        Assert.hasText(logDataType, "LogData.logDataType cannot be empty");
+        Assert.hasText(data, "LogData.data cannot be empty");
 
         ALogDataScrubberValidator validator = map2Validator.get(logDataType);
         if (validator != null) {

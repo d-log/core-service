@@ -16,7 +16,7 @@ public class GlobalModelMongoRepository<T extends GlobalModel> extends SimpleMon
         if (entity.getID() != null) {
             // update
         } else {
-            // save
+            // create
         }
         return super.save(entity);
     }

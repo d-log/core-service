@@ -44,10 +44,10 @@ public abstract class GlobalModelController<T extends GlobalModel> {
     }
 
     @PostMapping(produces="application/hal+json")
-    public ResponseEntity<?> save(@RequestBody T model) throws Exception {
-        T t = globalServerCreateService.save(model);
+    public ResponseEntity<?> create(@RequestBody T model) throws Exception {
+        T t = globalServerCreateService.create(model);
         Resources<T> resources = new EmptiableResources(genericType, Collections.singletonList(t));
-        resources.add(linkTo(methodOn(getClass()).save(model)).withSelfRel());
+        resources.add(linkTo(methodOn(getClass()).create(model)).withSelfRel());
         return ResponseEntity.status(HttpStatus.CREATED).body(resources);
     }
 

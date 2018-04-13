@@ -40,7 +40,7 @@ public abstract class GlobalServerCreateService<T extends GlobalModel> {
         return t;
     }
 
-    protected T beforeSave(T t) throws Exception {
+    protected T beforeCreate(T t) throws Exception {
         t = beforeSaveScrubAndValidate(t);
         t.setID(null);
         Date now = new Date();
@@ -48,14 +48,14 @@ public abstract class GlobalServerCreateService<T extends GlobalModel> {
         return t;
     }
 
-    protected T afterSave(T t) throws Exception {
+    protected T afterCreate(T t) throws Exception {
         return t;
     }
 
-    public T save(T t) throws Exception {
-        t = beforeSave(t);
+    public T create(T t) throws Exception {
+        t = beforeCreate(t);
         t = repository.save(t);
-        t = afterSave(t);
+        t = afterCreate(t);
         return t;
     }
 }

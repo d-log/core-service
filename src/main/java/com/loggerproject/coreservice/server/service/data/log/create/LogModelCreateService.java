@@ -83,8 +83,8 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
     }
 
     @Override
-    protected LogModel afterSave(LogModel model) throws Exception {
+    protected LogModel afterCreate(LogModel model) throws Exception {
         model = updateOtherDocuments(model);
-        return super.afterSave(model);
+        return super.afterCreate(model);
     }
 }

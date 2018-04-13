@@ -62,8 +62,8 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
     }
 
     @Override
-    protected DirectoryModel afterSave(DirectoryModel model) throws Exception {
+    protected DirectoryModel afterCreate(DirectoryModel model) throws Exception {
         model = updateOtherDocuments(model);
-        return super.afterSave(model);
+        return super.afterCreate(model);
     }
 }
