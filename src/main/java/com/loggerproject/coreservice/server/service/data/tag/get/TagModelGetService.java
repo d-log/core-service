@@ -7,6 +7,7 @@ import com.loggerproject.coreservice.server.service.data.tag.create.TagModelCrea
 import com.loggerproject.coreservice.server.service.data.tag.delete.TagModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,9 @@ public class TagModelGetService extends GlobalServerGetService<TagModel> {
                               @Lazy TagModelCreateService globalServerCreateService,
                               @Lazy TagModelDeleteService globalServerDeleteService,
                               @Lazy TagModelGetService globalServerGetService,
-                              @Lazy TagModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+                              @Lazy TagModelUpdateService globalServerUpdateService,
+                              @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
     }
 
     public List<TagModel> findByName(String name) {

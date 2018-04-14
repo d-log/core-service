@@ -7,6 +7,7 @@ import com.loggerproject.coreservice.server.service.data.log.create.LogModelCrea
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class LogModelGetService extends GlobalServerGetService<LogModel> {
                               @Lazy LogModelCreateService globalServerCreateService,
                               @Lazy LogModelDeleteService globalServerDeleteService,
                               @Lazy LogModelGetService globalServerGetService,
-                              @Lazy LogModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+                              @Lazy LogModelUpdateService globalServerUpdateService,
+                              @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
     }
 }

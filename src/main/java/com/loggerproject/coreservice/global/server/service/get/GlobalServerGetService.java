@@ -28,11 +28,14 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     protected GlobalServerGetService globalServerGetService;
     protected GlobalServerUpdateService globalServerUpdateService;
 
+    protected Integer maxPageSize;
+
     public GlobalServerGetService(MongoRepository<T, String> repository,
                                   GlobalServerCreateService globalServerCreateService,
                                   GlobalServerDeleteService globalServerDeleteService,
                                   GlobalServerGetService globalServerGetService,
-                                  GlobalServerUpdateService globalServerUpdateService) {
+                                  GlobalServerUpdateService globalServerUpdateService,
+                                  Integer maxPageSize) {
         this.genericType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GlobalServerGetService.class);
         this.genericName = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
 
@@ -41,13 +44,18 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
         this.globalServerDeleteService = globalServerDeleteService;
         this.globalServerGetService = globalServerGetService;
         this.globalServerUpdateService = globalServerUpdateService;
+
+        this.maxPageSize = maxPageSize;
     }
 
     public List<T> findAll() {
         return repository.findAll();
     }
 
-    public Page<T> findAll(Pageable pageable) {
+    public Page<T> findAll(Pageable pageable) throws Exception {
+        if (pageable.getPageSize() > maxPageSize) {
+            throw new Exception("PageSize cannot be greater than " + maxPageSize);
+        }
         return repository.findAll(pageable);
     }
 

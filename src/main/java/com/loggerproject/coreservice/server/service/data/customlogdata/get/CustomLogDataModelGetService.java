@@ -8,6 +8,7 @@ import com.loggerproject.coreservice.server.service.data.customlogdata.create.Cu
 import com.loggerproject.coreservice.server.service.data.customlogdata.delete.CustomLogDataModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.customlogdata.update.CustomLogDataModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,9 @@ public class CustomLogDataModelGetService extends GlobalServerGetService<CustomL
                                         @Lazy CustomLogDataModelCreateService globalServerCreateService,
                                         @Lazy CustomLogDataModelDeleteService globalServerDeleteService,
                                         @Lazy CustomLogDataModelGetService globalServerGetService,
-                                        @Lazy CustomLogDataModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+                                        @Lazy CustomLogDataModelUpdateService globalServerUpdateService,
+                                        @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
     }
 
     public CustomLogDataModel validateAndFindByLogDataType(String logDataType) throws Exception {

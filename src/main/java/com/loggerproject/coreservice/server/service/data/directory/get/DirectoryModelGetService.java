@@ -7,6 +7,7 @@ import com.loggerproject.coreservice.server.service.data.directory.create.Direct
 import com.loggerproject.coreservice.server.service.data.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,9 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
                                     @Lazy DirectoryModelCreateService globalServerCreateService,
                                     @Lazy DirectoryModelDeleteService globalServerDeleteService,
                                     @Lazy DirectoryModelGetService globalServerGetService,
-                                    @Lazy DirectoryModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+                                    @Lazy DirectoryModelUpdateService globalServerUpdateService,
+                                    @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
     }
 
     public List<DirectoryModel> findByName(String name) {

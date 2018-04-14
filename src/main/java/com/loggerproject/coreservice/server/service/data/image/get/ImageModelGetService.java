@@ -7,6 +7,7 @@ import com.loggerproject.coreservice.server.service.data.image.create.ImageModel
 import com.loggerproject.coreservice.server.service.data.image.delete.ImageModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.image.update.ImageModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class ImageModelGetService extends GlobalServerGetService<ImageModel> {
                                 @Lazy ImageModelCreateService globalServerCreateService,
                                 @Lazy ImageModelDeleteService globalServerDeleteService,
                                 @Lazy ImageModelGetService globalServerGetService,
-                                @Lazy ImageModelUpdateService globalServerUpdateService) {
-        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+                                @Lazy ImageModelUpdateService globalServerUpdateService,
+                                @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+        super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
     }
 }
