@@ -63,6 +63,9 @@ public class CoreServiceApplicationTests {
 		directoryModelCreateService.create(directory);
 		directory.setName("A Tester");
 		directoryModelCreateService.create(directory);
+		directoryModelCreateService.create(directory);
+		directoryModelCreateService.create(directory);
+		directoryModelCreateService.create(directory);
 
 		Date myDate = new Date(System.currentTimeMillis());
 		directory.getMetadata().setCreated(new Date(myDate.getTime() - (10 * 24 * 60 * 60 * 1000)));
@@ -188,6 +191,13 @@ public class CoreServiceApplicationTests {
 
 		// name ends with `ter`
 		list = directoryModelRepository.findByNameRegexQuery("ter$");
+		list.forEach(directoryModel -> System.out.println(directoryModel.toString()));
+	}
+
+	@Test
+	public void query2Pageable() {
+		// name starts with `A`
+		List<DirectoryModel> list = directoryModelRepository.findByNameRegexQueryList("^A", new PageRequest(0, 2));
 		list.forEach(directoryModel -> System.out.println(directoryModel.toString()));
 	}
 }

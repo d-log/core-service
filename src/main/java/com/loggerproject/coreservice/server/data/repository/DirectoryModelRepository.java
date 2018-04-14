@@ -31,4 +31,10 @@ public interface DirectoryModelRepository extends MongoRepository<DirectoryModel
 
     @Query("{ 'name' : { $regex: ?0 } }")
     List<DirectoryModel> findByNameRegexQuery(String regexp);
+
+    @Query("{ 'name' : { $regex: ?0 } }")
+    List<DirectoryModel> findByNameRegexQueryList(String regexp, Pageable pageable);
+
+    @Query("{ 'name' : { $regex: ?0 } }")
+    Page<DirectoryModel> findByNameRegexQueryPage(String regexp, Pageable pageable);
 }
