@@ -6,10 +6,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.customlogdata.extra.ValidateDataStatement;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@ToString(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Document(collection = "custom-log-data")
 public class CustomLogDataModel extends GlobalModel {
 

@@ -4,6 +4,8 @@ import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.log.extra.LogTypes;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@ToString(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Document(collection = "log")
 public class LogModel extends GlobalModel {
 
