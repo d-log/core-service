@@ -8,14 +8,19 @@ import com.loggerproject.coreservice.global.server.service.delete.model.DeleteAl
 import com.loggerproject.coreservice.global.server.service.get.GlobalServerGetService;
 import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
+import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -30,6 +35,9 @@ public abstract class GlobalModelController<T extends GlobalModel> {
     protected GlobalServerDeleteService<T> globalServerDeleteService;
     protected GlobalServerGetService<T> globalServerGetService;
     protected GlobalServerUpdateService<T> globalServerUpdateService;
+
+    @Autowired
+    DirectoryModelRepository directoryModelRepository;
 
     public GlobalModelController(GlobalServerCreateService<T> globalServerCreateService,
                                  GlobalServerDeleteService<T> globalServerDeleteService,
@@ -74,11 +82,16 @@ public abstract class GlobalModelController<T extends GlobalModel> {
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
+    /**
+     *
+     * @param pageable - values customizable via URL parameters
+     * @param assembler - autowired
+     * @return
+     */
     @GetMapping(value = "/all", produces="application/hal+json")
-    public ResponseEntity<?> getAll() {
-        List<T> models = globalServerGetService.findAll();
-        Resources<T> resources = new EmptiableResources(genericType, models);
-        resources.add(linkTo(methodOn(getClass()).getAll()).withSelfRel());
+    public ResponseEntity<?> getAll(Pageable pageable, PagedResourcesAssembler assembler) {
+        Page<T> page = globalServerGetService.findAll(pageable);
+        PagedResources<T> resources = assembler.toResource(page);
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 

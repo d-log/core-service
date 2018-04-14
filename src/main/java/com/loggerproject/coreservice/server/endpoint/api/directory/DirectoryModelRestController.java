@@ -40,7 +40,7 @@ public class DirectoryModelRestController extends GlobalModelController<Director
     public ResponseEntity<?> findChildren(@PathVariable("id") String id, @PathVariable(value = "level", required = false) Integer level) throws Exception {
         List<DirectoryModel> models = directoryModelGetService.findChildren(id, level == null ? 1 : level);
 
-        Resources<DirectoryModel> resources = new EmptiableResources(DirectoryModel.class, models);
+        Resources resources = new EmptiableResources(DirectoryModel.class, models);
         resources.add(linkTo(methodOn(getClass()).findChildren(id, level)).withSelfRel());
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(resources);
@@ -50,7 +50,7 @@ public class DirectoryModelRestController extends GlobalModelController<Director
     public ResponseEntity<?> findParent(@PathVariable("id") String id) throws Exception {
         List<DirectoryModel> models = directoryModelGetService.findParents(id);
 
-        Resources<DirectoryModel> resources = new EmptiableResources(DirectoryModel.class, models);
+        Resources resources = new EmptiableResources(DirectoryModel.class, models);
         resources.add(linkTo(methodOn(getClass()).findParent(id)).withSelfRel());
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(resources);

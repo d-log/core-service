@@ -7,7 +7,7 @@ import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFou
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.util.Assert;
 
@@ -47,8 +47,8 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
         return repository.findAll();
     }
 
-    public Page<T> findAll(PageRequest pageRequest) {
-        return repository.findAll(pageRequest);
+    public Page<T> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public T validateAndFindOne(String id) throws Exception {
