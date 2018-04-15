@@ -4,6 +4,7 @@ import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import com.loggerproject.coreservice.global.server.service.delete.GlobalServerDeleteService;
 import com.loggerproject.coreservice.global.server.service.get.model.ModelNotFoundException;
+import com.loggerproject.coreservice.global.server.service.get.model.PageSizeOverflowException;
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
@@ -53,9 +54,7 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     }
 
     public Page<T> findAll(Pageable pageable) throws Exception {
-        if (pageable.getPageSize() > maxPageSize) {
-            throw new Exception("PageSize cannot be greater than " + maxPageSize);
-        }
+        pageable = scrubValidatePageable(pageable);
         return repository.findAll(pageable);
     }
 
@@ -112,7 +111,18 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
         return repository.exists(id);
     }
 
-    protected void throwModelNotFoundException(String id) throws Exception {
+    protected void throwModelNotFoundException(String id) throws ModelNotFoundException {
         throw new ModelNotFoundException("non-existent " + genericName + " ID: '" + id + "'");
+    }
+
+    protected Pageable scrubValidatePageable(Pageable pageable) throws Exception {
+        if (pageable.getPageSize() > maxPageSize) {
+            throwPageSizeOverflowException(pageable.getPageSize());
+        }
+        return pageable;
+    }
+
+    protected void throwPageSizeOverflowException(Integer pageSize) throws PageSizeOverflowException {
+        throw new PageSizeOverflowException("PageSize cannot be greater than " + maxPageSize + " - page size received: '" + pageSize + "'");
     }
 }

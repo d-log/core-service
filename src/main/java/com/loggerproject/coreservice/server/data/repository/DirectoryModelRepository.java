@@ -19,7 +19,7 @@ public interface DirectoryModelRepository extends MongoRepository<DirectoryModel
     /**
      * all users that have names containing substring `str` and order the results by created in ascending order
      * @param str
-     * @return
+     * @return Page
      */
     Page<DirectoryModel> findByNameLikeOrderByMetadata_CreatedAsc(String str, Pageable pageable);
     Page<DirectoryModel> findByNameLikeOrderByMetadata_CreatedDesc(String str, Pageable pageable);

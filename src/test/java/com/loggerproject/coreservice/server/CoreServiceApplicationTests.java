@@ -1,10 +1,16 @@
 package com.loggerproject.coreservice.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
+import com.loggerproject.coreservice.server.data.document.log.LogModel;
+import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
+import com.loggerproject.coreservice.server.data.document.log.extra.logdata.impl.TextPlainLogData;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
+import com.loggerproject.coreservice.server.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.server.service.data.directory.create.DirectoryModelCreateService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
+import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +28,7 @@ import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +52,15 @@ public class CoreServiceApplicationTests {
 
 	@Autowired
 	DirectoryModelRepository directoryModelRepository;
+
+	@Autowired
+	LogModelCreateService logModelCreateService;
+
+	@Autowired
+	LogModelRepository logModelRepository;
+
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@Value("${spring.data.mongodb.port}")
 	private Integer port;
@@ -70,6 +86,32 @@ public class CoreServiceApplicationTests {
 		Date myDate = new Date(System.currentTimeMillis());
 		directory.getMetadata().setCreated(new Date(myDate.getTime() - (10 * 24 * 60 * 60 * 1000)));
 		directoryModelRepository.save(directory);
+
+		LogModel log = new LogModel();
+		log.setDirectoryIDs(Collections.singleton(directory.getID()));
+
+		TextPlainLogData textPlainLogData = new TextPlainLogData();
+		textPlainLogData.setText("Hello World");
+
+		LogData logData = new LogData();
+		logData.setLogDataType("TextPlainLogData");
+		logData.setData(objectMapper.writeValueAsString(textPlainLogData));
+
+		log.setLogDatas(Collections.singletonList(logData));
+		logModelCreateService.create(log);
+	}
+
+	@Test
+	public void log() {
+		Page<LogModel> page = logModelRepository.findByMetadata_CreatedLessThanEqualOrderByMetadata_CreatedDesc(new Date(System.currentTimeMillis()), new PageRequest(0, 2));
+		List<LogModel> list = page.getContent();
+		System.out.println("\n current time");
+		list.forEach(logModel -> System.out.println(logModel.toString()));
+
+		page = logModelRepository.findByMetadata_CreatedLessThanEqualOrderByMetadata_CreatedDesc(new Date(System.currentTimeMillis() - 1000), new PageRequest(0, 2));
+		list = page.getContent();
+		System.out.println("\n a second ago");
+		list.forEach(logModel -> System.out.println(logModel.toString()));
 	}
 
 	@Test

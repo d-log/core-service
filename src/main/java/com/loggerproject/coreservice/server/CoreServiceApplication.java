@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * @SpringBootApplication -
- * @EnableSpringDataWebSupport - auto configure pageable
+ * @EnableSpringDataWebSupport - auto configures Pageable
  */
 @SpringBootApplication
 @EnableSpringDataWebSupport

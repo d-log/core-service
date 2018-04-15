@@ -16,6 +16,7 @@ import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpda
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
@@ -52,21 +53,19 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
 
     @Override
     public LogModel beforeSaveScrubAndValidate(LogModel model) throws Exception {
-        if (CollectionUtils.isEmpty(model.getDirectoryIDs())) {
-            throw new Exception("LogModel.directoryIDs cannot be empty");
-        }
+        Assert.notEmpty(model.getDirectoryIDs(), "LogModel.directoryIDs cannot be empty");
+        directoryModelGetService.validateIds(model.getDirectoryIDs());
+
+        Assert.notEmpty(model.getLogDatas(), "LogModel.logDatas cannot be empty");
+        logDataScrubberValidatorService.scrubAndValidate(model.getLogDatas());
 
         model.setTagIDs(model.getTagIDs() != null ? model.getTagIDs() : new HashSet());
-
-        directoryModelGetService.validateIds(model.getDirectoryIDs());
         tagModelGetService.validateIds(model.getTagIDs());
-
-        logDataScrubberValidatorService.scrubAndValidate(model.getLogDatas());
 
         return model;
     }
 
-    public LogModel updateOtherDocuments(LogModel model) throws Exception {
+    protected LogModel updateOtherDocuments(LogModel model) throws Exception {
         for (String id : model.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.validateAndFindOne(id);
             d.getLogIDs().add(model.getID());
