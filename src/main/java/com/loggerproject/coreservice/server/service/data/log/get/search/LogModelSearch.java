@@ -5,9 +5,9 @@ import com.loggerproject.coreservice.server.data.document.directory.DirectoryMod
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.LogTypeModelGetManagerService;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchResponse;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class LogModelSearch {
     DirectoryModelGetService directoryModelGetService;
 
     @Autowired
-    LogTypeGetManagerService logTypeGetManagerService;
+    LogTypeModelGetManagerService logTypeModelGetManagerService;
 
     @Autowired
     LogModelGetService logModelGetService;
@@ -38,7 +38,7 @@ public class LogModelSearch {
         List<GlobalModel> logs = new ArrayList<>();
 
         if (request.getLogType() != null) {
-            logs.addAll(logTypeGetManagerService.getByIDs(ids, request.getLogType()));
+            logs.addAll(logTypeModelGetManagerService.getByIDs(ids, request.getLogType()));
         } else {
             logs.addAll(logModelGetService.findByIds(ids));
         }

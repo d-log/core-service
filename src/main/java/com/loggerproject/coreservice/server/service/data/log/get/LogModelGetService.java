@@ -1,7 +1,6 @@
 package com.loggerproject.coreservice.server.service.data.log.get;
 
 import com.loggerproject.coreservice.global.server.service.get.GlobalServerGetService;
-import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
 import com.loggerproject.coreservice.server.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;

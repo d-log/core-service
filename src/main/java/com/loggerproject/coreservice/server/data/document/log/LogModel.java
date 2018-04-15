@@ -1,8 +1,9 @@
 package com.loggerproject.coreservice.server.data.document.log;
 
-import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.log.extra.LogTypes;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
+import com.loggerproject.coreservice.server.service.data.log.get.ALogModelTypeModel;
+import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,12 +13,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ALogTypeModel mirrors this class, hence when updating this class please make the necessary changes there as well
+ */
 @Data
 @ToString(callSuper=true)
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "log")
-public class LogModel extends GlobalModel {
-
+public class LogModel extends ALogModelTypeModel {
     @Id
     String ID;
 
@@ -34,4 +37,8 @@ public class LogModel extends GlobalModel {
     // if null, instantiate with default
     // when creating/updating log only set anything inside LogTypes to override default return values of ALogTypes
     LogTypes logTypes;
+
+    public LogModel() {
+        this.setLogType(LogType.DEFAULT);
+    }
 }

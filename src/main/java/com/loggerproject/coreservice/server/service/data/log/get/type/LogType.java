@@ -4,5 +4,6 @@ public enum LogType {
     TILE,
     DETAIL,
     PAGE,
-    POPUP
+    POPUP,
+    DEFAULT
 }
