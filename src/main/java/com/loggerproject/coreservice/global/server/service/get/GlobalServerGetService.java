@@ -8,6 +8,7 @@ import com.loggerproject.coreservice.global.server.service.get.model.PageSizeOve
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.util.Assert;
@@ -30,6 +31,7 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     protected GlobalServerUpdateService globalServerUpdateService;
 
     protected Integer maxPageSize;
+    protected Pageable defaultPageable;
 
     public GlobalServerGetService(MongoRepository<T, String> repository,
                                   GlobalServerCreateService globalServerCreateService,
@@ -37,6 +39,27 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
                                   GlobalServerGetService globalServerGetService,
                                   GlobalServerUpdateService globalServerUpdateService,
                                   Integer maxPageSize) {
+        Pageable defaultPageable = new PageRequest(0, maxPageSize);
+        setup(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize, defaultPageable);
+    }
+
+    public GlobalServerGetService(MongoRepository<T, String> repository,
+                                  GlobalServerCreateService globalServerCreateService,
+                                  GlobalServerDeleteService globalServerDeleteService,
+                                  GlobalServerGetService globalServerGetService,
+                                  GlobalServerUpdateService globalServerUpdateService,
+                                  Integer maxPageSize,
+                                  Pageable defaultPageable) {
+        setup(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize, defaultPageable);
+    }
+
+    private void setup(MongoRepository<T, String> repository,
+                       GlobalServerCreateService globalServerCreateService,
+                       GlobalServerDeleteService globalServerDeleteService,
+                       GlobalServerGetService globalServerGetService,
+                       GlobalServerUpdateService globalServerUpdateService,
+                       Integer maxPageSize,
+                       Pageable defaultPageable) {
         this.genericType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GlobalServerGetService.class);
         this.genericName = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
 
@@ -47,6 +70,7 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
         this.globalServerUpdateService = globalServerUpdateService;
 
         this.maxPageSize = maxPageSize;
+        this.defaultPageable = defaultPageable;
     }
 
     public List<T> findAll() {
@@ -116,9 +140,14 @@ public abstract class GlobalServerGetService<T extends GlobalModel> {
     }
 
     protected Pageable scrubValidatePageable(Pageable pageable) throws Exception {
-        if (pageable.getPageSize() > maxPageSize) {
-            throwPageSizeOverflowException(pageable.getPageSize());
+        if (pageable != null) {
+            if (pageable.getPageSize() > maxPageSize) {
+                throwPageSizeOverflowException(pageable.getPageSize());
+            }
+        } else {
+            pageable = defaultPageable;
         }
+
         return pageable;
     }
 

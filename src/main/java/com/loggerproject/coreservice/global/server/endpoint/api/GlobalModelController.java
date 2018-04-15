@@ -83,8 +83,8 @@ public abstract class GlobalModelController<T extends GlobalModel> {
     }
 
     /**
-     *
-     * @param pageable - values customizable via URL parameters
+     * pageable URL parameters `?page=1&size=2&sort=metadata.created,desc`
+     * @param pageable - values customizable via URL parameters - otherwise default will be in place
      * @param assembler - autowired
      * @return
      */

@@ -11,6 +11,7 @@ import com.loggerproject.coreservice.server.service.data.directory.create.Direct
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
+import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +61,9 @@ public class CoreServiceApplicationTests {
 	LogModelRepository logModelRepository;
 
 	@Autowired
+	LogModelGetService logModelGetService;
+
+	@Autowired
 	ObjectMapper objectMapper;
 
 	@Value("${spring.data.mongodb.port}")
@@ -102,13 +106,22 @@ public class CoreServiceApplicationTests {
 	}
 
 	@Test
-	public void log() {
+	public void log() throws Exception {
 		Page<LogModel> page = logModelRepository.findByMetadata_CreatedLessThanEqualOrderByMetadata_CreatedDesc(new Date(System.currentTimeMillis()), new PageRequest(0, 2));
 		List<LogModel> list = page.getContent();
 		System.out.println("\n current time");
 		list.forEach(logModel -> System.out.println(logModel.toString()));
 
+		page = logModelGetService.theGetter(new Date(System.currentTimeMillis()), new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));		list = page.getContent();
+		System.out.println("\n current time");
+		list.forEach(logModel -> System.out.println(logModel.toString()));
+
 		page = logModelRepository.findByMetadata_CreatedLessThanEqualOrderByMetadata_CreatedDesc(new Date(System.currentTimeMillis() - 1000), new PageRequest(0, 2));
+		list = page.getContent();
+		System.out.println("\n a second ago");
+		list.forEach(logModel -> System.out.println(logModel.toString()));
+
+		page = logModelGetService.theGetter(new Date(System.currentTimeMillis() - 1000), new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
 		list = page.getContent();
 		System.out.println("\n a second ago");
 		list.forEach(logModel -> System.out.println(logModel.toString()));

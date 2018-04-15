@@ -1,8 +1,6 @@
 package com.loggerproject.coreservice.server.service.data.log.get.search.model;
 
 import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
-import com.loggerproject.coreservice.server.data.document.log.LogModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
 import lombok.Data;
 import org.springframework.hateoas.ResourceSupport;
 
