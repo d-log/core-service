@@ -8,6 +8,7 @@ import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateLogData
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
 import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
 import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
@@ -43,7 +44,7 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
 
     @GetMapping(value = "/{id}/{log-type}", produces = {"application/hal+json"})
     public ResponseEntity<?> getLogType(@PathVariable("id") String id, @PathVariable("log-type") LogType logType) throws Exception {
-        Object logTypeModel = logTypeGetManagerService.getByID(id, logType);
+        ALogTypeModel logTypeModel = logTypeGetManagerService.getByID(id, logType);
         Resources resources = new EmptiableResources(genericType, Collections.singletonList(logTypeModel));
         resources.add(linkTo(methodOn(getClass()).getLogType(id, logType)).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);
@@ -52,7 +53,7 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
     @GetMapping(value = "/all/{log-type}", produces="application/hal+json")
     public ResponseEntity<?> getAllLogType(@PathVariable("log-type") LogType logType) throws Exception {
         List<LogModel> logs = globalServerGetService.findAll();
-        List<Object> logTypes = logTypeGetManagerService.getByLogModels(logs, logType);
+        List<ALogTypeModel> logTypes = logTypeGetManagerService.getByLogModels(logs, logType);
         Resources resources = new EmptiableResources(genericType, logTypes);
         resources.add(linkTo(methodOn(getClass()).getAllLogType(logType)).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);

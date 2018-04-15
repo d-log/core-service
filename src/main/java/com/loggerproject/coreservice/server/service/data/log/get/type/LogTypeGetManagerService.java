@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
+@SuppressWarnings(value = "unchecked")
 public class LogTypeGetManagerService {
 
     // LogType to get-service
@@ -23,11 +24,11 @@ public class LogTypeGetManagerService {
         }
     }
 
-    public Object getByID(String id, LogType logType) throws Exception {
+    public ALogTypeModel getByID(String id, LogType logType) throws Exception {
         return getServiceByModel(logType).getByID(id);
     }
 
-    public List<Object> getByIDs(Collection<String> id, LogType logType) throws Exception {
+    public List<ALogTypeModel> getByIDs(Collection<String> id, LogType logType) throws Exception {
         return getServiceByModel(logType).getByIDs(id);
     }
 
@@ -35,7 +36,7 @@ public class LogTypeGetManagerService {
         return getServiceByModel(logType).getByLogModel(log);
     }
 
-    public List<Object> getByLogModels(Collection<LogModel> logs, LogType logType) throws Exception {
+    public List<ALogTypeModel> getByLogModels(Collection<LogModel> logs, LogType logType) throws Exception {
         return getServiceByModel(logType).getByLogModels(logs);
     }
 

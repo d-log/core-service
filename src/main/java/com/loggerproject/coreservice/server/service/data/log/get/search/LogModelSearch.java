@@ -1,11 +1,14 @@
 package com.loggerproject.coreservice.server.service.data.log.get.search;
 
+import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
+import com.loggerproject.coreservice.server.data.document.log.LogModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.search.model.SearchResponse;
+import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
 import com.loggerproject.coreservice.server.service.data.log.get.type.LogTypeGetManagerService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +37,7 @@ public class LogModelSearch {
 
     public SearchResponse findLogs(SearchRequest request) throws Exception {
         Set<String> ids = findIDsByKeyword(request.getKeyword());
-        List<Object> logs = new ArrayList<>();
+        List<GlobalModel> logs = new ArrayList<>();
 
         if (request.getLogType() != null) {
             logs.addAll(logTypeGetManagerService.getByIDs(ids, request.getLogType()));
