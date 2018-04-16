@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.server.service.data.log.get.type.popup;
 
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
+import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import lombok.Data;
 
 @Data

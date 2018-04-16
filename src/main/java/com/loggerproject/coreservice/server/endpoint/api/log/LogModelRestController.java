@@ -8,10 +8,11 @@ import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateBindUnb
 import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateLogDatasRequest;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
-import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.LogTypeModelGetManagerService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.getter.model.GetterRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
+import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,17 +53,20 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
     /////////////
 
     @GetMapping(value = "/the-getter", produces = {"application/hal+json"})
-    public ResponseEntity<?> theGetter(Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(new Date(), pageable, null, assembler);
+    public ResponseEntity<?> theGetter(@RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
+        return theGetterHelper(millisecondThreshold, pageable, null, assembler);
     }
 
     @GetMapping(value = "/the-getter/{log-type}", produces = {"application/hal+json"})
-    public ResponseEntity<?> theGetterLogType(@PathVariable("log-type") LogType logType, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(new Date(), pageable, logType, assembler);
+    public ResponseEntity<?> theGetterLogType(@PathVariable("log-type") LogType logType, @RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
+        return theGetterHelper(millisecondThreshold, pageable, logType, assembler);
     }
 
-    private ResponseEntity<?> theGetterHelper(Date date, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
-        Page<ALogTypeModel> page = logTypeModelGetManagerService.theGetter(date, pageable, logType);
+    private ResponseEntity<?> theGetterHelper(Long millisecondThreshold, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
+        GetterRequest getterRequest = new GetterRequest();
+        getterRequest.setMillisecondThreshold(millisecondThreshold);
+        getterRequest.setPageable(pageable);
+        Page<ALogTypeModel> page = logTypeModelGetManagerService.theGetter(getterRequest, logType);
         Resources resources;
         if (page.getContent().size() == 0) {
             resources = assembler.toEmptyResource(page, ALogTypeModel.class, null);

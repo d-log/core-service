@@ -12,7 +12,7 @@ import java.util.List;
 public class LogTileGetService extends ALogTypeGetService<LogTileModel> {
 
     @Override
-    public LogTileModel getByLogModel(LogModel log) {
+    public LogTileModel getByLogModelInternal(LogModel log) {
         LogTileModel logTile = getBaseLogTileModel(log);
         setLogTileModel(logTile, log);
         return logTile;

@@ -2,26 +2,29 @@ package com.loggerproject.coreservice.server.service.data.log.get;
 
 import com.loggerproject.coreservice.global.server.document.model.GlobalModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.getter.model.GetterRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * wrapper class for LogModel and *LogType get services
+ */
 @Service
 @SuppressWarnings(value = "unchecked")
 public class LogTypeModelGetManagerService {
 
-    // LogType to get-service
     private HashMap<LogType, ALogTypeGetService> mapModel2GetService = new HashMap<>();
 
     @Autowired
@@ -35,11 +38,21 @@ public class LogTypeModelGetManagerService {
         }
     }
 
-    public GlobalModel findOne(String id, LogType logType) throws Exception {
+    public GlobalModel validateAndFindOne(String id, LogType logType) throws Exception {
+        if (logType == null || logType.equals(LogType.DEFAULT)) {
+            return logModelGetService.validateAndFindOne(id);
+        } else {
+            LogModel log = logModelGetService.validateAndFindOne(id);
+            return getServiceByLogType(logType).getByLogModel(log);
+        }
+    }
+
+    public GlobalModel findOne(String id, LogType logType) {
         if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findOne(id);
         } else {
-            return getServiceByLogType(logType).findOne(id);
+            LogModel log = logModelGetService.findOne(id);
+            return getServiceByLogType(logType).getByLogModel(log);
         }
     }
 
@@ -47,7 +60,8 @@ public class LogTypeModelGetManagerService {
         if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findByIds(ids);
         } else {
-            return getServiceByLogType(logType).findByIDs(ids);
+            List<LogModel> logs = logModelGetService.validateAndFindByIDs(ids);
+            return getServiceByLogType(logType).getByLogModels(logs);
         }
     }
 
@@ -55,15 +69,23 @@ public class LogTypeModelGetManagerService {
         if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findAll(pageable);
         } else {
-            return getServiceByLogType(logType).findAll(pageable);
+            Page<LogModel> page = logModelGetService.findAll(pageable);
+            return PageableExecutionUtils.getPage(
+                    getServiceByLogType(logType).getByLogModels(page.getContent()),
+                    pageable,
+                    page::getTotalElements);
         }
     }
 
-    public Page theGetter(Date dateThreshold, Pageable pageable, LogType logType) throws Exception {
+    public Page theGetter(GetterRequest getterRequest, LogType logType) throws Exception {
         if (logType == null || logType.equals(LogType.DEFAULT)) {
-            return logModelGetService.theGetter(dateThreshold, pageable);
+            return logModelGetService.theGetter(getterRequest);
         } else {
-            return getServiceByLogType(logType).theGetter(dateThreshold, pageable);
+            Page<LogModel> page = logModelGetService.theGetter(getterRequest);
+            return PageableExecutionUtils.getPage(
+                    getServiceByLogType(logType).getByLogModels(page.getContent()),
+                    getterRequest.getPageable(),
+                    page::getTotalElements);
         }
     }
 

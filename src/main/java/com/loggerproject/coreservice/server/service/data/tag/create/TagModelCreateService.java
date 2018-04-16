@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.server.service.data.tag.create;
 import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.data.repository.TagModelRepository;
-import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.delete.TagModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpdateService;

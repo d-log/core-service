@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogPopupGetService extends ALogTypeGetService<LogPopupModel> {
     @Override
-    public LogPopupModel getByLogModel(LogModel log) {
+    public LogPopupModel getByLogModelInternal(LogModel log) {
         LogPopupModel logPopup = getBaseLogPopupModel(log);
         setLogPopupModel(logPopup, log);
         return logPopup;

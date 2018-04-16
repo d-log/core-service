@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogPageGetService extends ALogTypeGetService<LogPageModel> {
     @Override
-    public LogPageModel getByLogModel(LogModel log) {
+    public LogPageModel getByLogModelInternal(LogModel log) {
         LogPageModel logPage = getBaseLogPageModel(log);
         setLogPageModel(logPage, log);
         return logPage;

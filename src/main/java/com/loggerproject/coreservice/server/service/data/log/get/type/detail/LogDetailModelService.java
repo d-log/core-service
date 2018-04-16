@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.server.service.data.log.get.type.detail;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
 import com.loggerproject.coreservice.server.service.data.customlogdata.get.CustomLogDataModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
-import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeGetService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class LogDetailModelService extends ALogTypeGetService<LogDetailModel> {
     CustomLogDataModelGetService customLogDataModelGetService;
 
     @Override
-    public LogDetailModel getByLogModel(LogModel log) {
+    public LogDetailModel getByLogModelInternal(LogModel log) {
         LogDetailModel logDetail = new LogDetailModel();
 
         logDetail.setID(log.getID());

@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.server.service.data.log.get.type.detail;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
+import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import lombok.Data;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package com.loggerproject.coreservice.server.data.document.log;
 import com.loggerproject.coreservice.server.data.document.log.extra.LogTypes;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.service.data.log.get.ALogModelTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.type.LogType;
+import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -11,7 +11,7 @@ import com.loggerproject.coreservice.server.service.data.directory.get.Directory
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
-import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;

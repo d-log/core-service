@@ -11,7 +11,8 @@ import com.loggerproject.coreservice.server.service.data.directory.create.Direct
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
-import com.loggerproject.coreservice.server.service.data.log.get.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
+import com.loggerproject.coreservice.server.service.data.log.get.regular.getter.model.GetterRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -112,7 +113,11 @@ public class CoreServiceApplicationTests {
 		System.out.println("\n current time");
 		list.forEach(logModel -> System.out.println(logModel.toString()));
 
-		page = logModelGetService.theGetter(new Date(System.currentTimeMillis()), new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));		list = page.getContent();
+		GetterRequest getterRequest = new GetterRequest();
+		getterRequest.setMillisecondThreshold(System.currentTimeMillis());
+		getterRequest.setPageable(new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
+		page = logModelGetService.theGetter(getterRequest);
+		list = page.getContent();
 		System.out.println("\n current time");
 		list.forEach(logModel -> System.out.println(logModel.toString()));
 
@@ -121,7 +126,10 @@ public class CoreServiceApplicationTests {
 		System.out.println("\n a second ago");
 		list.forEach(logModel -> System.out.println(logModel.toString()));
 
-		page = logModelGetService.theGetter(new Date(System.currentTimeMillis() - 1000), new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
+        getterRequest = new GetterRequest();
+        getterRequest.setMillisecondThreshold(System.currentTimeMillis() - 1000);
+        getterRequest.setPageable(new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
+		page = logModelGetService.theGetter(getterRequest);
 		list = page.getContent();
 		System.out.println("\n a second ago");
 		list.forEach(logModel -> System.out.println(logModel.toString()));
