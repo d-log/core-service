@@ -36,7 +36,7 @@ public class LogTypeModelGetManagerService {
     }
 
     public GlobalModel findOne(String id, LogType logType) throws Exception {
-        if (logType == null) {
+        if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findOne(id);
         } else {
             return getServiceByLogType(logType).findOne(id);
@@ -44,7 +44,7 @@ public class LogTypeModelGetManagerService {
     }
 
     public List getByIDs(Collection<String> ids, LogType logType) throws Exception {
-        if (logType == null) {
+        if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findByIds(ids);
         } else {
             return getServiceByLogType(logType).findByIDs(ids);
@@ -52,7 +52,7 @@ public class LogTypeModelGetManagerService {
     }
 
     public Page findAll(Pageable pageable, LogType logType) throws Exception {
-        if (logType == null) {
+        if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.findAll(pageable);
         } else {
             return getServiceByLogType(logType).findAll(pageable);
@@ -60,7 +60,7 @@ public class LogTypeModelGetManagerService {
     }
 
     public Page theGetter(Date dateThreshold, Pageable pageable, LogType logType) throws Exception {
-        if (logType == null) {
+        if (logType == null || logType.equals(LogType.DEFAULT)) {
             return logModelGetService.theGetter(dateThreshold, pageable);
         } else {
             return getServiceByLogType(logType).theGetter(dateThreshold, pageable);

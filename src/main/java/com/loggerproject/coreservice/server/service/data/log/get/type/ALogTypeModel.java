@@ -1,8 +1,10 @@
 package com.loggerproject.coreservice.server.service.data.log.get.type;
 
+import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.service.data.log.get.ALogModelTypeModel;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,4 +19,6 @@ public abstract class ALogTypeModel extends ALogModelTypeModel {
 
     Set<String> directoryIDs;
     Set<String> tagIDs;
+
+    List<LogData> logDatas;
 }
