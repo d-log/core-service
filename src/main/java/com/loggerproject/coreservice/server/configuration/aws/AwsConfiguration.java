@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.server.configuration;
+package com.loggerproject.coreservice.server.configuration.aws;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;

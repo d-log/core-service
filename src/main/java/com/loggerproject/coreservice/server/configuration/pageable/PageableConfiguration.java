@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.server.configuration;
+package com.loggerproject.coreservice.server.configuration.pageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ public class PageableConfiguration {
         /*
          * @GetMapping
          * public Object get(Pageable pageable) {
-         *      // pageable would now inherit defaultPageSize instead of 20
+         *      // pageable would now inherit `defaultPageSize` instead of 20
          * }
          */
         resolver.setFallbackPageable(new PageRequest(0, defaultPageSize));

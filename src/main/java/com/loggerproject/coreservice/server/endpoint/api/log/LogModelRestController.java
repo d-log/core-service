@@ -63,7 +63,12 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
 
     private ResponseEntity<?> theGetterHelper(Date date, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
         Page<ALogTypeModel> page = logTypeModelGetManagerService.theGetter(date, pageable, logType);
-        Resources resources = assembler.toResource(page);
+        Resources resources;
+        if (page.getContent().size() == 0) {
+            resources = assembler.toEmptyResource(page, ALogTypeModel.class, null);
+        } else {
+            resources = assembler.toResource(page);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
