@@ -28,7 +28,7 @@ public class CoreServiceApplication {
 				registry
 						.addMapping("/**")
 						.allowedMethods("GET")
-						.allowedOrigins("http://localhost:4200");
+						.allowedOrigins("http://localhost:4200", "http://192.168.1.2:4200");
 			}
 		};
 	}

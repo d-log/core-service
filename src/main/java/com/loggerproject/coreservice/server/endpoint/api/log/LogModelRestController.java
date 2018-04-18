@@ -8,11 +8,11 @@ import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateBindUnb
 import com.loggerproject.coreservice.server.endpoint.api.log.model.UpdateLogDatasRequest;
 import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.server.service.data.log.delete.LogModelDeleteService;
+import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import com.loggerproject.coreservice.server.service.data.log.get.LogTypeModelGetManagerService;
 import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
 import com.loggerproject.coreservice.server.service.data.log.get.regular.getter.model.GetterRequest;
 import com.loggerproject.coreservice.server.service.data.log.get.type.ALogTypeModel;
-import com.loggerproject.coreservice.server.service.data.log.get.LogType;
 import com.loggerproject.coreservice.server.service.data.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.Date;
 
 import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
