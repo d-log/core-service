@@ -43,12 +43,8 @@ public class LogTileGetService extends ALogTypeGetService<LogTileModel> {
             logTile.setTitle(log.getTitle());
         }
 
-        if (logTile.getDirectoryIDs() == null) {
-            logTile.setDirectoryIDs(log.getDirectoryIDs());
-        }
-
-        if (logTile.getTagIDs() == null) {
-            logTile.setTagIDs(log.getTagIDs());
+        if (logTile.getLogOrganization() == null) {
+            logTile.setLogOrganization(log.getLogOrganization());
         }
 
         setLogDatasToDisplay(logTile, log);

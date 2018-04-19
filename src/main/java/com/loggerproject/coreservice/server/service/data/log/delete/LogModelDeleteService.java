@@ -50,8 +50,14 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
         return model;
     }
 
+    /**
+     * TODO should do exception recovery when exception thrown (undo all updates)
+     * @param model
+     * @return
+     * @throws Exception
+     */
     public LogModel updateDocuments(LogModel model) throws Exception {
-        for (String dID : model.getDirectoryIDs()) {
+        for (String dID : model.getLogOrganization().getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.findOne(dID);
             if (d != null) {
                 d.getLogIDs().remove(model.getID());
@@ -59,7 +65,7 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
             }
         }
 
-        for (String tID : model.getTagIDs()) {
+        for (String tID : model.getLogOrganization().getTagIDs()) {
             TagModel t = tagModelGetService.findOne(tID);
             if (t != null) {
                 t.getLogIDs().remove(model.getID());

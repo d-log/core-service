@@ -3,6 +3,7 @@ package com.loggerproject.coreservice.server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
+import com.loggerproject.coreservice.server.data.document.log.extra.LogOrganization;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.impl.TextPlainLogData;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
@@ -93,7 +94,8 @@ public class CoreServiceApplicationTests {
 		directoryModelRepository.save(directory);
 
 		LogModel log = new LogModel();
-		log.setDirectoryIDs(Collections.singleton(directory.getID()));
+		log.setLogOrganization(new LogOrganization());
+		log.getLogOrganization().setDirectoryIDs(Collections.singleton(directory.getID()));
 
 		TextPlainLogData textPlainLogData = new TextPlainLogData();
 		textPlainLogData.setText("Hello World");

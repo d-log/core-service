@@ -3,6 +3,7 @@ package com.loggerproject.coreservice.server.service.data.log.create;
 import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.document.log.LogModel;
+import com.loggerproject.coreservice.server.data.document.log.extra.LogOrganization;
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogDataScrubberValidatorService;
 import com.loggerproject.coreservice.server.data.document.tag.TagModel;
 import com.loggerproject.coreservice.server.data.repository.LogModelRepository;
@@ -52,26 +53,36 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
 
     @Override
     public LogModel beforeSaveScrubAndValidate(LogModel model) throws Exception {
-        Assert.notEmpty(model.getDirectoryIDs(), "LogModel.directoryIDs cannot be empty");
-        directoryModelGetService.validateIds(model.getDirectoryIDs());
+        model.setLogOrganization(beforeScrubAndValidateLogOrganization(model.getLogOrganization()));
 
         Assert.notEmpty(model.getLogDatas(), "LogModel.logDatas cannot be empty");
         logDataScrubberValidatorService.scrubAndValidate(model.getLogDatas());
 
-        model.setTagIDs(model.getTagIDs() != null ? model.getTagIDs() : new HashSet());
-        tagModelGetService.validateIds(model.getTagIDs());
-
         return model;
     }
 
+    private LogOrganization beforeScrubAndValidateLogOrganization(LogOrganization logOrganization) throws Exception {
+        Assert.notNull(logOrganization, "LogModel.logOrganization cannot be null");
+
+        Assert.notEmpty(logOrganization.getDirectoryIDs(), "LogModel.directoryIDs cannot be empty");
+        directoryModelGetService.validateIds(logOrganization.getDirectoryIDs());
+
+        logOrganization.setTagIDs(logOrganization.getTagIDs() != null ? logOrganization.getTagIDs() : new HashSet());
+        tagModelGetService.validateIds(logOrganization.getTagIDs());
+
+        return logOrganization;
+    }
+
     protected LogModel updateOtherDocuments(LogModel model) throws Exception {
-        for (String id : model.getDirectoryIDs()) {
+        LogOrganization logOrganization = model.getLogOrganization();
+
+        for (String id : logOrganization.getDirectoryIDs()) {
             DirectoryModel d = directoryModelGetService.validateAndFindOne(id);
             d.getLogIDs().add(model.getID());
             directoryModelUpdateService.update(d);
         }
 
-        for (String id : model.getTagIDs()) {
+        for (String id : logOrganization.getTagIDs()) {
             TagModel t = tagModelGetService.validateAndFindOne(id);
             t.getLogIDs().add(model.getID());
             tagModelUpdateService.update(t);

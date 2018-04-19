@@ -36,11 +36,11 @@ public class LogDetailModelService extends ALogTypeGetService<LogDetailModel> {
 
         logDetail.setLogDatas(log.getLogDatas());
 
-        logDetail.setDirectoryIDs(log.getDirectoryIDs());
-        logDetail.setTagIDs(log.getTagIDs());
+        logDetail.getLogOrganization().setDirectoryIDs(log.getLogOrganization().getDirectoryIDs());
+        logDetail.getLogOrganization().setTagIDs(log.getLogOrganization().getTagIDs());
 
-        logDetail.setDirectoryModels(directoryModelGetService.findByIds(log.getDirectoryIDs()));
-        logDetail.setTagModels(tagModelGetService.findByIds(log.getTagIDs()));
+        logDetail.setDirectoryModels(directoryModelGetService.findByIds(log.getLogOrganization().getDirectoryIDs()));
+        logDetail.setTagModels(tagModelGetService.findByIds(log.getLogOrganization().getTagIDs()));
 
         return logDetail;
     }

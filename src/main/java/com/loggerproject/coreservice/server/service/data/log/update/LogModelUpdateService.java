@@ -71,12 +71,12 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         }
 
         for (DirectoryModel directory : bindDirectories) {
-            log.getDirectoryIDs().add(directory.getID());
+            log.getLogOrganization().getDirectoryIDs().add(directory.getID());
             directory.getLogIDs().add(logID);
             directoryModelUpdateService.update(directory);
         }
         for (DirectoryModel directory : unbindDirectories) {
-            log.getDirectoryIDs().remove(directory.getID());
+            log.getLogOrganization().getDirectoryIDs().remove(directory.getID());
             directory.getLogIDs().remove(logID);
             directoryModelUpdateService.update(directory);
         }
@@ -100,12 +100,12 @@ public class LogModelUpdateService extends GlobalServerUpdateService<LogModel> {
         }
 
         for (TagModel tag : bindTags) {
-            log.getTagIDs().add(tag.getID());
+            log.getLogOrganization().getTagIDs().add(tag.getID());
             tag.getLogIDs().add(logID);
             tagModelUpdateService.update(tag);
         }
         for (TagModel tag : unbindTags) {
-            log.getTagIDs().remove(tag.getID());
+            log.getLogOrganization().getTagIDs().remove(tag.getID());
             tag.getLogIDs().remove(logID);
             tagModelUpdateService.update(tag);
         }
