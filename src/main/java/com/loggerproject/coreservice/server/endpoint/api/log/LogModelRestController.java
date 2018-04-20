@@ -52,17 +52,25 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
     /////////////
 
     @GetMapping(value = "/the-getter", produces = {"application/hal+json"})
-    public ResponseEntity<?> theGetter(@RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(millisecondThreshold, pageable, null, assembler);
+    public ResponseEntity<?> theGetter(@RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold,
+                                       @RequestParam(value = "search", required = false) String search,
+                                       Pageable pageable,
+                                       PagedResourcesAssembler assembler) throws Exception {
+        return theGetterHelper(search, millisecondThreshold, pageable, null, assembler);
     }
 
     @GetMapping(value = "/the-getter/{log-type}", produces = {"application/hal+json"})
-    public ResponseEntity<?> theGetterLogType(@PathVariable("log-type") LogType logType, @RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(millisecondThreshold, pageable, logType, assembler);
+    public ResponseEntity<?> theGetterLogType(@PathVariable("log-type") LogType logType,
+                                              @RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold,
+                                              @RequestParam(value = "search", required = false) String search,
+                                              Pageable pageable,
+                                              PagedResourcesAssembler assembler) throws Exception {
+        return theGetterHelper(search, millisecondThreshold, pageable, logType, assembler);
     }
 
-    private ResponseEntity<?> theGetterHelper(Long millisecondThreshold, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
+    private ResponseEntity<?> theGetterHelper(String search, Long millisecondThreshold, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
         GetterRequest getterRequest = new GetterRequest();
+        getterRequest.setSearchString(search);
         getterRequest.setMillisecondThreshold(millisecondThreshold);
         getterRequest.setPageable(pageable);
         Page<ALogTypeModel> page = logTypeModelGetManagerService.theGetter(getterRequest, logType);
