@@ -68,6 +68,14 @@ public class LogModelGetterService {
             query.addCriteria(Criteria.where("_id").in(objectIds));
         }
 
+        if (getterRequest.getDirectoryID() != null) {
+            query.addCriteria(Criteria.where("logOrganization.directoryIDs").in(getterRequest.getDirectoryID()));
+        }
+
+        if (getterRequest.getTagID() != null) {
+            query.addCriteria(Criteria.where("logOrganization.tagIDs").in(getterRequest.getTagID()));
+        }
+
         // execute and build page
         List<LogModel> list = mongoTemplate.find(query, LogModel.class);
         return PageableExecutionUtils.getPage(

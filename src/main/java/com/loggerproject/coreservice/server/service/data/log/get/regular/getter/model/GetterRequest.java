@@ -8,4 +8,6 @@ public class GetterRequest {
     String searchString;
     Long millisecondThreshold;
     Pageable pageable;
+    String directoryID;
+    String tagID;
 }
