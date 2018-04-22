@@ -40,7 +40,7 @@ public abstract class GlobalServerDeleteService<T extends GlobalModel> {
     }
 
     public T delete(String id) throws Exception {
-        T t = (T)globalServerGetService.validateAndFindOne(id);
+        T t = (T) globalServerGetService.validateAndFindOne(id);
         t = beforeDelete(t);
         repository.delete(id);
         t = afterDelete(t);
@@ -55,8 +55,7 @@ public abstract class GlobalServerDeleteService<T extends GlobalModel> {
             try {
                 delete(model.getID());
                 response.getDeletedIDs().add(model.getID());
-            }
-            catch(ValidateDeleteModelException e) {
+            } catch (ValidateDeleteModelException e) {
                 response.getNotDeletedIDs().add(model.getID());
                 response.getReasons().put(model.getID(), e.getMessage());
             }

@@ -42,7 +42,7 @@ public class ImageUploadService {
     private File tmpDirectory;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         tmpDirectory = new File(tmpDir);
     }
 
@@ -57,7 +57,7 @@ public class ImageUploadService {
      * @throws IOException
      */
     private File generateImageFile(URL url) throws IOException {
-        File file = File.createTempFile("image-upload-","", tmpDirectory);
+        File file = File.createTempFile("image-upload-", "", tmpDirectory);
         FileUtils.copyURLToFile(url, file);
 
         String extension = getImageFileFormatName(file);
@@ -95,15 +95,15 @@ public class ImageUploadService {
         }
 
         BufferedImage bufferedImage = ImageIO.read(imageFile);
-        Integer width               = bufferedImage.getWidth();
-        Integer height              = bufferedImage.getHeight();
+        Integer width = bufferedImage.getWidth();
+        Integer height = bufferedImage.getHeight();
 
         imageModel.setExtension(extension);
         imageModel.setSource(new ImageSource());
         imageModel.setExtension(extension);
         imageModel.setWidth(width);
         imageModel.setHeight(height);
-        imageModel.setHeightDividedByWidth((double)height/(double)width);
+        imageModel.setHeightDividedByWidth((double) height / (double) width);
         imageModel.setImageURL(imageURL);
         imageModel = imageModelUpdateService.update(imageModel);
 

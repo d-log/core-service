@@ -13,15 +13,19 @@ import java.util.List;
 @Repository
 public interface DirectoryModelRepository extends MongoRepository<DirectoryModel, String> {
     List<DirectoryModel> findByName(String name);
+
     List<DirectoryModel> findByNameStartingWith(String str);
+
     List<DirectoryModel> findByNameEndingWith(String str);
 
     /**
      * all users that have names containing substring `str` and order the results by created in ascending order
+     *
      * @param str
      * @return Page
      */
     Page<DirectoryModel> findByNameLikeOrderByMetadata_CreatedAsc(String str, Pageable pageable);
+
     Page<DirectoryModel> findByNameLikeOrderByMetadata_CreatedDesc(String str, Pageable pageable);
 
     List<DirectoryModel> findByMetadata_CreatedBetween(Date createdDateGT, Date createDateLT, Pageable pageable);

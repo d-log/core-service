@@ -27,7 +27,7 @@ public class DirectoryModelDeleteService extends GlobalServerDeleteService<Direc
     }
 
     public DirectoryModel validateDelete(DirectoryModel model) throws Exception {
-        if(model.getLogIDs().size() > 0) {
+        if (model.getLogIDs().size() > 0) {
             throw new ModelBoundedToLogException(model.getID(), model.getLogIDs());
         }
         return model;

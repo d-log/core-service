@@ -15,7 +15,8 @@ public class MetaData {
     /**
      * This default constructor is needed for fasterxml to recreate the MetaData object from DB
      */
-    public MetaData() {}
+    public MetaData() {
+    }
 
     public MetaData(Date created, Date lastUpdated) {
         this.created = created;

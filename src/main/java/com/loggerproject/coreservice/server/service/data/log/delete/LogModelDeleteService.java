@@ -52,6 +52,7 @@ public class LogModelDeleteService extends GlobalServerDeleteService<LogModel> {
 
     /**
      * TODO should do exception recovery when exception thrown (undo all updates)
+     *
      * @param model
      * @return
      * @throws Exception

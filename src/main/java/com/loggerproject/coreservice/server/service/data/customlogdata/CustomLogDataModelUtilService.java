@@ -71,7 +71,7 @@ public class CustomLogDataModelUtilService {
         CustomLogDataModel model = customLogDataModelGetService.validateAndFindOne(customLogDataID);
         validateDataByModel(data, model);
     }
-    
+
     private void validateDataByModel(String data, CustomLogDataModel model) throws Exception {
         validateDataAgainstSchema(data, model);
         logDataStatementService.executeValidateDataStatementAgainstData(data, model.getValidateDataStatement());
@@ -84,12 +84,10 @@ public class CustomLogDataModelUtilService {
 
             // validate json subject against custom json schema
             schema.validate(new JSONObject(data));
-        }
-        catch (SchemaException e) {
+        } catch (SchemaException e) {
             // custom json schema failed $schema definition
             throw new Exception("ERROR database is in invalid state - customlogdata id: " + model.getID() + " contains an invalid custom json schema: " + model.getDataSchemaJSON());
-        }
-        catch (ValidationException e) {
+        } catch (ValidationException e) {
             // json subject failed custom json schema
             throw new Exception("ERROR document failed validation against custom json schema - " + e.getMessage() + "\nCUSTOM SCHEMA\n"
                     + model.getDataSchemaJSON()

@@ -21,7 +21,8 @@ public class AmazonS3BucketService {
 
     /**
      * Uploads a MultipartFile with key name to the AWS bucket
-     * @param keyName - the specified key name of the multipart file
+     *
+     * @param keyName       - the specified key name of the multipart file
      * @param multipartFile - the multipart file
      * @return String - url of file uploaded, null if upload failed
      */
@@ -29,7 +30,7 @@ public class AmazonS3BucketService {
         String url = null;
 
         File file = multipartToFile(multipartFile);
-        if(file != null) {
+        if (file != null) {
             url = uploadFile(keyName, file);
         }
 
@@ -38,7 +39,8 @@ public class AmazonS3BucketService {
 
     /**
      * Uploads a File with key name to the AWS bucket
-     * @param key - the specified key name of the file
+     *
+     * @param key  - the specified key name of the file
      * @param file - the file
      * @return String - url of file uploaded, null if upload failed
      */
@@ -51,6 +53,7 @@ public class AmazonS3BucketService {
 
     /**
      * Delete file from AWS bucket by keyName
+     *
      * @param keyName - the keyName
      */
     public void deleteFile(String keyName) {
@@ -59,6 +62,7 @@ public class AmazonS3BucketService {
 
     /**
      * Converts MultipartFile to File
+     *
      * @param multipartFile - the multipart file to transform
      * @return File - the file requested
      */

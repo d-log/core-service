@@ -34,7 +34,7 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
 
     @Override
     public TagModel beforeSaveScrubAndValidate(TagModel model) throws Exception {
-        if(!CollectionUtils.isEmpty(model.getLogIDs())) {
+        if (!CollectionUtils.isEmpty(model.getLogIDs())) {
             throw new Exception("logIDs must be empty");
         }
 

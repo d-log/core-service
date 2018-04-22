@@ -26,16 +26,16 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
     }
 
     public DirectoryModel changeName(String id, String name) throws Exception {
-        DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(id);
+        DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(id);
         model.setName(name);
         model = update(model);
         return model;
     }
 
     public DirectoryModel assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
-        DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
-        DirectoryModel oldParent = (DirectoryModel)globalServerGetService.validateAndFindOne(oldParentID);
-        DirectoryModel newParent = (DirectoryModel)globalServerGetService.validateAndFindOne(newParentID);
+        DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(childID);
+        DirectoryModel oldParent = (DirectoryModel) globalServerGetService.validateAndFindOne(oldParentID);
+        DirectoryModel newParent = (DirectoryModel) globalServerGetService.validateAndFindOne(newParentID);
 
         model.getParentIDs().remove(oldParentID);
         oldParent.getChildrenIDs().remove(childID);
@@ -51,8 +51,8 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
     }
 
     public DirectoryModel assignAdditionalParent(String childID, String parentID) throws Exception {
-        DirectoryModel model = (DirectoryModel)globalServerGetService.validateAndFindOne(childID);
-        DirectoryModel parent = (DirectoryModel)globalServerGetService.validateAndFindOne(parentID);
+        DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(childID);
+        DirectoryModel parent = (DirectoryModel) globalServerGetService.validateAndFindOne(parentID);
 
         model.getParentIDs().add(parentID);
         parent.getChildrenIDs().add(childID);

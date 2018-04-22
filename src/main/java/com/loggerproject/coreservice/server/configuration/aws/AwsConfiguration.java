@@ -15,6 +15,6 @@ public class AwsConfiguration {
 
     @Bean
     public AmazonS3Client amazonS3() {
-        return (AmazonS3Client)AmazonS3ClientBuilder.defaultClient();
+        return (AmazonS3Client) AmazonS3ClientBuilder.defaultClient();
     }
 }

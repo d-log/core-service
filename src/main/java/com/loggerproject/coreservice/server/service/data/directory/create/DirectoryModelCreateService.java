@@ -52,8 +52,8 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
     }
 
     private DirectoryModel updateOtherDocuments(DirectoryModel model) throws Exception {
-        for(String parentID : model.getParentIDs()) {
-            DirectoryModel parent = (DirectoryModel)globalServerGetService.findOne(parentID);
+        for (String parentID : model.getParentIDs()) {
+            DirectoryModel parent = (DirectoryModel) globalServerGetService.findOne(parentID);
             parent.getChildrenIDs().add(model.getID());
             directoryModelUpdateService.update(parent);
         }

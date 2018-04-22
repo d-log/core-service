@@ -16,20 +16,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableSpringDataWebSupport
 public class CoreServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CoreServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CoreServiceApplication.class, args);
+    }
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry
-						.addMapping("/**")
-						.allowedMethods("GET")
-						.allowedOrigins("http://localhost:4200", "http://192.168.1.2:4200");
-			}
-		};
-	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry
+                        .addMapping("/**")
+                        .allowedMethods("GET")
+                        .allowedOrigins("http://localhost:4200", "http://192.168.1.2:4200");
+            }
+        };
+    }
 }

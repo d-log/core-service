@@ -37,6 +37,7 @@ public class LogPageGetService extends ALogTypeGetService<LogPageModel> {
 
     /**
      * TODO set value only when null, so far its replacing everything
+     *
      * @param logPage
      * @param log
      */

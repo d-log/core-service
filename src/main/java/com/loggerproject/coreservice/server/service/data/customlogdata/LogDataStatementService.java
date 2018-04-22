@@ -20,12 +20,12 @@ public class LogDataStatementService {
         String[] splitStr = validateDataStatement.getStatement().trim().split("\\s+");
 
         // replace all {{.*}} with values from String logdata
-        for (int i = 0; i<splitStr.length; i++) {
+        for (int i = 0; i < splitStr.length; i++) {
             String str = splitStr[i];
             Integer l = str.length();
             if (l > 5) {
-                if (str.substring(0, 2).equals("{{") && str.substring(l-2, l).equals("}}")) {
-                    String path = str.substring(2,l-2);
+                if (str.substring(0, 2).equals("{{") && str.substring(l - 2, l).equals("}}")) {
+                    String path = str.substring(2, l - 2);
                     try {
                         splitStr[i] = JsonPath.read(data, path);
                     } catch (PathNotFoundException e) {
@@ -42,7 +42,6 @@ public class LogDataStatementService {
     }
 
     /**
-     *
      * @param splitStr String[] array of lexical within a single statement eg '! db contains image id bschjsbchsjcbsjc'
      * @return Boolean true for valid, false for invalid
      */
@@ -65,7 +64,7 @@ public class LogDataStatementService {
                     if (splitStr[i].equals("image")) {
                         i++;
                         if (splitStr[i].equals("id")) {
-                            String id = splitStr[i+1];
+                            String id = splitStr[i + 1];
                             valid = imageModelGetService.exists(id);
                         }
                     }

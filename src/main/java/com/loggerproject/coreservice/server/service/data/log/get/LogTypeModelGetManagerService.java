@@ -33,7 +33,7 @@ public class LogTypeModelGetManagerService {
     @Autowired
     public LogTypeModelGetManagerService(List<ALogTypeGetService> logTypeGetServices) throws Exception {
         for (ALogTypeGetService logTypeGetService : logTypeGetServices) {
-            ALogTypeModel logTypeModel = (ALogTypeModel)GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).newInstance();
+            ALogTypeModel logTypeModel = (ALogTypeModel) GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).newInstance();
             mapModel2GetService.put(logTypeModel.getLogType(), logTypeGetService);
         }
     }

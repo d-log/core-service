@@ -17,7 +17,7 @@ import java.util.List;
  * ALogTypeModel mirrors this class, hence when updating this class please make the necessary changes there as well
  */
 @Data
-@ToString(callSuper=true)
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "log")
 public class LogModel extends ALogModelTypeModel {

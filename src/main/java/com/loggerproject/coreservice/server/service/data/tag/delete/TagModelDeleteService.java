@@ -27,7 +27,7 @@ public class TagModelDeleteService extends GlobalServerDeleteService<TagModel> {
     }
 
     public TagModel validateDelete(TagModel model) throws Exception {
-        if(model.getLogIDs().size() > 0) {
+        if (model.getLogIDs().size() > 0) {
             throw new ModelBoundedToLogException(model.getID(), model.getLogIDs());
         }
 

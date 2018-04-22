@@ -97,7 +97,7 @@ public class LogModelRestController extends GlobalModelController<LogModel> {
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
-    @GetMapping(value = "/all/{log-type}", produces="application/hal+json")
+    @GetMapping(value = "/all/{log-type}", produces = "application/hal+json")
     public ResponseEntity<?> getAllLogType(@PathVariable("log-type") LogType logType, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
         Page page = logTypeModelGetManagerService.findAll(pageable, logType);
         Resources resources = assembler.toResource(page);

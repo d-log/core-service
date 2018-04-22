@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminControllerUI {
 
     @GetMapping("/home")
-    public @ResponseBody  String test() {
+    public @ResponseBody
+    String test() {
         return "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +

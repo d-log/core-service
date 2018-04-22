@@ -10,7 +10,7 @@ public class ModelBoundedToLogException extends ValidateDeleteModelException {
     Collection<String> boundedLogIDs;
 
     public ModelBoundedToLogException(String modelID, Collection<String> boundedLogIDs) {
-        super(modelID, "Model: '" + modelID +"' bounded to log(s): " + boundedLogIDs.toString());
+        super(modelID, "Model: '" + modelID + "' bounded to log(s): " + boundedLogIDs.toString());
         this.boundedLogIDs = boundedLogIDs;
     }
 }

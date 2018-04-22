@@ -32,7 +32,7 @@ public class LogDataScrubberValidatorService {
         }
     }
 
-    @SuppressWarnings(value= "unchecked")
+    @SuppressWarnings(value = "unchecked")
     public void scrubAndValidate(LogData logData) throws Exception {
         String logDataType = logData.getLogDataType();
         String data = logData.getData();

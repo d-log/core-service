@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Data
-@ToString(callSuper=true)
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "directory")
 public class DirectoryModel extends GlobalModel implements Serializable {

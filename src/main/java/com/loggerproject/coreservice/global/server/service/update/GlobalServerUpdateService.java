@@ -30,7 +30,7 @@ public abstract class GlobalServerUpdateService<T extends GlobalModel> {
 
     @SuppressWarnings("unchecked")
     protected T beforeUpdate(T t) throws Exception {
-        T old = (T)this.globalServerGetService.validateAndFindOne(t.getID());
+        T old = (T) this.globalServerGetService.validateAndFindOne(t.getID());
         t.setMetadata(old.getMetadata());
         t.getMetadata().setLastUpdated(new Date());
         return t;

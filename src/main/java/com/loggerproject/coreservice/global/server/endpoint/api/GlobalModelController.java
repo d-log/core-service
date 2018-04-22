@@ -51,7 +51,7 @@ public abstract class GlobalModelController<T extends GlobalModel> {
         this.globalServerUpdateService = globalServerUpdateService;
     }
 
-    @PostMapping(produces="application/hal+json")
+    @PostMapping(produces = "application/hal+json")
     public ResponseEntity<?> create(@RequestBody T model) throws Exception {
         T t = globalServerCreateService.create(model);
         Resources<T> resources = new EmptiableResources(genericType, Collections.singletonList(t));
@@ -59,7 +59,7 @@ public abstract class GlobalModelController<T extends GlobalModel> {
         return ResponseEntity.status(HttpStatus.CREATED).body(resources);
     }
 
-    @DeleteMapping(value = "/{id}", produces="application/hal+json")
+    @DeleteMapping(value = "/{id}", produces = "application/hal+json")
     public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception {
         T t = globalServerDeleteService.delete(id);
         Resources<T> resources = new EmptiableResources(genericType, Collections.singletonList(t));
@@ -74,7 +74,7 @@ public abstract class GlobalModelController<T extends GlobalModel> {
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
-    @GetMapping(value = "/{id}", produces="application/hal+json")
+    @GetMapping(value = "/{id}", produces = "application/hal+json")
     public ResponseEntity<?> get(@PathVariable("id") String id) throws Exception {
         T model = globalServerGetService.validateAndFindOne(id);
         Resources<T> resources = new EmptiableResources(genericType, Collections.singletonList(model));
@@ -84,11 +84,12 @@ public abstract class GlobalModelController<T extends GlobalModel> {
 
     /**
      * pageable URL parameters `?page=1&size=2&sort=metadata.created,desc`
-     * @param pageable - values customizable via URL parameters - otherwise default will be in place
+     *
+     * @param pageable  - values customizable via URL parameters - otherwise default will be in place
      * @param assembler - autowired
      * @return
      */
-    @GetMapping(value = "/all", produces="application/hal+json")
+    @GetMapping(value = "/all", produces = "application/hal+json")
     public ResponseEntity<?> getAll(Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
         Page<T> page = globalServerGetService.findAll(pageable);
         PagedResources<T> resources = assembler.toResource(page);
