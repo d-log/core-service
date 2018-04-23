@@ -10,6 +10,7 @@ import com.loggerproject.coreservice.server.service.data.tag.update.TagModelUpda
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
@@ -18,7 +19,7 @@ import java.util.HashSet;
 public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
 
     @Autowired
-    TagModelRepository tagModelRepository;
+    TagModelGetService tagModelGetService;
 
     @Autowired
     LogModelGetService logModelGetService;
@@ -34,12 +35,14 @@ public class TagModelCreateService extends GlobalServerCreateService<TagModel> {
 
     @Override
     public TagModel beforeSaveScrubAndValidate(TagModel model) throws Exception {
-        if (!CollectionUtils.isEmpty(model.getLogIDs())) {
-            throw new Exception("logIDs must be empty");
+        Assert.hasText(model.getName(), "TagModel.name must not be empty");
+        Assert.isTrue(CollectionUtils.isEmpty(model.getLogIDs()), "TagModel.logIDs must be empty");
+
+        if (tagModelGetService.findByName(model.getName()).size() > 0) {
+            throw new Exception("TagModel.name: '" + model.getName() + "' already exists");
         }
 
         model.setLogIDs(new HashSet<>());
-        model.setName(model.getName() == null ? "" : model.getName());
 
         return model;
     }

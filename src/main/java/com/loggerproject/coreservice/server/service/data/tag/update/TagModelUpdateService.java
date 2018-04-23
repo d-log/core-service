@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
 
     @Autowired
-    TagModelRepository tagModelRepository;
-
-    @Autowired
     TagModelGetService tagModelGetService;
 
     @Autowired
@@ -30,6 +27,11 @@ public class TagModelUpdateService extends GlobalServerUpdateService<TagModel> {
 
     public TagModel changeName(String id, String name) throws Exception {
         TagModel model = tagModelGetService.validateAndFindOne(id);
+
+        if (tagModelGetService.findByName(name).size() > 0) {
+            throw new Exception("TagModel.name: '" + name + "' already exists");
+        }
+
         model.setName(name);
         return this.update(model);
     }
