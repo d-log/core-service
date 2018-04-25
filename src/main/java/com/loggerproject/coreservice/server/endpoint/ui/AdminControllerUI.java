@@ -15,7 +15,7 @@ public class AdminControllerUI {
                 "<head>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "  <form method=\"POST\" action=\"/api/image-upload/file\" enctype=\"multipart/form-logdata\">\n" +
+                "  <form method=\"POST\" action=\"/api/image-upload/file\" enctype=\"multipart/form-data\">\n" +
                 "    <input type=\"file\" name=\"file\" /><br/><br/>\n" +
                 "    <input type=\"submit\" value=\"Submit\" />\n" +
                 "  </form>\n" +

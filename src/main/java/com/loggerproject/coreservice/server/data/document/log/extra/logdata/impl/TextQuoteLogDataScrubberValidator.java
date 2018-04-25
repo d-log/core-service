@@ -3,6 +3,7 @@ package com.loggerproject.coreservice.server.data.document.log.extra.logdata.imp
 import com.loggerproject.coreservice.server.data.document.log.extra.logdata.ALogDataScrubberValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 @Service
 public class TextQuoteLogDataScrubberValidator extends ALogDataScrubberValidator<TextQuoteLogData> {
@@ -11,13 +12,13 @@ public class TextQuoteLogDataScrubberValidator extends ALogDataScrubberValidator
     public TextQuoteLogData scrubAndValidateLogData(TextQuoteLogData data) {
         Assert.hasText(data.getQuote(), "TextQuoteLogData.quote cannot be empty");
 
-        if (data.getQuoteSource() == null) {
-            data.setQuoteSource("unknown");
+        if (!StringUtils.hasText(data.getSourceType())) {
+            data.setSourceType("unknown");
         }
-        if (data.getSourceName() == null) {
+        if (!StringUtils.hasText(data.getSourceName())) {
             data.setSourceName("unknown");
         }
-        if (data.getFormOfCommunication() == null) {
+        if (!StringUtils.hasText(data.getFormOfCommunication())) {
             data.setFormOfCommunication("unknown");
         }
 

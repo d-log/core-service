@@ -47,6 +47,11 @@ public class ImageUploadRestController {
         ImageModel model = imageUploadService.uploadImage(file);
 
         file.delete();
+        // passing null param bc: No converter found capable of converting
+        // from type
+        // [@org.springframework.web.bind.annotation.RequestParam org.springframework.web.multipart.MultipartFile]
+        // to type
+        // [java.lang.String]
         return hateosBuilder(model, methodOn(getClass()).uploadImageSourceFile(null));
     }
 

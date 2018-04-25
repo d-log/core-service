@@ -8,7 +8,7 @@ public class TextQuoteLogData {
     String quote;
 
     // optional, if not provided default to unknown
-    String formOfCommunication;
-    String quoteSource;
-    String sourceName;
+    String formOfCommunication; // such as: teacher to student
+    String sourceType; // such as: book,  movie, song,
+    String sourceName; // such as: Bible, Her,   Hey Jude,
 }
