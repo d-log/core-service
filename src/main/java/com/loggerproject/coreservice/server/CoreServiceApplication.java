@@ -27,8 +27,22 @@ public class CoreServiceApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**")
+                        // allow only GET methods for now
                         .allowedMethods("GET")
-                        .allowedOrigins("http://localhost:4200", "http://192.168.1.2:4200");
+                        .allowedOrigins(
+                                // PRIVATE ADDRESSES
+                                // local machine
+                                "http://localhost:4200",
+                                "http://localhost:8080",
+                                // router
+                                "http://192.168.1.2:4200",
+                                "http://192.168.1.2:8080",
+                                // PUBLIC ADDRESSES - maybe private
+                                // global - default ports
+                                "http://ui.marcuschiu.com:8080",
+                                "http://ui.marcuschiu.com:4200",
+                                "http://ui.marcuschiu.com:80",
+                                "http://ui.marcuschiu.com");
             }
         };
     }
