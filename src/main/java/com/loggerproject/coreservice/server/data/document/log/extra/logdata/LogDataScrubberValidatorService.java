@@ -16,6 +16,7 @@ public class LogDataScrubberValidatorService {
     CustomLogDataModelUtilService customLogDataModelUtilService;
 
     // simple class name to validator objects
+    // example: "VideoYouTubeLogData" -> VideoYouTubeLogDataScrubberValidator object
     private HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
 
     @Autowired

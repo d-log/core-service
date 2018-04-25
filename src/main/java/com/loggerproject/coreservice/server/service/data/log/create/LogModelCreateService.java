@@ -25,9 +25,6 @@ import java.util.HashSet;
 public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
 
     @Autowired
-    LogModelRepository LogModelRepository;
-
-    @Autowired
     DirectoryModelGetService directoryModelGetService;
 
     @Autowired
@@ -53,6 +50,8 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
 
     @Override
     public LogModel beforeSaveScrubAndValidate(LogModel model) throws Exception {
+        Assert.hasText(model.getTitle(), "LogModel.title cannot be empty");
+
         model.setLogOrganization(beforeScrubAndValidateLogOrganization(model.getLogOrganization()));
 
         Assert.notEmpty(model.getLogDatas(), "LogModel.logDatas cannot be empty");
@@ -73,7 +72,7 @@ public class LogModelCreateService extends GlobalServerCreateService<LogModel> {
         return logOrganization;
     }
 
-    protected LogModel updateOtherDocuments(LogModel model) throws Exception {
+    private LogModel updateOtherDocuments(LogModel model) throws Exception {
         LogOrganization logOrganization = model.getLogOrganization();
 
         for (String id : logOrganization.getDirectoryIDs()) {

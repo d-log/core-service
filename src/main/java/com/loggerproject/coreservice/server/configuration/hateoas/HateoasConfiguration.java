@@ -7,6 +7,9 @@ import org.springframework.hateoas.RelProvider;
 @Configuration
 public class HateoasConfiguration {
 
+    /**
+     * @return RootRelProvider - a custom RelProvider
+     */
     @Bean
     public RelProvider relProvider() {
         return new RootRelProvider();
