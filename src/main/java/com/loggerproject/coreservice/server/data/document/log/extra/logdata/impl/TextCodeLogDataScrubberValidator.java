@@ -12,6 +12,9 @@ public class TextCodeLogDataScrubberValidator extends ALogDataScrubberValidator<
         if (data.getStartingLineNumber() == null) {
             data.setStartingLineNumber(1);
         }
+        if (data.getShowLineNumber() == null) {
+            data.setShowLineNumber(true);
+        }
         if (data.getMaxHeight() == null || data.getMaxHeight() < -1) {
             data.setMaxHeight(-1); // meaning infinite
         }

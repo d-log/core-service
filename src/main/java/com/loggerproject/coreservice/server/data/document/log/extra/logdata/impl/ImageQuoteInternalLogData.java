@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ImageQuoteInternalLogData {
+    Boolean imageContainsQuote;
     ImageInternalLogData imageInternalLogData;
     TextQuoteLogData textQuoteLogData;
 }
