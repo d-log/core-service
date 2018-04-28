@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class DirectoryRootService {
 
-    public static final String ROOT_NAME = "THE_SUPER_ROOT";
+    public static final String ROOT_NAME = "ROOT_DIRECTORY";
 
     @Autowired
     DirectoryModelGetService directoryModelGetService;
