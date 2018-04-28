@@ -3,6 +3,7 @@ package com.loggerproject.coreservice.server.service.data.directory.get;
 import com.loggerproject.coreservice.global.server.service.get.GlobalServerGetService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
+import com.loggerproject.coreservice.server.service.data.directory.DirectoryRootService;
 import com.loggerproject.coreservice.server.service.data.directory.create.DirectoryModelCreateService;
 import com.loggerproject.coreservice.server.service.data.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
@@ -25,6 +26,9 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
     DirectoryModelRepository directoryModelRepository;
 
     @Autowired
+    DirectoryRootService directoryRootService;
+
+    @Autowired
     public DirectoryModelGetService(DirectoryModelRepository repository,
                                     @Lazy DirectoryModelCreateService globalServerCreateService,
                                     @Lazy DirectoryModelDeleteService globalServerDeleteService,
@@ -32,6 +36,10 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
                                     @Lazy DirectoryModelUpdateService globalServerUpdateService,
                                     @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService, maxPageSize);
+    }
+
+    public DirectoryModel getRoot() {
+        return directoryRootService.getRoot();
     }
 
     public List<DirectoryModel> findByName(String name) {
@@ -42,7 +50,15 @@ public class DirectoryModelGetService extends GlobalServerGetService<DirectoryMo
         return findChildren(id, 1);
     }
 
+    /**
+     *
+     * @param id
+     * @param level - if null then default 1
+     * @return DirectoryModel[]
+     * @throws Exception
+     */
     public List<DirectoryModel> findChildren(String id, Integer level) throws Exception {
+        level = level == null ? 1 : level;
         List<DirectoryModel> children = new ArrayList<>();
 
         if (level > 0) {

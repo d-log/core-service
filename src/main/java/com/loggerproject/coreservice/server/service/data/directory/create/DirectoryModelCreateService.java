@@ -3,12 +3,14 @@ package com.loggerproject.coreservice.server.service.data.directory.create;
 import com.loggerproject.coreservice.global.server.service.create.GlobalServerCreateService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
+import com.loggerproject.coreservice.server.service.data.directory.DirectoryRootService;
 import com.loggerproject.coreservice.server.service.data.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
 import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
@@ -21,6 +23,9 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
 
     @Autowired
     DirectoryModelUpdateService directoryModelUpdateService;
+
+    @Autowired
+    DirectoryRootService directoryRootService;
 
     @Autowired
     public DirectoryModelCreateService(DirectoryModelRepository repository,
@@ -39,12 +44,18 @@ public class DirectoryModelCreateService extends GlobalServerCreateService<Direc
         if (!CollectionUtils.isEmpty(model.getChildrenIDs())) {
             throw new Exception("DirectoryModel.childrenIDs should be empty");
         }
+        Assert.notEmpty(model.getParentIDs(), "DirectoryModel.parentIDs cannot be empty (you can specify '" + DirectoryRootService.ROOT_NAME + "' as parent id)");
 
         model.setLogIDs(new HashSet<>());
         model.setChildrenIDs(new HashSet<>());
-        model.setParentIDs(model.getParentIDs() == null ? new HashSet<>() : model.getParentIDs());
         model.setName(model.getName() == null ? "" : model.getName());
         model.setDescription(model.getDescription() == null ? "" : model.getDescription());
+
+        directoryRootService.validateNotRoot(model);
+
+        if (model.getParentIDs().remove(DirectoryRootService.ROOT_NAME)) {
+            model.getParentIDs().add(directoryRootService.getRoot().getID());
+        }
 
         globalServerGetService.validateIds(model.getParentIDs());
 

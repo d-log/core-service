@@ -3,6 +3,7 @@ package com.loggerproject.coreservice.server.service.data.directory.update;
 import com.loggerproject.coreservice.global.server.service.update.GlobalServerUpdateService;
 import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
 import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
+import com.loggerproject.coreservice.server.service.data.directory.DirectoryRootService;
 import com.loggerproject.coreservice.server.service.data.directory.create.DirectoryModelCreateService;
 import com.loggerproject.coreservice.server.service.data.directory.delete.DirectoryModelDeleteService;
 import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class DirectoryModelUpdateService extends GlobalServerUpdateService<DirectoryModel> {
 
     @Autowired
-    DirectoryModelRepository directoryModelRepository;
+    DirectoryRootService directoryRootService;
 
     @Autowired
     public DirectoryModelUpdateService(DirectoryModelRepository repository,
@@ -28,8 +29,9 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
     public DirectoryModel changeName(String id, String name) throws Exception {
         DirectoryModel model = (DirectoryModel) globalServerGetService.validateAndFindOne(id);
         model.setName(name);
-        model = update(model);
-        return model;
+        directoryRootService.validateNotRoot(model);
+
+        return update(model);
     }
 
     public DirectoryModel assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
@@ -45,9 +47,8 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
 
         update(oldParent);
         update(newParent);
-        model = update(model);
 
-        return model;
+        return update(model);
     }
 
     public DirectoryModel assignAdditionalParent(String childID, String parentID) throws Exception {
@@ -58,8 +59,7 @@ public class DirectoryModelUpdateService extends GlobalServerUpdateService<Direc
         parent.getChildrenIDs().add(childID);
 
         update(parent);
-        update(model);
 
-        return model;
+        return update(model);
     }
 }
