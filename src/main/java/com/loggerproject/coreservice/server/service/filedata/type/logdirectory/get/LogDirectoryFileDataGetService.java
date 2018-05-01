@@ -23,9 +23,9 @@ public class LogDirectoryFileDataGetService extends AFileDataGetService<LogDirec
 
     @Autowired
     public LogDirectoryFileDataGetService(@Lazy LogDirectoryFileDataCreateService globalServerCreateService,
-                                 @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
-                                 @Lazy LogDirectoryFileDataGetService globalServerGetService,
-                                 @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
+                                          @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
+                                          @Lazy LogDirectoryFileDataGetService globalServerGetService,
+                                          @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 

@@ -31,9 +31,9 @@ public class LogDirectoryFileDataCreateService extends AFileDataCreateService<Lo
 
     @Autowired
     public LogDirectoryFileDataCreateService(@Lazy LogDirectoryFileDataCreateService globalServerCreateService,
-                                    @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
-                                    @Lazy LogDirectoryFileDataGetService globalServerGetService,
-                                    @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
+                                             @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
+                                             @Lazy LogDirectoryFileDataGetService globalServerGetService,
+                                             @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 

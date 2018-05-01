@@ -15,9 +15,9 @@ public class LogDirectoryFileDataUpdateService extends AFileDataUpdateService<Lo
 
     @Autowired
     public LogDirectoryFileDataUpdateService(@Lazy LogDirectoryFileDataCreateService globalServerCreateService,
-                                    @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
-                                    @Lazy LogDirectoryFileDataGetService globalServerGetService,
-                                    @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
+                                             @Lazy LogDirectoryFileDataDeleteService globalServerDeleteService,
+                                             @Lazy LogDirectoryFileDataGetService globalServerGetService,
+                                             @Lazy LogDirectoryFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 

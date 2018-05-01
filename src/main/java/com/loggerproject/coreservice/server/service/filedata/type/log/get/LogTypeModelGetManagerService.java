@@ -38,7 +38,6 @@ public class LogTypeModelGetManagerService {
     }
 
     /**
-     *
      * @param id
      * @param logType
      * @return FileModel | ALogModelTypeModel

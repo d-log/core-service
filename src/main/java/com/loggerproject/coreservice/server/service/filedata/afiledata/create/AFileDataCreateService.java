@@ -7,7 +7,6 @@ import com.loggerproject.coreservice.server.service.filedata.afiledata.delete.AF
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.AFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.update.AFileDataUpdateService;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.GenericTypeResolver;
 
 import java.util.Date;
 
@@ -54,6 +53,7 @@ public abstract class AFileDataCreateService<T> extends AFileDataCrudService<T> 
 
     /**
      * TODO exception handle
+     *
      * @param t
      * @return
      * @throws Exception
@@ -64,6 +64,7 @@ public abstract class AFileDataCreateService<T> extends AFileDataCrudService<T> 
 
     /**
      * TODO exception handle
+     *
      * @param t
      * @return
      * @throws Exception

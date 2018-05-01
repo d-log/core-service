@@ -15,9 +15,9 @@ public class ImageFileDataUpdateService extends AFileDataUpdateService<ImageFile
 
     @Autowired
     public ImageFileDataUpdateService(@Lazy ImageFileDataCreateService globalServerCreateService,
-                                    @Lazy ImageFileDataDeleteService globalServerDeleteService,
-                                    @Lazy ImageFileDataGetService globalServerGetService,
-                                    @Lazy ImageFileDataUpdateService globalServerUpdateService) {
+                                      @Lazy ImageFileDataDeleteService globalServerDeleteService,
+                                      @Lazy ImageFileDataGetService globalServerGetService,
+                                      @Lazy ImageFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 

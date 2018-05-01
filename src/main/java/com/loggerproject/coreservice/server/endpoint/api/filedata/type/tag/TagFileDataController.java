@@ -15,9 +15,9 @@ public class TagFileDataController extends AFileDataController {
 
     @Autowired
     public TagFileDataController(TagFileDataCreateService globalServerCreateService,
-                               TagFileDataDeleteService globalServerDeleteService,
-                               TagFileDataGetService globalServerGetService,
-                               TagFileDataUpdateService globalServerUpdateService) {
+                                 TagFileDataDeleteService globalServerDeleteService,
+                                 TagFileDataGetService globalServerGetService,
+                                 TagFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 }

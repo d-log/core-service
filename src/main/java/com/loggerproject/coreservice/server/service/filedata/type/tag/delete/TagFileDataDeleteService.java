@@ -24,7 +24,7 @@ public class TagFileDataDeleteService extends AFileDataDeleteService<TagFileData
 
     @Override
     public FileModel beforeDeleteValidate(FileModel model) throws Exception {
-        TagFileData fileData = (TagFileData)model.getData();
+        TagFileData fileData = (TagFileData) model.getData();
         if (fileData.getLogFileIDs().size() > 0) {
             throw new ModelBoundedToLogException(model.getId(), fileData.getLogFileIDs());
         }

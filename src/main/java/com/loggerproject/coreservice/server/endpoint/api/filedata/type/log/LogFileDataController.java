@@ -11,7 +11,6 @@ import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogTyp
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogTypeModelGetManagerService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.LogFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.getter.model.GetterRequest;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeModel;
 import com.loggerproject.coreservice.server.service.filedata.type.log.update.LogFileDataUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

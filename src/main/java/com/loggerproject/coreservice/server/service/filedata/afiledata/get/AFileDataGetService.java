@@ -7,7 +7,6 @@ import com.loggerproject.coreservice.server.service.filedata.afiledata.delete.AF
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.model.PageSizeOverflowException;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.update.AFileDataUpdateService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

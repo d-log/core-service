@@ -1,6 +1,5 @@
 package com.loggerproject.coreservice.server.service.filedata.type.tag.get;
 
-import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.tag.TagFileData;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.AFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.tag.create.TagFileDataCreateService;
@@ -9,8 +8,6 @@ import com.loggerproject.coreservice.server.service.filedata.type.tag.update.Tag
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TagFileDataGetService extends AFileDataGetService<TagFileData> {

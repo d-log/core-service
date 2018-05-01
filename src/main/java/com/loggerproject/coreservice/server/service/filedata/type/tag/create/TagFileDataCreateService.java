@@ -30,7 +30,7 @@ public class TagFileDataCreateService extends AFileDataCreateService<TagFileData
 
     @Override
     public FileModel beforeSaveScrubAndValidate(FileModel model) throws Exception {
-        TagFileData fileData = (TagFileData)model.getData();
+        TagFileData fileData = (TagFileData) model.getData();
 
         Assert.isTrue(CollectionUtils.isEmpty(fileData.getLogFileIDs()), "TagFileData.logFileIDs must be empty");
         fileData.setLogFileIDs(new HashSet<>());
