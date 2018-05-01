@@ -10,7 +10,7 @@ import com.loggerproject.coreservice.server.service.filedata.type.log.delete.Log
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogType;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogTypeModelGetManagerService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.LogFileDataGetService;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.getter.model.GetterRequest;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.extra.GetterRequest;
 import com.loggerproject.coreservice.server.service.filedata.type.log.update.LogFileDataUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

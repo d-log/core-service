@@ -2,7 +2,7 @@ package com.loggerproject.coreservice.server.service.filedata.type.log.get;
 
 import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.LogFileDataGetService;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.getter.model.GetterRequest;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.extra.GetterRequest;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeModel;
 import org.springframework.beans.factory.annotation.Autowired;

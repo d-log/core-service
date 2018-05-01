@@ -7,7 +7,7 @@ import com.loggerproject.coreservice.server.data.document.file.extra.data.tag.Ta
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.AFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.create.LogFileDataCreateService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.delete.LogFileDataDeleteService;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.getter.model.GetterRequest;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.extra.GetterRequest;
 import com.loggerproject.coreservice.server.service.filedata.type.log.update.LogFileDataUpdateService;
 import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.tag.get.TagFileDataGetService;
