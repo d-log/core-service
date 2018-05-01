@@ -24,6 +24,10 @@ public class LogDirectoryFileDataDeleteService extends AFileDataDeleteService<Lo
 
     @Override
     public FileModel beforeDeleteValidate(FileModel model) throws Exception {
+        LogDirectoryFileData directory = (LogDirectoryFileData) model.getData();
+        if (directory.getLogFileIDs().size() > 0) {
+            throw new ModelBoundedToLogException(model.getId(), directory.getLogFileIDs());
+        }
         return model;
     }
 }

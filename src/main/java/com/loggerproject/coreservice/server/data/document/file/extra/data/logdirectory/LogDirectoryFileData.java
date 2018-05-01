@@ -1,14 +1,12 @@
 package com.loggerproject.coreservice.server.data.document.file.extra.data.logdirectory;
 
-import com.loggerproject.coreservice.server.data.document.file.extra.data.image.extra.ImageSource;
+import com.loggerproject.coreservice.server.data.document.file.extra.data.log.LogFileData;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
-public class LogDirectoryFileData {
-    String imageURL;
-    String extension;
-    Integer width;
-    Integer height;
-    Double heightDividedByWidth;
-    ImageSource source;
+public class LogDirectoryFileData extends LogFileData {
+    Set<String> logFileIDs;
+    Set<String> childLogDirectoryFileIDs;
 }

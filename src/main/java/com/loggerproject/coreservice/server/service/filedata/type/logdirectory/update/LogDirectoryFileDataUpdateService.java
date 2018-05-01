@@ -26,4 +26,40 @@ public class LogDirectoryFileDataUpdateService extends AFileDataUpdateService<Lo
         model.getMetadata().setName(name);
         return this.update(model);
     }
+
+    public FileModel assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
+        FileModel model = globalServerGetService.validateAndFindOne(childID);
+        FileModel oldParent = globalServerGetService.validateAndFindOne(oldParentID);
+        FileModel newParent = globalServerGetService.validateAndFindOne(newParentID);
+
+        LogDirectoryFileData md = (LogDirectoryFileData) model.getData();
+        LogDirectoryFileData od = (LogDirectoryFileData) oldParent.getData();
+        LogDirectoryFileData nd = (LogDirectoryFileData) newParent.getData();
+
+        md.getOrganization().getParentLogDirectoryFileIDs().remove(oldParentID);
+        od.getChildLogDirectoryFileIDs().remove(childID);
+
+        md.getOrganization().getParentLogDirectoryFileIDs().add(newParentID);
+        nd.getChildLogDirectoryFileIDs().add(childID);
+
+        update(oldParent);
+        update(newParent);
+
+        return update(model);
+    }
+
+    public FileModel assignAdditionalParent(String childID, String parentID) throws Exception {
+        FileModel model = globalServerGetService.validateAndFindOne(childID);
+        FileModel parent = globalServerGetService.validateAndFindOne(parentID);
+
+        LogDirectoryFileData md = (LogDirectoryFileData) model.getData();
+        LogDirectoryFileData pd = (LogDirectoryFileData) parent.getData();
+
+        md.getOrganization().getParentLogDirectoryFileIDs().add(parentID);
+        pd.getChildLogDirectoryFileIDs().add(childID);
+
+        update(parent);
+
+        return update(model);
+    }
 }

@@ -52,7 +52,24 @@ public abstract class AFileDataCreateService<T> extends AFileDataCrudService<T> 
         return t;
     }
 
+    /**
+     * TODO exception handle
+     * @param t
+     * @return
+     * @throws Exception
+     */
+    protected FileModel afterCreateUpdateOtherDocuments(FileModel t) throws Exception {
+        return t;
+    }
+
+    /**
+     * TODO exception handle
+     * @param t
+     * @return
+     * @throws Exception
+     */
     protected FileModel afterCreate(FileModel t) throws Exception {
+        t = afterCreateUpdateOtherDocuments(t);
         return t;
     }
 
