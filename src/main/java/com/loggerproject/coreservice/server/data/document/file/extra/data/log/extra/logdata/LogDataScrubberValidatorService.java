@@ -11,9 +11,6 @@ import java.util.List;
 @Service
 public class LogDataScrubberValidatorService {
 
-//    @Autowired
-//    CustomLogDataModelUtilService customLogDataModelUtilService;
-
     // simple class name to validator objects
     // example: "VideoYouTubeLogData" -> VideoYouTubeLogDataScrubberValidator object
     private HashMap<String, ALogDataScrubberValidator> map2Validator = new HashMap<>();
@@ -35,14 +32,14 @@ public class LogDataScrubberValidatorService {
     @SuppressWarnings(value = "unchecked")
     public void scrubAndValidate(LogData logData) throws Exception {
         String logDataType = logData.getLogDataType();
-        String data = logData.getData();
+        Object data = logData.getData();
 
-        Assert.hasText(logDataType, "LogData.logDataType cannot be empty");
-        Assert.hasText(data, "LogData.filedata cannot be empty");
+        Assert.hasText(logDataType, "FileModel.data.logDatas.logDataType cannot be empty");
+        Assert.notNull(data, "FileModel.data.logDatas[].data cannot be empty");
 
         ALogDataScrubberValidator validator = map2Validator.get(logDataType);
         if (validator != null) {
-            data = validator.scrubAndValidateLogDataString(data);
+            data = validator.scrubAndValidateLogDataObject(data);
             logData.setData(data);
         } else {
             throw new Exception("CustomLogDataUtilService not implemented");

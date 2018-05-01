@@ -19,9 +19,8 @@ public abstract class ALogDataScrubberValidator<T> {
     public abstract T scrubAndValidateLogData(T t) throws Exception;
 
     @SuppressWarnings(value = "unchecked")
-    public String scrubAndValidateLogDataString(String data) throws Exception {
-        T t = (T) objectMapper.readValue(data, genericClass);
-        t = scrubAndValidateLogData(t);
-        return objectMapper.writeValueAsString(t);
+    public T scrubAndValidateLogDataObject(Object data) throws Exception {
+        T t = (T) objectMapper.convertValue(data, genericClass);
+        return scrubAndValidateLogData(t);
     }
 }
