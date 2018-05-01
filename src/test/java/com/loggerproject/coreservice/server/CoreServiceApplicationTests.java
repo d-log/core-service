@@ -70,8 +70,8 @@ public class CoreServiceApplicationTests {
 //		directoryModelRepository.save(logdirectory);
 //
 //		LogModel log = new LogModel();
-//		log.setLogOrganization(new LogOrganization());
-//		log.getLogOrganization().setDirectoryIDs(Collections.singleton(logdirectory.getID()));
+//		log.setOrganization(new LogOrganization());
+//		log.getOrganization().setDirectoryIDs(Collections.singleton(logdirectory.getID()));
 //
 //		TextPlainLogData textPlainLogData = new TextPlainLogData();
 //		textPlainLogData.setText("Hello World");

@@ -22,8 +22,4 @@ public class TagFileDataGetService extends AFileDataGetService<TagFileData> {
                                  @Lazy TagFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
-
-    public List<FileModel> findByName(String name) {
-        return repository.findByMetadata_typeAndMetadata_name(genericClass.getSimpleName(), name);
-    }
 }

@@ -8,7 +8,7 @@ import com.loggerproject.coreservice.server.data.document.file.extra.data.logdir
 import com.loggerproject.coreservice.server.data.document.file.extra.data.tag.TagFileData;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.create.AFileDataCreateService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.delete.LogFileDataDeleteService;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogFileDataGetService;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.LogFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.update.LogFileDataUpdateService;
 import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.update.LogDirectoryFileDataUpdateService;

@@ -2,7 +2,6 @@ package com.loggerproject.coreservice.server.service.filedata.type.logdirectory.
 
 import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.logdirectory.LogDirectoryFileData;
-import com.loggerproject.coreservice.server.data.repository.FileModelRepository;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.AFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.RootLogDirectoryService;
 import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.create.LogDirectoryFileDataCreateService;
@@ -20,9 +19,6 @@ import java.util.Set;
 public class LogDirectoryFileDataGetService extends AFileDataGetService<LogDirectoryFileData> {
 
     @Autowired
-    FileModelRepository fileModelRepository;
-
-    @Autowired
     RootLogDirectoryService rootLogDirectoryService;
 
     @Autowired
@@ -35,10 +31,6 @@ public class LogDirectoryFileDataGetService extends AFileDataGetService<LogDirec
 
     public FileModel getRoot() throws Exception {
         return rootLogDirectoryService.getRoot();
-    }
-
-    public List<FileModel> findByName(String name) {
-        return fileModelRepository.findByMetadata_typeAndMetadata_name(genericClass.getSimpleName(), name);
     }
 
     public List<FileModel> findChildren(String id) throws Exception {

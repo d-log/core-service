@@ -58,6 +58,10 @@ public abstract class AFileDataGetService<T> extends AFileDataCrudService<T> {
         this.defaultPageable = defaultPageable;
     }
 
+    public List<FileModel> findByName(String name) {
+        return repository.findByMetadata_typeAndMetadata_name(genericClass.getSimpleName(), name);
+    }
+
     public List<FileModel> findAll() {
         List<FileModel> models = repository.findByMetadata_type(genericClass.getSimpleName());
         dataConvertValue(models);

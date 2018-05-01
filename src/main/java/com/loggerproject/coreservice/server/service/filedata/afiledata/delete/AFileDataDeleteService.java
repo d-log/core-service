@@ -30,7 +30,12 @@ public abstract class AFileDataDeleteService<T> extends AFileDataCrudService<T> 
         return t;
     }
 
+    protected FileModel afterDeleteUpdateOtherDocuments(FileModel t) throws Exception {
+        return t;
+    }
+
     protected FileModel afterDelete(FileModel t) throws Exception {
+        afterDeleteUpdateOtherDocuments(t);
         return t;
     }
 
