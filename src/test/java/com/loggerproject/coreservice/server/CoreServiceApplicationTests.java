@@ -1,78 +1,49 @@
 package com.loggerproject.coreservice.server;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loggerproject.coreservice.server.data.document.directory.DirectoryModel;
-import com.loggerproject.coreservice.server.data.document.log.LogModel;
-import com.loggerproject.coreservice.server.data.document.log.extra.LogOrganization;
-import com.loggerproject.coreservice.server.data.document.log.extra.logdata.LogData;
-import com.loggerproject.coreservice.server.data.document.log.extra.logdata.impl.TextPlainLogData;
-import com.loggerproject.coreservice.server.data.repository.DirectoryModelRepository;
-import com.loggerproject.coreservice.server.data.repository.LogModelRepository;
-import com.loggerproject.coreservice.server.service.data.directory.create.DirectoryModelCreateService;
-import com.loggerproject.coreservice.server.service.data.directory.get.DirectoryModelGetService;
-import com.loggerproject.coreservice.server.service.data.directory.update.DirectoryModelUpdateService;
-import com.loggerproject.coreservice.server.service.data.log.create.LogModelCreateService;
-import com.loggerproject.coreservice.server.service.data.log.get.regular.LogModelGetService;
-import com.loggerproject.coreservice.server.service.data.log.get.regular.getter.model.GetterRequest;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Running this will auto create embedded mongo server
- * the reason why we need the spring.data.mongodb.port to be on a diff port so it wont collide with the local running instance
+ * the reason why we need the spring.filedata.mongodb.port to be on a diff port so it wont collide with the local running instance
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CoreServiceApplication.class)
 @TestPropertySource(locations="classpath:test.properties") // overrides application.properties
 public class CoreServiceApplicationTests {
-
-	@Autowired
-	DirectoryModelCreateService directoryModelCreateService;
-
-	@Autowired
-	DirectoryModelGetService directoryModelGetService;
-
-	@Autowired
-	DirectoryModelUpdateService directoryModelUpdateService;
-
-	@Autowired
-	DirectoryModelRepository directoryModelRepository;
-
-	@Autowired
-	LogModelCreateService logModelCreateService;
-
-	@Autowired
-	LogModelRepository logModelRepository;
-
-	@Autowired
-	LogModelGetService logModelGetService;
-
-	@Autowired
-	ObjectMapper objectMapper;
-
-	@Value("${spring.data.mongodb.port}")
-	private Integer port;
-
-	@Autowired
-	MongoTemplate mongoTemplate;
+//
+//	@Autowired
+//	DirectoryModelCreateService directoryModelCreateService;
+//
+//	@Autowired
+//	DirectoryModelGetService directoryModelGetService;
+//
+//	@Autowired
+//	DirectoryModelUpdateService directoryModelUpdateService;
+//
+//	@Autowired
+//	DirectoryModelRepository directoryModelRepository;
+//
+//	@Autowired
+//	LogModelCreateService logModelCreateService;
+//
+//	@Autowired
+//	LogModelRepository logModelRepository;
+//
+//	@Autowired
+//	LogModelGetService logModelGetService;
+//
+//	@Autowired
+//	ObjectMapper objectMapper;
+//
+//	@Value("${spring.filedata.mongodb.port}")
+//	private Integer port;
+//
+//	@Autowired
+//	MongoTemplate mongoTemplate;
 
 	@Test
 	public void dummy() {
@@ -82,32 +53,32 @@ public class CoreServiceApplicationTests {
 //	@Before
 //	public void setUp() throws Exception {
 //		System.out.println("the mongo port number: " + port.toString());
-//		DirectoryModel directory = new DirectoryModel();
-//		directory.setName("Test Title");
-//		directory.setDescription("Test Description");
-//		directoryModelCreateService.create(directory);
-//		directoryModelCreateService.create(directory);
-//		directoryModelCreateService.create(directory);
-//		directory.setName("A Tester");
-//		directoryModelCreateService.create(directory);
-//		directoryModelCreateService.create(directory);
-//		directoryModelCreateService.create(directory);
-//		directoryModelCreateService.create(directory);
+//		DirectoryModel logdirectory = new DirectoryModel();
+//		logdirectory.setName("Test Title");
+//		logdirectory.setDescription("Test Description");
+//		directoryModelCreateService.create(logdirectory);
+//		directoryModelCreateService.create(logdirectory);
+//		directoryModelCreateService.create(logdirectory);
+//		logdirectory.setName("A Tester");
+//		directoryModelCreateService.create(logdirectory);
+//		directoryModelCreateService.create(logdirectory);
+//		directoryModelCreateService.create(logdirectory);
+//		directoryModelCreateService.create(logdirectory);
 //
 //		Date myDate = new Date(System.currentTimeMillis());
-//		directory.getMetadata().setCreated(new Date(myDate.getTime() - (10 * 24 * 60 * 60 * 1000)));
-//		directoryModelRepository.save(directory);
+//		logdirectory.getMetadata().setCreated(new Date(myDate.getTime() - (10 * 24 * 60 * 60 * 1000)));
+//		directoryModelRepository.save(logdirectory);
 //
 //		LogModel log = new LogModel();
 //		log.setLogOrganization(new LogOrganization());
-//		log.getLogOrganization().setDirectoryIDs(Collections.singleton(directory.getID()));
+//		log.getLogOrganization().setDirectoryIDs(Collections.singleton(logdirectory.getID()));
 //
 //		TextPlainLogData textPlainLogData = new TextPlainLogData();
 //		textPlainLogData.setText("Hello World");
 //
 //		LogData logData = new LogData();
 //		logData.setLogDataType("TextPlainLogData");
-//		logData.setData(objectMapper.writeValueAsString(textPlainLogData));
+//		logData.setDataString(objectMapper.writeValueAsString(textPlainLogData));
 //
 //		log.setLogDatas(Collections.singletonList(logData));
 //		logModelCreateService.create(log);
