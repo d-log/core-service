@@ -63,7 +63,7 @@ public class LogFileDataCreateService extends AFileDataCreateService<LogFileData
     private Organization beforeScrubAndValidate(Organization organization) throws Exception {
         Assert.notNull(organization, "FileModel.data.organization cannot be null");
 
-        Assert.notEmpty(organization.getParentLogDirectoryFileIDs(), "FileModel.data.parentLogDirectoryFileIDs cannot be empty");
+        Assert.notEmpty(organization.getParentLogDirectoryFileIDs(), "FileModel.data.organization.parentLogDirectoryFileIDs cannot be empty");
         logDirectoryFileDataGetService.validateIds(organization.getParentLogDirectoryFileIDs());
 
         organization.setTagFileIDs(organization.getTagFileIDs() != null ? organization.getTagFileIDs() : new HashSet());

@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 public class VideoYouTubeLogDataScrubberValidator extends ALogDataScrubberValidator<VideoYouTubeLogData> {
     @Override
     public VideoYouTubeLogData scrubAndValidateLogData(VideoYouTubeLogData data) {
-        Assert.hasText(data.getVideoID(), "VideoYouTubeLogData filedata.videoID cannot be empty");
+        Assert.hasText(data.getVideoID(), "VideoYouTubeLogData.videoID cannot be empty");
         return data;
     }
 }
