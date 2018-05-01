@@ -89,8 +89,8 @@ public class LogFileDataController extends AFileDataController {
 
     @GetMapping(value = "/{id}/{log-type}", produces = {"application/hal+json"})
     public ResponseEntity<?> getLogType(@PathVariable("id") String id, @PathVariable("log-type") LogType logType) throws Exception {
-        Object model = logTypeModelGetManagerService.findOne(id, logType);
-        Resources resources = new EmptiableResources(Object.class, Collections.singletonList(model));
+        FileModel model = logTypeModelGetManagerService.findOne(id, logType);
+        Resources resources = new EmptiableResources(FileModel.class, Collections.singletonList(model));
         resources.add(linkTo(methodOn(getClass()).getLogType(id, logType)).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
