@@ -2,13 +2,13 @@ package com.loggerproject.coreservice.server.service.filedata.type.log.get.type.
 
 import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogType;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeModel;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ATypeFileData;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class LogDetailModel extends ALogTypeModel {
+public class LogDetailModel extends ATypeFileData {
     List<FileModel> parentLogDirectoryFileDatas;
     List<FileModel> tagFileDatas;
 

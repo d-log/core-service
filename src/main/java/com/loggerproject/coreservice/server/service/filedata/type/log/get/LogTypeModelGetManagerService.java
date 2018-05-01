@@ -4,7 +4,7 @@ import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.LogFileDataGetService;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.regular.extra.GetterRequest;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeGetService;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeModel;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ATypeFileData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.domain.Page;
@@ -32,7 +32,7 @@ public class LogTypeModelGetManagerService {
     @Autowired
     public LogTypeModelGetManagerService(List<ALogTypeGetService> logTypeGetServices) throws Exception {
         for (ALogTypeGetService logTypeGetService : logTypeGetServices) {
-            ALogTypeModel logTypeModel = (ALogTypeModel) GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).newInstance();
+            ATypeFileData logTypeModel = (ATypeFileData) GenericTypeResolver.resolveTypeArgument(logTypeGetService.getClass(), ALogTypeGetService.class).newInstance();
             mapModel2GetService.put(logTypeModel.getLogType(), logTypeGetService);
         }
     }
@@ -94,11 +94,11 @@ public class LogTypeModelGetManagerService {
         }
     }
 
-    public ALogTypeModel getByLogModel(FileModel log, LogType logType) {
+    public ATypeFileData getByLogModel(FileModel log, LogType logType) {
         return getServiceByLogType(logType).getByLogModel(log);
     }
 
-    public List<ALogTypeModel> getByLogModels(Collection<FileModel> logs, LogType logType) {
+    public List<ATypeFileData> getByLogModels(Collection<FileModel> logs, LogType logType) {
         return getServiceByLogType(logType).getByLogModels(logs);
     }
 

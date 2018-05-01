@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ALogTypeGetService<T extends ALogTypeModel> {
+public abstract class ALogTypeGetService<T extends ATypeFileData> {
 
     public List<T> getByLogModels(Collection<FileModel> lfs) {
         List<T> logTiles = new ArrayList<>();

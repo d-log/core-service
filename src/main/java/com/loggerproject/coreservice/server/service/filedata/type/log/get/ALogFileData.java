@@ -6,6 +6,6 @@ import lombok.Data;
  * ALogTypeModel and LogModel extends this class
  */
 @Data
-public abstract class ALogModelTypeModel {
+public abstract class ALogFileData {
     LogType logType;
 }

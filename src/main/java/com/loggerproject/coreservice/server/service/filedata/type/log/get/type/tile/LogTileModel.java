@@ -1,16 +1,12 @@
 package com.loggerproject.coreservice.server.service.filedata.type.log.get.type.tile;
 
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogType;
-import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ALogTypeModel;
+import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ATypeFileData;
 import lombok.Data;
 
 @Data
-public class LogTileModel extends ALogTypeModel {
+public class LogTileModel extends ATypeFileData {
     Integer logDataToDisplayIndex;
-
-    /**
-     * stores which logData(s) should be displayed on Tile
-     */
 
     public LogTileModel() {
         this.setLogType(LogType.TILE);
