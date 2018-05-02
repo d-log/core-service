@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/file")
 @SuppressWarnings(value = "unchecked")
@@ -29,12 +31,12 @@ public class FileModelRestController {
                                        @RequestParam(value = "search", required = false) String search,
                                        @RequestParam(value = "tag-id", required = false) String tagID,
                                        @RequestParam(value = "directory-id", required = false) String directoryID,
-                                       @RequestParam(value = "file-type", required = false) String fileType,
+                                       @RequestParam(value = "file-type", required = false) Set<String> fileTypes,
                                        @RequestParam(value = "log-type", required = false) LogType logType,
                                        Pageable pageable,
                                        PagedResourcesAssembler assembler) {
         FileGetterRequest getterRequest = new FileGetterRequest();
-        getterRequest.setFileType(fileType);
+        getterRequest.setFileTypes(fileTypes);
         getterRequest.setLogType(logType);
         getterRequest.setTagID(tagID);
         getterRequest.setDirectoryID(directoryID);

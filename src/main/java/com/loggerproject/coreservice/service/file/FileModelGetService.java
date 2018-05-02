@@ -7,6 +7,7 @@ import com.loggerproject.coreservice.service.file.type.impl.log.get.LogType;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.TypedLogFileModelGetManagerService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -66,6 +67,7 @@ public class FileModelGetService {
                 }
             }
         }
+        // TODO add support for LogDirectoryType
     }
 
     public void scrubAndValidate(FileGetterRequest getterRequest) {
@@ -85,20 +87,20 @@ public class FileModelGetService {
     public Query buildQuery(FileGetterRequest getterRequest) {
         Query query = new Query();
 
-        if (getterRequest.getFileType() != null) {
-            query.addCriteria(Criteria.where("metadata.type").is(getterRequest.getFileType()));
+        if (CollectionUtils.isNotEmpty(getterRequest.getFileTypes())) {
+            query.addCriteria(Criteria.where("metadata.type").in(getterRequest.getFileTypes()));
         }
         if (getterRequest.getMillisecondThreshold() != null) {
             query.addCriteria(Criteria.where("metadata.created").lte(new Date(getterRequest.getMillisecondThreshold())));
-        }
-        if (getterRequest.getPageable() != null) {
-            query.with(getterRequest.getPageable());
         }
         if (getterRequest.getDirectoryID() != null) {
             query.addCriteria(Criteria.where("data.organization.parentLogDirectoryFileIDs").in(getterRequest.getDirectoryID()));
         }
         if (getterRequest.getTagID() != null) {
             query.addCriteria(Criteria.where("data.organization.tagFileIDs").in(getterRequest.getTagID()));
+        }
+        if (getterRequest.getPageable() != null) {
+            query.with(getterRequest.getPageable());
         }
 
         return query;

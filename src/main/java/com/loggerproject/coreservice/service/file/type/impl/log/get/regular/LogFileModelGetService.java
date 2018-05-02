@@ -22,10 +22,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class LogFileModelGetService extends AFileModelGetService<LogFileData> {
@@ -63,7 +60,7 @@ public class LogFileModelGetService extends AFileModelGetService<LogFileData> {
 
     private void scrubAndValidate(FileGetterRequest getterRequest) {
         fileModelGetService.scrubAndValidate(getterRequest);
-        getterRequest.setFileType(genericClass.getSimpleName());
+        getterRequest.setFileTypes(Collections.singleton(genericClass.getSimpleName()));
     }
 
     private Query buildQuery(FileGetterRequest getterRequest) {

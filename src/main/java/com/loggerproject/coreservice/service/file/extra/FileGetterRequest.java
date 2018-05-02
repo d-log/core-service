@@ -5,9 +5,12 @@ import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.Log
 import lombok.Data;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Set;
+
 @Data
 public class FileGetterRequest {
-    String fileType;
+    // can be of: LogFileData, LogDirectoryFileData, TagFileData, ImageFileData
+    Set<String> fileTypes;
 
     // this tells how LogFileModels and LogDirectoryFileModels
     // should be modified before sending it out
