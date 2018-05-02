@@ -69,7 +69,9 @@ public abstract class AFileModelGetService<T> extends AFileModelCrudService<T> {
     }
 
     public List<FileModel> findByName(String name) {
-        return repository.findByMetadata_typeAndMetadata_name(genericClass.getSimpleName(), name);
+        List<FileModel> models = repository.findByMetadata_typeAndMetadata_name(genericClass.getSimpleName(), name);
+        convertFileDataObject2Generic(models);
+        return models;
     }
 
     public List<FileModel> findAll() {

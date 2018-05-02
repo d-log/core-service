@@ -46,16 +46,12 @@ public class LogFileModelGetService extends AFileModelGetService<LogFileData> {
     @Autowired
     FileModelGetService fileModelGetService;
 
-    private Pageable defaultPageableLatest;
-
     @Autowired
     public LogFileModelGetService(@Lazy LogFileModelCreateService globalServerCreateService,
                                   @Lazy LogFileModelDeleteService globalServerDeleteService,
                                   @Lazy LogFileModelGetService globalServerGetService,
-                                  @Lazy LogFileModelUpdateService globalServerUpdateService,
-                                  @Value("${spring.data.rest.maxPageSize}") Integer maxPageSize) {
+                                  @Lazy LogFileModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
-        defaultPageableLatest = new PageRequest(0, maxPageSize, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created")));
     }
 
     public Page<FileModel> theGetter(FileGetterRequest getterRequest) {

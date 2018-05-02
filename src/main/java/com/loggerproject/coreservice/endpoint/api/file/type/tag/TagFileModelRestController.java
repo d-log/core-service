@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/file-data/tag")
+@RequestMapping("/api/file/tag")
 public class TagFileModelRestController extends AFileModelRestController {
 
     @Autowired

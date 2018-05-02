@@ -21,7 +21,7 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/api/file-data/log-directory")
+@RequestMapping("/api/file/log-directory")
 public class LogDirectoryFileModelRestController extends AFileModelRestController {
 
     @Autowired

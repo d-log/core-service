@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/file-data/image")
+@RequestMapping("/api/file/image")
 public class ImageFileModelRestController extends AFileModelRestController {
 
     @Autowired

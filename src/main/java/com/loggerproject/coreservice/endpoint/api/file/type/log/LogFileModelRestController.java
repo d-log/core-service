@@ -27,7 +27,7 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/api/file-data/log")
+@RequestMapping("/api/file/log")
 @SuppressWarnings(value = "unchecked")
 public class LogFileModelRestController extends AFileModelRestController {
 
@@ -54,29 +54,17 @@ public class LogFileModelRestController extends AFileModelRestController {
                                     @RequestParam(value = "search", required = false) String search,
                                     @RequestParam(value = "tag-id", required = false) String tagID,
                                     @RequestParam(value = "directory-id", required = false) String directoryID,
+                                    @RequestParam(value = "log-type", required = false) LogType logType,
                                     Pageable pageable,
                                     PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(tagID, directoryID, search, millisecondThreshold, pageable, null, assembler);
-    }
-
-    @GetMapping(value = "/the-getter/{log-type}", produces = {"application/hal+json"})
-    public ResponseEntity theGetterLogType(@PathVariable("log-type") LogType logType,
-                                           @RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold,
-                                           @RequestParam(value = "search", required = false) String search,
-                                           @RequestParam(value = "tag-id", required = false) String tagID,
-                                           @RequestParam(value = "directory-id", required = false) String directoryID,
-                                           Pageable pageable,
-                                           PagedResourcesAssembler assembler) throws Exception {
-        return theGetterHelper(tagID, directoryID, search, millisecondThreshold, pageable, logType, assembler);
-    }
-
-    private ResponseEntity<?> theGetterHelper(String tagID, String directoryID, String search, Long millisecondThreshold, Pageable pageable, LogType logType, PagedResourcesAssembler assembler) throws Exception {
         FileGetterRequest getterRequest = new FileGetterRequest();
         getterRequest.setTagID(tagID);
         getterRequest.setDirectoryID(directoryID);
         getterRequest.setSearchString(search);
         getterRequest.setMillisecondThreshold(millisecondThreshold);
         getterRequest.setPageable(pageable);
+        getterRequest.setLogType(logType);
+
         Page<FileModel> page = logTypeModelGetManagerService.theGetter(getterRequest, logType);
         Resources resources;
         if (page.getContent().size() == 0) {
@@ -88,7 +76,8 @@ public class LogFileModelRestController extends AFileModelRestController {
     }
 
     @GetMapping(value = "/{id}/{log-type}", produces = {"application/hal+json"})
-    public ResponseEntity<?> getLogType(@PathVariable("id") String id, @PathVariable("log-type") LogType logType) throws Exception {
+    public ResponseEntity<?> getLogType(@PathVariable("id") String id,
+                                        @PathVariable("log-type") LogType logType) {
         FileModel model = logTypeModelGetManagerService.findOne(id, logType);
         Resources resources = new EmptiableResources(FileModel.class, Collections.singletonList(model));
         resources.add(linkTo(methodOn(getClass()).getLogType(id, logType)).withSelfRel());
@@ -96,7 +85,9 @@ public class LogFileModelRestController extends AFileModelRestController {
     }
 
     @GetMapping(value = "/all/{log-type}", produces = "application/hal+json")
-    public ResponseEntity<?> getAllLogType(@PathVariable("log-type") LogType logType, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
+    public ResponseEntity<?> getAllLogType(@PathVariable("log-type") LogType logType,
+                                           Pageable pageable,
+                                           PagedResourcesAssembler assembler) throws Exception {
         Page page = logTypeModelGetManagerService.findAll(pageable, logType);
         Resources resources = assembler.toResource(page);
         return ResponseEntity.status(HttpStatus.OK).body(resources);
