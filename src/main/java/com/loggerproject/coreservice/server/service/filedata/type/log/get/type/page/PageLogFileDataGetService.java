@@ -4,8 +4,8 @@ import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.log.LogFileData;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogType;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.type.ATypedLogFileDataGetService;
-import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileDataGetService;
-import com.loggerproject.coreservice.server.service.filedata.type.tag.get.TagFileDataGetService;
+import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.server.service.filedata.type.tag.get.TagFileModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 public class PageLogFileDataGetService extends ATypedLogFileDataGetService {
 
     @Autowired
-    TagFileDataGetService tagFileDataGetService;
+    TagFileModelGetService tagFileDataGetService;
 
     @Autowired
-    LogDirectoryFileDataGetService logDirectoryFileDataGetService;
+    LogDirectoryFileModelGetService logDirectoryFileDataGetService;
 
     @Override
     public LogType getLogType() {

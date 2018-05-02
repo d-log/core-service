@@ -1,15 +1,21 @@
 package com.loggerproject.coreservice.server.service.filedata.type.log.get.type;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loggerproject.coreservice.server.data.document.file.FileModel;
+import com.loggerproject.coreservice.server.data.document.file.extra.data.log.LogFileData;
 import com.loggerproject.coreservice.server.data.document.file.extra.metadata.Metadata;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.ALogFileDataOverride;
 import com.loggerproject.coreservice.server.service.filedata.type.log.get.LogType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public abstract class ATypedLogFileDataGetService {
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     public abstract LogType getLogType();
 
@@ -22,10 +28,19 @@ public abstract class ATypedLogFileDataGetService {
         return nlfs;
     }
 
+    /**
+     * Allows FileModel.data to be of type LinkedHashMap or LogFileData
+     *
+     * @param lf
+     * @return
+     */
     public FileModel getAsLogType(FileModel lf) {
         if (lf == null) {
             return null;
         } else {
+            if (!LogFileData.class.isInstance(lf.getData())) {
+                lf.setData(objectMapper.convertValue(lf.getData(), LogFileData.class));
+            }
             return getByLogModelInternal(lf);
         }
     }

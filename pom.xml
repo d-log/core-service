@@ -86,6 +86,12 @@
 		</dependency>
 
 		<!-- JSON STUFF - START -->
+		<!--<dependency>-->
+			<!--Not Compatible with Spring 1.5.9.RELEASE-->
+			<!--<groupId>com.fasterxml.jackson.core</groupId>-->
+			<!--<artifactId>jackson-databind</artifactId>-->
+			<!--<version>2.9.5</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

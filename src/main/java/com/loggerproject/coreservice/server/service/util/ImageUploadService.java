@@ -4,8 +4,8 @@ import com.loggerproject.coreservice.server.data.document.file.FileModel;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.image.ImageFileData;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.image.extra.ImageSource;
 import com.loggerproject.coreservice.server.data.document.file.extra.data.image.extra.ImageSourceType;
-import com.loggerproject.coreservice.server.service.filedata.type.image.create.ImageFileDataCreateService;
-import com.loggerproject.coreservice.server.service.filedata.type.image.update.ImageFileDataUpdateService;
+import com.loggerproject.coreservice.server.service.filedata.type.image.create.ImageFileModelCreateService;
+import com.loggerproject.coreservice.server.service.filedata.type.image.update.ImageFileModelUpdateService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.joda.time.DateTime;
@@ -29,10 +29,10 @@ import java.util.Iterator;
 public class ImageUploadService {
 
     @Autowired
-    ImageFileDataCreateService imageCreateService;
+    ImageFileModelCreateService imageCreateService;
 
     @Autowired
-    ImageFileDataUpdateService imageUpdateService;
+    ImageFileModelUpdateService imageUpdateService;
 
     @Autowired
     AmazonS3BucketService amazonS3BucketService;

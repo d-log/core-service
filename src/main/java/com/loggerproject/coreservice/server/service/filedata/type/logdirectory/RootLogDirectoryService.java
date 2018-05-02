@@ -5,8 +5,8 @@ import com.loggerproject.coreservice.server.data.document.file.extra.data.log.ex
 import com.loggerproject.coreservice.server.data.document.file.extra.data.logdirectory.LogDirectoryFileData;
 import com.loggerproject.coreservice.server.data.document.file.extra.metadata.Metadata;
 import com.loggerproject.coreservice.server.data.repository.FileModelRepository;
-import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.create.LogDirectoryFileDataCreateService;
-import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileDataGetService;
+import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.create.LogDirectoryFileModelCreateService;
+import com.loggerproject.coreservice.server.service.filedata.type.logdirectory.get.LogDirectoryFileModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +21,10 @@ public class RootLogDirectoryService {
     public static final String ROOT_NAME = "ROOT_DIRECTORY";
 
     @Autowired
-    LogDirectoryFileDataGetService directoryGetService;
+    LogDirectoryFileModelGetService directoryGetService;
 
     @Autowired
-    LogDirectoryFileDataCreateService directoryCreateService;
+    LogDirectoryFileModelCreateService directoryCreateService;
 
     @Autowired
     FileModelRepository repository;
