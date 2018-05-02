@@ -82,11 +82,11 @@ public class LogFileDataGetService extends AFileDataGetService<LogFileData> {
         }
 
         if (getterRequest.getDirectoryID() != null) {
-            query.addCriteria(Criteria.where("organization.directoryIDs").in(getterRequest.getDirectoryID()));
+            query.addCriteria(Criteria.where("data.organization.parentLogDirectoryFileIDs").in(getterRequest.getDirectoryID()));
         }
 
         if (getterRequest.getTagID() != null) {
-            query.addCriteria(Criteria.where("organization.tagIDs").in(getterRequest.getTagID()));
+            query.addCriteria(Criteria.where("data.organization.tagFileIDs").in(getterRequest.getTagID()));
         }
 
         // execute and build page

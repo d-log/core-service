@@ -49,6 +49,7 @@ public class LogFileDataCreateService extends AFileDataCreateService<LogFileData
 
     @Override
     public FileModel beforeSaveScrubAndValidate(FileModel model) throws Exception {
+        Assert.notNull(model.getMetadata(), "FileModel.metadata cannot be empty");
         Assert.hasText(model.getMetadata().getName(), "FileModel.metadata.name cannot be empty");
 
         LogFileData logFileData = (LogFileData) model.getData();

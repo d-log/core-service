@@ -7,11 +7,13 @@ import com.loggerproject.coreservice.server.service.filedata.afiledata.delete.AF
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.model.ModelNotFoundException;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.get.model.PageSizeOverflowException;
 import com.loggerproject.coreservice.server.service.filedata.afiledata.update.AFileDataUpdateService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,18 +21,27 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public abstract class AFileDataGetService<T> extends AFileDataCrudService<T> {
 
-//    @Value("${spring.data.rest.maxPageSize}")
-//    private Integer MAX_PAGE_SIZE;
+    @Value("${spring.data.rest.maxPageSize}")
+    protected Integer MAX_PAGE_SIZE;
 
     protected Integer maxPageSize;
     protected Pageable defaultPageable;
+
+    @PostConstruct
+    protected void init() {
+        if (maxPageSize == null) {
+            maxPageSize = MAX_PAGE_SIZE;
+        }
+        if (defaultPageable == null) {
+            defaultPageable = new PageRequest(0, MAX_PAGE_SIZE);
+        }
+    }
 
     public AFileDataGetService(@Lazy AFileDataCreateService globalServerCreateService,
                                @Lazy AFileDataDeleteService globalServerDeleteService,
                                @Lazy AFileDataGetService globalServerGetService,
                                @Lazy AFileDataUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
-        setup(20, new PageRequest(0, 20));
     }
 
     public AFileDataGetService(@Lazy AFileDataCreateService globalServerCreateService,
