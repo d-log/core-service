@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.service.file.type.impl.logdirectory.get;
+package com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular;
 
 import com.loggerproject.coreservice.data.document.file.FileModel;
 import com.loggerproject.coreservice.data.document.file.extra.data.logdirectory.LogDirectoryFileData;
@@ -54,7 +54,9 @@ public class LogDirectoryFileModelGetService extends AFileModelGetService<LogDir
 
             for (String childID : childrenIDs) {
                 FileModel child = findOne(childID);
-                children.add(child);
+                if (child != null) {
+                    children.add(child);
+                }
             }
 
             List<FileModel> grandChildren = new ArrayList<>();

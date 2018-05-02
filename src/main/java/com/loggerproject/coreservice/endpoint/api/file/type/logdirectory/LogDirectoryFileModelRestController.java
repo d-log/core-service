@@ -1,12 +1,12 @@
 package com.loggerproject.coreservice.endpoint.api.file.type.logdirectory;
 
 import com.loggerproject.coreservice.data.document.file.FileModel;
-import com.loggerproject.coreservice.endpoint.api.file.type.AFileModelRestController;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
+import com.loggerproject.coreservice.endpoint.api.file.type.AFileModelRestController;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.RootLogDirectoryService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.create.LogDirectoryFileModelCreateService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.delete.LogDirectoryFileModelDeleteService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.update.LogDirectoryFileModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;

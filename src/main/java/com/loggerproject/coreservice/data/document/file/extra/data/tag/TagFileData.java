@@ -7,5 +7,6 @@ import java.util.Set;
 @Data
 public class TagFileData {
     Set<String> logFileIDs;
+    Set<String> logDirectoryIDs;
     String imageFileID;
 }

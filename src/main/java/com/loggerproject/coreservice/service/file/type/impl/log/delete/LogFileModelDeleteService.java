@@ -8,7 +8,7 @@ import com.loggerproject.coreservice.service.file.type.afiledata.delete.AFileMod
 import com.loggerproject.coreservice.service.file.type.impl.log.create.LogFileModelCreateService;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.regular.LogFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.log.update.LogFileModelUpdateService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.update.LogDirectoryFileModelUpdateService;
 import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.tag.update.TagFileModelUpdateService;

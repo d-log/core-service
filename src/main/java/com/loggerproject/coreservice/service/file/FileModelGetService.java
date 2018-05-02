@@ -5,7 +5,7 @@ import com.loggerproject.coreservice.data.document.file.extra.data.log.LogFileDa
 import com.loggerproject.coreservice.service.file.extra.FileGetterRequest;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.LogType;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.TypedLogFileModelGetManagerService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

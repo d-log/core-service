@@ -6,7 +6,7 @@ import com.loggerproject.coreservice.data.document.file.extra.data.logdirectory.
 import com.loggerproject.coreservice.data.document.file.extra.metadata.Metadata;
 import com.loggerproject.coreservice.data.repository.FileModelRepository;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.create.LogDirectoryFileModelCreateService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +54,7 @@ public class RootLogDirectoryService {
             directory.setOrganization(organization);
 
             directory.setLogDatas(new ArrayList<>());
-            directory.setLogTypeOverride(null);
+            directory.setLogDirectoryTypeOverride(null);
 
             root.setData(directory);
 

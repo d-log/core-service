@@ -2,12 +2,15 @@ package com.loggerproject.coreservice.service.file.type.impl.logdirectory.create
 
 import com.loggerproject.coreservice.data.document.file.FileModel;
 import com.loggerproject.coreservice.data.document.file.extra.data.logdirectory.LogDirectoryFileData;
+import com.loggerproject.coreservice.data.document.file.extra.data.tag.TagFileData;
 import com.loggerproject.coreservice.data.document.file.extra.metadata.Metadata;
 import com.loggerproject.coreservice.service.file.type.afiledata.create.AFileModelCreateService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.RootLogDirectoryService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.delete.LogDirectoryFileModelDeleteService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.logdirectory.update.LogDirectoryFileModelUpdateService;
+import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.tag.update.TagFileModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,12 @@ public class LogDirectoryFileModelCreateService extends AFileModelCreateService<
 
     @Autowired
     LogDirectoryFileModelUpdateService logDirectoryFileDataUpdateService;
+
+    @Autowired
+    TagFileModelGetService tagFileModelGetService;
+
+    @Autowired
+    TagFileModelUpdateService tagFileModelUpdateService;
 
     @Autowired
     public LogDirectoryFileModelCreateService(@Lazy LogDirectoryFileModelCreateService globalServerCreateService,
@@ -73,12 +82,21 @@ public class LogDirectoryFileModelCreateService extends AFileModelCreateService<
     @Override
     protected FileModel afterCreateUpdateOtherDocuments(FileModel model) throws Exception {
         LogDirectoryFileData directory = (LogDirectoryFileData) model.getData();
+
         Set<String> parentIDs = directory.getOrganization().getParentLogDirectoryFileIDs();
         for (String parentID : parentIDs) {
             FileModel df = globalServerGetService.findOne(parentID);
             LogDirectoryFileData d = (LogDirectoryFileData) df.getData();
             d.getChildLogDirectoryFileIDs().add(model.getId());
             logDirectoryFileDataUpdateService.update(df);
+        }
+
+        Set<String> tagIDs = directory.getOrganization().getTagFileIDs();
+        for (String tagID : tagIDs) {
+            FileModel fm = tagFileModelGetService.findOne(tagID);
+            TagFileData d = (TagFileData) fm.getData();
+            d.getLogDirectoryIDs().add(model.getId());
+            tagFileModelUpdateService.update(fm);
         }
 
         return model;

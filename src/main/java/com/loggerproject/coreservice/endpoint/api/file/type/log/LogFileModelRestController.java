@@ -1,8 +1,8 @@
 package com.loggerproject.coreservice.endpoint.api.file.type.log;
 
 import com.loggerproject.coreservice.data.document.file.FileModel;
-import com.loggerproject.coreservice.endpoint.api.file.type.AFileModelRestController;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
+import com.loggerproject.coreservice.endpoint.api.file.type.AFileModelRestController;
 import com.loggerproject.coreservice.endpoint.api.file.type.log.model.UpdateBindUnbindRequest;
 import com.loggerproject.coreservice.endpoint.api.file.type.log.model.UpdateLogDatasRequest;
 import com.loggerproject.coreservice.service.file.extra.FileGetterRequest;

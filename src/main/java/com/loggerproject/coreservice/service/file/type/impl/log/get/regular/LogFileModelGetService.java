@@ -10,16 +10,12 @@ import com.loggerproject.coreservice.service.file.type.afiledata.get.AFileModelG
 import com.loggerproject.coreservice.service.file.type.impl.log.create.LogFileModelCreateService;
 import com.loggerproject.coreservice.service.file.type.impl.log.delete.LogFileModelDeleteService;
 import com.loggerproject.coreservice.service.file.type.impl.log.update.LogFileModelUpdateService;
-import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
 import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
