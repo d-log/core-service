@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class TagFileModelCreateService extends AFileModelCreateService<TagFileData> {
@@ -37,8 +38,9 @@ public class TagFileModelCreateService extends AFileModelCreateService<TagFileDa
 
         String name = model.getMetadata().getName();
         Assert.hasText(name, "TagFileData.metadata.name must not be empty");
-        if (tagModelGetService.findByName(name).size() > 0) {
-            throw new Exception("TagFileData.metadata.name: '" + name + "' already exists");
+        List<FileModel> list = tagModelGetService.findByName(name);
+        if (list.size() > 0) {
+            throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");
         }
 
         return model;

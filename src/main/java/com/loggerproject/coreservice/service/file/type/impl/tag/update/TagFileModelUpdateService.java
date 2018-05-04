@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TagFileModelUpdateService extends AFileModelUpdateService<TagFileData> {
 
@@ -27,8 +29,9 @@ public class TagFileModelUpdateService extends AFileModelUpdateService<TagFileDa
     public FileModel changeName(String id, String name) throws Exception {
         FileModel model = tagFileDataGetService.validateAndFindOne(id);
 
-        if (tagFileDataGetService.findByName(name).size() > 0) {
-            throw new Exception("TagFileData.metadata.name: '" + name + "' already exists");
+        List<FileModel> list = tagFileDataGetService.findByName(name);
+        if (list.size() > 0) {
+            throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");
         }
 
         model.getMetadata().setName(name);
