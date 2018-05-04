@@ -46,7 +46,6 @@ public abstract class AFileModelCreateService<T> extends AFileModelCrudService<T
         t.setId(null);
         Date date = new Date();
         t.getMetadata().setType(genericClass.getSimpleName());
-        t.getMetadata().setLastUpdated(date);
         t.getMetadata().setCreated(date);
         return t;
     }
