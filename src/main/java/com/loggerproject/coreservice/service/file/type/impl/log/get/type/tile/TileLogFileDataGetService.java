@@ -5,6 +5,9 @@ import com.loggerproject.coreservice.data.document.file.extra.data.log.LogFileDa
 import com.loggerproject.coreservice.data.document.file.extra.data.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.LogType;
 import com.loggerproject.coreservice.service.file.type.impl.log.get.type.ATypedLogFileDataGetService;
+import com.loggerproject.coreservice.service.file.type.impl.logdirectory.get.regular.LogDirectoryFileModelGetService;
+import com.loggerproject.coreservice.service.file.type.impl.tag.get.TagFileModelGetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +15,12 @@ import java.util.List;
 
 @Service
 public class TileLogFileDataGetService extends ATypedLogFileDataGetService {
+
+    @Autowired
+    TagFileModelGetService tagFileDataGetService;
+
+    @Autowired
+    LogDirectoryFileModelGetService logDirectoryFileDataGetService;
 
     @Override
     public LogType getLogType() {
@@ -48,6 +57,8 @@ public class TileLogFileDataGetService extends ATypedLogFileDataGetService {
 
         tile.setOrganization(l.getOrganization());
         tile.setLogDatas(getLogData(override, l.getLogDatas()));
+        tile.setParentLogDirectoryFileDatas(logDirectoryFileDataGetService.findByIds(l.getOrganization().getParentLogDirectoryFileIDs()));
+        tile.setTagFileDatas(tagFileDataGetService.findByIds(l.getOrganization().getTagFileIDs()));
 
         return tile;
     }
