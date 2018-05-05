@@ -15,6 +15,7 @@ public class TileLogFileData extends ALogFileData {
     List<LogData> logDatas;
     List<FileModel> parentLogDirectoryFileDatas;
     List<FileModel> tagFileDatas;
+    Integer numLogDatas;
 
     public TileLogFileData() {
         this.setLogType(LogType.TILE);

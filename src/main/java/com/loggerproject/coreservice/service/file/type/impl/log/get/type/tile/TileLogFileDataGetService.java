@@ -59,6 +59,7 @@ public class TileLogFileDataGetService extends ATypedLogFileDataGetService {
         tile.setLogDatas(getLogData(override, l.getLogDatas()));
         tile.setParentLogDirectoryFileDatas(logDirectoryFileDataGetService.findByIds(l.getOrganization().getParentLogDirectoryFileIDs()));
         tile.setTagFileDatas(tagFileDataGetService.findByIds(l.getOrganization().getTagFileIDs()));
+        tile.setNumLogDatas(l.getLogDatas().size());
 
         return tile;
     }
