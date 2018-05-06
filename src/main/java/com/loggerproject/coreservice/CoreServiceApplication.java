@@ -35,14 +35,13 @@ public class CoreServiceApplication {
                                 "http://localhost:4200",
                                 "http://localhost:8080",
                                 // router
-                                "http://192.168.1.2:4200",
-                                "http://192.168.1.2:8080",
+                                "http://192.168.86.250:8888",
                                 // PUBLIC ADDRESSES - maybe private
                                 // global - default ports
-                                "http://ui.marcuschiu.com:8080",
-                                "http://ui.marcuschiu.com:4200",
-                                "http://ui.marcuschiu.com:80",
-                                "http://ui.marcuschiu.com");
+                                "http://life.marcuschiu.com:8080",
+                                "http://life.marcuschiu.com:4200",
+                                "http://life.marcuschiu.com:80",
+                                "http://life.marcuschiu.com");
             }
         };
     }
