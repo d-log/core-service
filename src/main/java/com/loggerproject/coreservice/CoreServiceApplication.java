@@ -39,7 +39,8 @@ public class CoreServiceApplication {
                                 "http://life.marcuschiu.com:8080",
                                 "http://life.marcuschiu.com:4200",
                                 "http://life.marcuschiu.com:80",
-                                "http://life.marcuschiu.com")
+                                "http://life.marcuschiu.com",
+                                "http://72.180.103.50:8888")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedOrigins("http://192.168.86.250:8888");
             }
