@@ -27,22 +27,13 @@ public class CoreServiceApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**")
-                        // allow only GET methods for now
                         .allowedMethods("GET")
                         .allowedOrigins(
                                 // PRIVATE ADDRESSES
-                                // local machine
                                 "http://localhost:4200",
-                                "http://localhost:8080",
-                                "http://192.168.86.250:8888",
-                                // PUBLIC ADDRESSES - maybe private
-                                // global - default ports
-                                "http://life.marcuschiu.com:8080",
-                                "http://life.marcuschiu.com:4200",
+                                // PUBLIC ADDRESSES
                                 "http://life.marcuschiu.com:80",
-                                "http://life.marcuschiu.com",
-                                "http://72.180.103.50:8888");
-//                        .allowedOrigins("http://192.168.86.250:8888");
+                                "http://life.marcuschiu.com");
             }
         };
     }
