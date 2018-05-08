@@ -51,6 +51,7 @@ public class LogFileModelCreateService extends AFileModelCreateService<LogFileDa
     public FileModel beforeSaveScrubAndValidate(FileModel model) throws Exception {
         Assert.notNull(model.getMetadata(), "FileModel.metadata cannot be empty");
         Assert.hasText(model.getMetadata().getName(), "FileModel.metadata.name cannot be empty");
+        Assert.notNull(model.getMetadata().getDisplayCommentSection(), "FileModel.metadata.displayCommentSection cannot be empty");
 
         LogFileData logFileData = (LogFileData) model.getData();
         logFileData.setOrganization(beforeScrubAndValidate(logFileData.getOrganization()));
