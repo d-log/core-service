@@ -70,9 +70,18 @@ public class LogDirectoryFileModelGetService extends AFileModelGetService<LogDir
     }
 
     public List<FileModel> findParents(String id) throws Exception {
-        FileModel model = this.validateAndFindOne(id);
+        FileModel model = validateAndFindOne(id);
         LogDirectoryFileData directory = (LogDirectoryFileData) model.getData();
         Set<String> parentIDs = directory.getOrganization().getParentLogDirectoryFileIDs();
         return findByIds(parentIDs);
     }
+
+    // TODO
+//    public List<FileModel> getAncestryUpToRoot(String id) throws Exception {
+//        FileModel model = validateAndFindOne(id);
+//        LogDirectoryFileData directory = (LogDirectoryFileData)model.getData();
+//        if (!directory.getOrganization().getParentLogDirectoryFileIDs().isEmpty()) {
+//
+//        }
+//    }
 }

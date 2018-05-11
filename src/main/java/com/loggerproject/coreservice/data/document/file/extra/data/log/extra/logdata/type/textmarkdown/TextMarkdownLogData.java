@@ -4,11 +4,6 @@ import lombok.Data;
 
 @Data
 public class TextMarkdownLogData {
-
     // required
     String text;
-
-    // optional
-    String font;
-    String fontSize;
 }
