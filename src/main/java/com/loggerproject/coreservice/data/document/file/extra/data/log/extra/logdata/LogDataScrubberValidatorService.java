@@ -32,18 +32,20 @@ public class LogDataScrubberValidatorService {
     @SuppressWarnings(value = "unchecked")
     public void scrubAndValidate(LogData logData) throws Exception {
         String logDataType = logData.getLogDataType();
-        Object data = logData.getData();
-
         Assert.hasText(logDataType, "FileModel.data.logDatas.logDataType cannot be empty");
-        Assert.notNull(data, "FileModel.data.logDatas[].data cannot be empty");
-
         ALogDataScrubberValidator validator = map2Validator.get(logDataType);
+
         if (validator != null) {
+            Object data = logData.getData();
             data = validator.scrubAndValidateLogDataObject(data);
             logData.setData(data);
         } else {
             throw new Exception("CustomLogDataUtilService not implemented");
 //            customLogDataModelUtilService.validateDataByLogDataType(filedata, logDataType);
+        }
+
+        if (logData.getCss() != null) {
+            // TODO validate css
         }
     }
 }

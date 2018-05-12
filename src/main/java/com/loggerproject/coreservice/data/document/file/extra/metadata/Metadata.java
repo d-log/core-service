@@ -10,7 +10,6 @@ public class Metadata {
     String type;
     String name;
     String description;
-    Boolean displayCommentSection;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     Date created;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

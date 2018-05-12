@@ -5,6 +5,7 @@ import com.loggerproject.coreservice.data.document.file.extra.data.image.ImageFi
 import com.loggerproject.coreservice.data.document.file.extra.data.image.extra.ImageSource;
 import com.loggerproject.coreservice.data.document.file.extra.data.image.extra.ImageSourceType;
 import com.loggerproject.coreservice.service.file.type.impl.image.create.ImageFileModelCreateService;
+import com.loggerproject.coreservice.service.file.type.impl.image.delete.ImageFileModelDeleteService;
 import com.loggerproject.coreservice.service.file.type.impl.image.update.ImageFileModelUpdateService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -33,6 +34,9 @@ public class ImageUploadService {
 
     @Autowired
     ImageFileModelUpdateService imageUpdateService;
+
+    @Autowired
+    ImageFileModelDeleteService imageDeleteService;
 
     @Autowired
     AmazonS3BucketService amazonS3BucketService;
@@ -92,6 +96,7 @@ public class ImageUploadService {
         try {
             imageURL = amazonS3BucketService.uploadFile(key, imageFile);
         } catch (Exception e) {
+            imageDeleteService.delete(model.getId());
             throw new Exception("Error uploading image to AmazonS3BucketService");
         }
 
