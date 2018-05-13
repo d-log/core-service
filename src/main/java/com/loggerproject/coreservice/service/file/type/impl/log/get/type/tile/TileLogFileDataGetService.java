@@ -68,7 +68,7 @@ public class TileLogFileDataGetService extends ATypedLogFileDataGetService {
         List<LogData> newLogDatas = new ArrayList<>();
 
         Integer index = override.getLogDataToDisplayIndex();
-        if (index != null) {
+        if (index != null && (0 <= index && index < logDatas.size())) {
             newLogDatas.add(logDatas.get(index));
         } else {
             if (logDatas.size() == 1) {
