@@ -70,9 +70,9 @@ public class LogFileModelCreateService extends AFileModelCreateService<LogFileDa
         if (logTypeOverride != null) {
             if (logTypeOverride.getTile() != null) {
                 Integer logDataToDisplayIndex = logTypeOverride.getTile().getLogDataToDisplayIndex();
-                if (logTypeOverride.getTile().getLogDataToDisplayIndex() != null) {
+                if (logDataToDisplayIndex != null) {
                     Integer largestIndex = logFileData.getLogDatas().size() - 1;
-                    if (logDataToDisplayIndex < 0 || logDataToDisplayIndex >= largestIndex) {
+                    if (logDataToDisplayIndex < 0 || logDataToDisplayIndex > largestIndex) {
                         throw new Exception("FileModel.data.logTypeOverride.tile.logDataToDisplayIndex has to be a value between 0 and " + largestIndex + " inclusive");
                     }
                 }
