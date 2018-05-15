@@ -59,7 +59,7 @@ public class ImageUploadRestController {
     @SuppressWarnings(value = "unchecked")
     private ResponseEntity<?> hateosBuilder(FileModel model, Object invocationValue) {
         Resources<FileModel> resources = new EmptiableResources(FileModel.class, Collections.singletonList(model), linkTo(invocationValue).withSelfRel());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(resources);
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
     @ExceptionHandler({Exception.class})

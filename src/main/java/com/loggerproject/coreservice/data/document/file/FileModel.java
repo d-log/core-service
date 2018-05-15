@@ -14,5 +14,5 @@ public class FileModel {
 
     Metadata metadata;
 
-    Object data;
+    Object data; // LogFileData | LogDirectoryFileData | ImageFileData | TagFileData | String | JSONObject
 }

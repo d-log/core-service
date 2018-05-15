@@ -31,8 +31,6 @@ public abstract class AFileModelUpdateService<T> extends AFileModelCrudService<T
 
     @SuppressWarnings("unchecked")
     protected FileModel beforeUpdate(FileModel t) throws Exception {
-        FileModel old = globalServerGetService.validateAndFindOne(t.getId());
-        t.setMetadata(old.getMetadata());
         t.getMetadata().setLastUpdated(new Date());
         beforeUpdateScrubAndValidate(t);
         return t;

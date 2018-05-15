@@ -19,7 +19,6 @@ public class AdminControllerUI {
                 "    <input type=\"file\" name=\"file\" /><br/><br/>\n" +
                 "    <input type=\"submit\" value=\"Submit\" />\n" +
                 "  </form>\n" +
-                "</form>\n" +
                 "</body>\n" +
                 "</html>";
     }

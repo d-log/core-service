@@ -1,9 +1,12 @@
 package com.loggerproject.coreservice.service.file.type.impl.log.update;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Sets;
 import com.loggerproject.coreservice.data.document.file.FileModel;
 import com.loggerproject.coreservice.data.document.file.extra.data.log.LogFileData;
 import com.loggerproject.coreservice.data.document.file.extra.data.log.extra.logdata.LogData;
 import com.loggerproject.coreservice.data.document.file.extra.data.log.extra.logdata.LogDataScrubberValidatorService;
+import com.loggerproject.coreservice.data.document.file.extra.data.log.extra.organization.Organization;
 import com.loggerproject.coreservice.data.document.file.extra.data.logdirectory.LogDirectoryFileData;
 import com.loggerproject.coreservice.data.document.file.extra.data.tag.TagFileData;
 import com.loggerproject.coreservice.service.file.type.afiledata.update.AFileModelUpdateService;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileData> {
@@ -43,6 +47,12 @@ public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileDa
     LogDataScrubberValidatorService logDataScrubberValidatorService;
 
     @Autowired
+    LogFileModelCreateService logFileModelCreateService;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     public LogFileModelUpdateService(@Lazy LogFileModelCreateService globalServerCreateService,
                                      @Lazy LogFileModelDeleteService globalServerDeleteService,
                                      @Lazy LogFileModelGetService globalServerGetService,
@@ -50,8 +60,37 @@ public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileDa
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public FileModel bindUnbindDirectories(String id, List<String> bindDirectoryIDs, List<String> unbindDirectoryIDs) throws Exception {
+    public FileModel updateWholeModelAndSyncOtherDocuments(FileModel newModel) throws Exception {
+        convertFileDataObject2Generic(newModel);
+        logFileModelCreateService.beforeSaveScrubAndValidate(newModel);
+
+        FileModel oldModel = logGetService.validateAndFindOne(newModel.getId());
+
+        LogFileData logFileData = (LogFileData) oldModel.getData();
+        Organization oldOrganization = logFileData.getOrganization();
+        Set<String> oldDirectoryIDs = oldOrganization.getParentLogDirectoryFileIDs();
+        Set<String> oldTagIDs = oldOrganization.getTagFileIDs();
+
+        Organization newOrganization = ((LogFileData) newModel.getData()).getOrganization();
+        Set<String> newDirectoryIDs = newOrganization.getParentLogDirectoryFileIDs();
+        Set<String> newTagIDs = newOrganization.getTagFileIDs();
+
+        oldModel = bindUnbindDirectories(oldModel, Sets.difference(newDirectoryIDs, oldDirectoryIDs), Sets.difference(oldDirectoryIDs, newDirectoryIDs));
+        oldModel = bindUnbindTags(oldModel, Sets.difference(newTagIDs, oldTagIDs), Sets.difference(oldTagIDs, newTagIDs));
+
+        oldModel.getMetadata().setName(newModel.getMetadata().getName());
+        oldModel.getMetadata().setDescription(newModel.getMetadata().getDescription());
+        oldModel.setData(newModel.getData());
+
+        return update(oldModel);
+    }
+
+    public FileModel bindUnbindDirectories(String id, Set<String> bindDirectoryIDs, Set<String> unbindDirectoryIDs) throws Exception {
         FileModel lf = logGetService.validateAndFindOne(id);
+        return bindUnbindDirectories(lf, bindDirectoryIDs, unbindDirectoryIDs);
+    }
+
+    private FileModel bindUnbindDirectories(FileModel lf, Set<String> bindDirectoryIDs, Set<String> unbindDirectoryIDs) throws Exception {
         LogFileData l = (LogFileData) lf.getData();
 
         List<FileModel> bindDirectories = new ArrayList<>();
@@ -69,21 +108,25 @@ public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileDa
         for (FileModel df : bindDirectories) {
             LogDirectoryFileData d = (LogDirectoryFileData) df.getData();
             l.getOrganization().getParentLogDirectoryFileIDs().add(df.getId());
-            d.getLogFileIDs().add(id);
+            d.getLogFileIDs().add(lf.getId());
             directoryUpdateService.update(df);
         }
         for (FileModel df : unbindDirectories) {
             LogDirectoryFileData d = (LogDirectoryFileData) df.getData();
             l.getOrganization().getParentLogDirectoryFileIDs().remove(df.getId());
-            d.getLogFileIDs().remove(id);
+            d.getLogFileIDs().remove(lf.getId());
             directoryUpdateService.update(df);
         }
 
         return update(lf);
     }
 
-    public FileModel bindUnbindTags(String id, List<String> bindTagIDs, List<String> unbindTagIDs) throws Exception {
+    public FileModel bindUnbindTags(String id, Set<String> bindTagIDs, Set<String> unbindTagIDs) throws Exception {
         FileModel lf = logGetService.validateAndFindOne(id);
+        return bindUnbindTags(lf, bindTagIDs, unbindTagIDs);
+    }
+
+    private FileModel bindUnbindTags(FileModel lf, Set<String> bindTagIDs, Set<String> unbindTagIDs) throws Exception {
         LogFileData l = (LogFileData) lf.getData();
 
         List<FileModel> bindTags = new ArrayList<>();
@@ -101,13 +144,13 @@ public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileDa
         for (FileModel tf : bindTags) {
             TagFileData t = (TagFileData) tf.getData();
             l.getOrganization().getTagFileIDs().add(tf.getId());
-            t.getLogFileIDs().add(id);
+            t.getLogFileIDs().add(lf.getId());
             tagUpdateService.update(tf);
         }
         for (FileModel tf : unbindTags) {
             TagFileData t = (TagFileData) tf.getData();
             l.getOrganization().getTagFileIDs().remove(tf.getId());
-            t.getLogFileIDs().remove(id);
+            t.getLogFileIDs().remove(lf.getId());
             tagUpdateService.update(tf);
         }
 
@@ -116,6 +159,10 @@ public class LogFileModelUpdateService extends AFileModelUpdateService<LogFileDa
 
     public FileModel updateLogDatas(String id, List<LogData> logDatas) throws Exception {
         FileModel lf = logGetService.validateAndFindOne(id);
+        return updateLogDatas(lf, logDatas);
+    }
+
+    private FileModel updateLogDatas(FileModel lf, List<LogData> logDatas) throws Exception {
         LogFileData l = (LogFileData) lf.getData();
         logDataScrubberValidatorService.scrubAndValidate(logDatas);
         l.setLogDatas(logDatas);

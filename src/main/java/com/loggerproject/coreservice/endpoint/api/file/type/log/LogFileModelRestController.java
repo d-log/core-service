@@ -96,6 +96,12 @@ public class LogFileModelRestController extends AFileModelRestController {
     //////////////
     // UPDATERS //
     //////////////
+    @PutMapping(produces = {"application/hal+json"})
+    public ResponseEntity<?> updateLog(@RequestBody FileModel model) throws Exception {
+        FileModel modelUpdated = logFileDataUpdateService.updateWholeModelAndSyncOtherDocuments(model);
+        return hateosBuilder(modelUpdated, methodOn(getClass()).updateLog(model));
+    }
+
 
     @PutMapping(value = {"/bind-unbind/tags"}, produces = {"application/hal+json"})
     public ResponseEntity<?> bindUnbindTag(@RequestBody UpdateBindUnbindRequest request) throws Exception {

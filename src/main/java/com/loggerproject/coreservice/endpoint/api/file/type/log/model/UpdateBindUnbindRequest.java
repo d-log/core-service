@@ -2,11 +2,11 @@ package com.loggerproject.coreservice.endpoint.api.file.type.log.model;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 public class UpdateBindUnbindRequest {
     String logID;
-    List<String> unbindModelIDs;
-    List<String> bindModelIDs;
+    Set<String> unbindModelIDs;
+    Set<String> bindModelIDs;
 }

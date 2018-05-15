@@ -27,7 +27,7 @@ public class CoreServiceApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**")
-                        .allowedMethods("GET")
+                        .allowedMethods("GET", "POST", "PUT")
                         .allowedOrigins(
                                 // PRIVATE ADDRESSES
                                 "http://localhost:4200",
