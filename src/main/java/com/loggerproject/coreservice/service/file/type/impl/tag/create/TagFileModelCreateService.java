@@ -36,13 +36,21 @@ public class TagFileModelCreateService extends AFileModelCreateService<TagFileDa
         Assert.isTrue(CollectionUtils.isEmpty(fileData.getLogFileIDs()), "TagFileData.logFileIDs must be empty");
         fileData.setLogFileIDs(new HashSet<>());
 
+        model.getMetadata().setName(scrubAndValidateMetadataName(model));
+
+        return model;
+    }
+
+    private String scrubAndValidateMetadataName(FileModel model) throws Exception {
         String name = model.getMetadata().getName();
+        if (name.trim().length() != name.length()) {
+            throw new Exception("TagFileData.metadata.name must not have leading and/or trailing whitespaces");
+        }
         Assert.hasText(name, "TagFileData.metadata.name must not be empty");
         List<FileModel> list = tagModelGetService.findByName(name);
         if (list.size() > 0) {
             throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");
         }
-
-        return model;
+        return name;
     }
 }
