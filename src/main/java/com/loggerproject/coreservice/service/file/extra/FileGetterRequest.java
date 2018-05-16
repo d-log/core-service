@@ -18,6 +18,7 @@ public class FileGetterRequest {
     LogDirectoryType logDirectoryType;
 
     String searchString;
+    String metadataNameRegex;
     Long millisecondThreshold;
     Pageable pageable;
     String directoryID;
