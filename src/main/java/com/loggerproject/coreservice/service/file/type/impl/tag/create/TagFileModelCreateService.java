@@ -43,10 +43,16 @@ public class TagFileModelCreateService extends AFileModelCreateService<TagFileDa
 
     private String scrubAndValidateMetadataName(FileModel model) throws Exception {
         String name = model.getMetadata().getName();
+        if (name == null) {
+            throw new Exception("TagFileData.metadata.name must not be empty");
+        }
         if (name.trim().length() != name.length()) {
             throw new Exception("TagFileData.metadata.name must not have leading and/or trailing whitespaces");
         }
-        Assert.hasText(name, "TagFileData.metadata.name must not be empty");
+        name = name.trim();
+        if (name.length() == 0) {
+            throw new Exception("TagFileData.metadata.name must not be empty");
+        }
         List<FileModel> list = tagModelGetService.findByName(name);
         if (list.size() > 0) {
             throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");

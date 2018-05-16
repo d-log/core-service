@@ -83,7 +83,7 @@ public class FileModelGetService {
             query.addCriteria(Criteria.where("metadata.type").in(getterRequest.getFileTypes()));
         }
         if (getterRequest.getMetadataNameRegex() != null) {
-            query.addCriteria(Criteria.where("metadata.name").regex(getterRequest.getMetadataNameRegex()));
+            query.addCriteria(Criteria.where("metadata.name").regex(getterRequest.getMetadataNameRegex(), "i"));
         }
         if (getterRequest.getMillisecondThreshold() != null) {
             query.addCriteria(Criteria.where("metadata.created").lte(new Date(getterRequest.getMillisecondThreshold())));
