@@ -26,15 +26,25 @@ public class TagFileModelUpdateService extends AFileModelUpdateService<TagFileDa
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
+    public FileModel updateWholeModelAndSyncOtherDocuments(FileModel model) throws Exception {
+        FileModel old = changeName(model.getId(), model.getMetadata().getName());
+        old.getMetadata().setDescription(model.getMetadata().getDescription());
+        return update(old);
+    }
+
     public FileModel changeName(String id, String name) throws Exception {
         FileModel model = tagFileDataGetService.validateAndFindOne(id);
 
-        List<FileModel> list = tagFileDataGetService.findByName(name);
-        if (list.size() > 0) {
-            throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");
+        if (!model.getMetadata().getName().equals(name)) {
+            List<FileModel> list = tagFileDataGetService.findByName(name);
+            if (list.size() > 0) {
+                throw new Exception("TagFileData.metadata.name: '" + name + "' already exists: '" + list.get(0).getId() + "'");
+            }
+
+            model.getMetadata().setName(name);
+            model = update(model);
         }
 
-        model.getMetadata().setName(name);
-        return this.update(model);
+        return model;
     }
 }

@@ -32,7 +32,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 public class LogFileModelRestController extends AFileModelRestController {
 
     @Autowired
-    LogFileModelUpdateService logFileDataUpdateService;
+    LogFileModelUpdateService logFileModelUpdateService;
 
     @Autowired
     TypedLogFileModelGetManagerService logTypeModelGetManagerService;
@@ -98,26 +98,26 @@ public class LogFileModelRestController extends AFileModelRestController {
     //////////////
     @PutMapping(produces = {"application/hal+json"})
     public ResponseEntity<?> updateLog(@RequestBody FileModel model) throws Exception {
-        FileModel modelUpdated = logFileDataUpdateService.updateWholeModelAndSyncOtherDocuments(model);
+        FileModel modelUpdated = logFileModelUpdateService.updateWholeModelAndSyncOtherDocuments(model);
         return hateosBuilder(modelUpdated, methodOn(getClass()).updateLog(model));
     }
 
 
     @PutMapping(value = {"/bind-unbind/tags"}, produces = {"application/hal+json"})
     public ResponseEntity<?> bindUnbindTag(@RequestBody UpdateBindUnbindRequest request) throws Exception {
-        FileModel modelUpdated = logFileDataUpdateService.bindUnbindTags(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
+        FileModel modelUpdated = logFileModelUpdateService.bindUnbindTags(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindUnbindTag(request));
     }
 
     @PutMapping(value = {"/bind-unbind/directories"}, produces = {"application/hal+json"})
     public ResponseEntity<?> bindDirectory(@RequestBody UpdateBindUnbindRequest request) throws Exception {
-        FileModel modelUpdated = logFileDataUpdateService.bindUnbindDirectories(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
+        FileModel modelUpdated = logFileModelUpdateService.bindUnbindDirectories(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindDirectory(request));
     }
 
     @PutMapping(value = {"/log-datas"}, produces = {"application/hal+json"})
     public ResponseEntity<?> bindDirectory(@RequestBody UpdateLogDatasRequest request) throws Exception {
-        FileModel modelUpdated = logFileDataUpdateService.updateLogDatas(request.getId(), request.getLogDatas());
+        FileModel modelUpdated = logFileModelUpdateService.updateLogDatas(request.getId(), request.getLogDatas());
         return hateosBuilder(modelUpdated, methodOn(getClass()).bindDirectory(request));
     }
 
