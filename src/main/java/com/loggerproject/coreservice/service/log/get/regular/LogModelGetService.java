@@ -2,11 +2,11 @@ package com.loggerproject.coreservice.service.log.get.regular;
 
 import com.loggerproject.coreservice.data.model.log.LogModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepository;
-import com.loggerproject.coreservice.service.FileGetterRequest;
 import com.loggerproject.coreservice.service.aglobal.get.AGlobalModelGetService;
 import com.loggerproject.coreservice.service.log.RootLogModelService;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
+import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,8 +32,8 @@ public class LogModelGetService extends AGlobalModelGetService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public Page<LogModel> theGetter(FileGetterRequest getterrequest) {
-        return null;
+    public Page<LogModel> theGetter(LogGetterRequest getterRequest) throws Exception {
+        return findAll(getterRequest.getPageable());
     }
 
     public LogModel getRoot() throws Exception {

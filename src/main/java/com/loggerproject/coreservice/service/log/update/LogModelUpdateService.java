@@ -102,6 +102,9 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
         oldModel.getMetadata().setName(newModel.getMetadata().getName());
         oldModel.getMetadata().setDescription(newModel.getMetadata().getDescription());
 
+        oldModel.setLogContents(newModel.getLogContents());
+        oldModel.setLogDisplayOverride(newModel.getLogDisplayOverride());
+
         return update(oldModel);
     }
 

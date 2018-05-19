@@ -76,6 +76,16 @@ public abstract class AGlobalModelGetService<T extends GlobalModel> extends AGlo
         return repository.findByMetadata_name(name);
     }
 
+    public Page<T> findByName(String name, Pageable pageable) throws Exception {
+        pageable = scrubValidatePageable(pageable);
+        return repository.findByMetadata_name(name, pageable);
+    }
+
+    public Page<T> findByNameLike(String nameLike, Pageable pageable) throws Exception {
+        pageable = scrubValidatePageable(pageable);
+        return repository.findByMetadata_nameLike(nameLike, pageable);
+    }
+
     public List<T> findAll() {
         return repository.findAll();
     }

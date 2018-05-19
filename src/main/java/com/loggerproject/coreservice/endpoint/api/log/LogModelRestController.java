@@ -5,7 +5,7 @@ import com.loggerproject.coreservice.endpoint.api.AGlobalModelRestController;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.endpoint.api.log.model.UpdateBindUnbindRequest;
 import com.loggerproject.coreservice.endpoint.api.log.model.UpdateLogContentsRequest;
-import com.loggerproject.coreservice.service.FileGetterRequest;
+import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.RootLogModelService;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,28 +74,12 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     /////////////
 
     @GetMapping(value = "/the-getter", produces = {"application/hal+json"})
-    public ResponseEntity theGetter(@RequestParam(value = "millisecond-threshold", required = false) Long millisecondThreshold,
-                                    @RequestParam(value = "search", required = false) String search,
-                                    @RequestParam(value = "tag-id", required = false) String tagID,
-                                    @RequestParam(value = "directory-id", required = false) String directoryID,
-                                    @RequestParam(value = "log-type", required = false) LogDisplayType logType,
+    public ResponseEntity theGetter(LogGetterRequest getterRequest,
                                     Pageable pageable,
                                     PagedResourcesAssembler assembler) throws Exception {
-        FileGetterRequest getterRequest = new FileGetterRequest();
-        getterRequest.setTagID(tagID);
-        getterRequest.setParentLogID(directoryID);
-        getterRequest.setSearchString(search);
-        getterRequest.setMillisecondThreshold(millisecondThreshold);
         getterRequest.setPageable(pageable);
-        getterRequest.setLogType(logType);
-
-        Page<LogModel> page = logTypeModelGetManagerService.theGetter(getterRequest, logType);
-        Resources resources;
-        if (page.getContent().size() == 0) {
-            resources = assembler.toEmptyResource(page, LogModel.class, null);
-        } else {
-            resources = assembler.toResource(page);
-        }
+        Page<LogModel> page = logTypeModelGetManagerService.theGetter(getterRequest, getterRequest.getLogType());
+        PagedResources<LogModel> resources = pageToResources(page, assembler);
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 

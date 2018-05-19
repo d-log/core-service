@@ -15,10 +15,10 @@ public class ImageInternalLogContentScrubberValidator extends ALogContentScrubbe
 
     @Override
     public ImageInternalLogContent scrubAndValidateLogData(ImageInternalLogContent data) throws Exception {
-        Assert.notNull(data.getImageModel(), "ImageInternalLogContent.imageModel cannot be empty");
-        Assert.notNull(data.getImageModel().getId(), "ImageInternalLogContent.imageModel.id cannot be empty");
+        Assert.notNull(data.getImageModelID(), "ImageInternalLogContent.imageModelID cannot be empty");
 
-        ImageModel model = imageGetService.validateAndFindOne(data.getImageModel().getId());
+        ImageModel model = imageGetService.validateAndFindOne(data.getImageModelID());
+        model.setId(null);
 
         data.setImageModel(model);
 

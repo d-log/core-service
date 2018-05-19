@@ -5,5 +5,6 @@ import lombok.Data;
 
 @Data
 public class ImageInternalLogContent {
+    String imageModelID;
     ImageModel imageModel;
 }

@@ -88,8 +88,20 @@ public abstract class AGlobalModelRestController<T extends GlobalModel> {
     @GetMapping(value = "/all", produces = "application/hal+json")
     public ResponseEntity getAll(Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
         Page<T> page = globalServerGetService.findAll(pageable);
-        PagedResources<T> resources = assembler.toResource(page);
+        PagedResources<T> resources = pageToResources(page, assembler);
         return ResponseEntity.status(HttpStatus.OK).body(resources);
+    }
+
+    protected PagedResources<T> pageToResources(Page page, PagedResourcesAssembler assembler) {
+        PagedResources resources;
+
+        if (page.getContent().size() == 0) {
+            resources = assembler.toEmptyResource(page, genericClass, null);
+        } else {
+            resources = assembler.toResource(page);
+        }
+
+        return resources;
     }
 
     @ExceptionHandler({Exception.class})

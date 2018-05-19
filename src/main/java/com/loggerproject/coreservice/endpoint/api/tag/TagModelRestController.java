@@ -5,16 +5,18 @@ import com.loggerproject.coreservice.endpoint.api.AGlobalModelRestController;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.service.tag.create.TagModelCreateService;
 import com.loggerproject.coreservice.service.tag.delete.TagModelDeleteService;
+import com.loggerproject.coreservice.service.tag.get.TagGetterRequest;
 import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
 import com.loggerproject.coreservice.service.tag.update.TagModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
@@ -29,6 +31,9 @@ public class TagModelRestController extends AGlobalModelRestController<TagModel>
     TagModelUpdateService tagFileModelUpdateService;
 
     @Autowired
+    TagModelGetService tagModelGetService;
+
+    @Autowired
     public TagModelRestController(TagModelCreateService globalServerCreateService,
                                   TagModelDeleteService globalServerDeleteService,
                                   TagModelGetService globalServerGetService,
@@ -36,8 +41,16 @@ public class TagModelRestController extends AGlobalModelRestController<TagModel>
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
+    @GetMapping(produces = "application/hal+json")
+    public ResponseEntity theGetter(TagGetterRequest tagGetterRequest, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
+        tagGetterRequest.setPageable(pageable);
+        Page<TagModel> page = tagModelGetService.theGetter(tagGetterRequest);
+        PagedResources<TagModel> resources = pageToResources(page, assembler);
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
+    }
+
     //////////////
-    // UPDATERS //«
+    // UPDATERS //
     //////////////
 
     @PutMapping(produces = {"application/hal+json"})

@@ -14,4 +14,6 @@ public interface GlobalModelRepository<T extends GlobalModel, ID extends Seriali
     List<T> findByMetadata_name(String name);
 
     Page<T> findByMetadata_name(String name, Pageable pageable);
+
+    Page<T> findByMetadata_nameLike(String name, Pageable pageable);
 }

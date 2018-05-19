@@ -14,7 +14,7 @@ public class TileLogModel extends ALogDisplayType {
     List<LogModel> parentLogModels;
     List<LogModel> childLogModels;
     List<TagModel> tagModels;
-    Integer numLogDatas;
+    Integer numLogContents;
 
     public TileLogModel() {
         this.setLogDisplayType(LogDisplayType.TILE);
