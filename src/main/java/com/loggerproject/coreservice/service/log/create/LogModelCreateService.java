@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.service.log.create;
 
-import com.loggerproject.coreservice.data.model._shared.Metadata;
 import com.loggerproject.coreservice.data.model.log.LogModel;
 import com.loggerproject.coreservice.data.model.log.content.LogContentScrubberValidatorService;
 import com.loggerproject.coreservice.data.model.log.organization.LogOrganization;
 import com.loggerproject.coreservice.data.model.log.override.LogDisplayOverride;
+import com.loggerproject.coreservice.data.model.shared.Metadata;
 import com.loggerproject.coreservice.data.model.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.service.aglobal.create.AGlobalModelCreateService;

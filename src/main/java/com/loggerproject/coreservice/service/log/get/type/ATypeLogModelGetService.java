@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.service.log.get.type;
 
-import com.loggerproject.coreservice.data.model._shared.Metadata;
 import com.loggerproject.coreservice.data.model.log.LogModel;
+import com.loggerproject.coreservice.data.model.shared.Metadata;
 import com.loggerproject.coreservice.service.log.get.ALogDisplayType;
 import com.loggerproject.coreservice.service.log.get.ALogDisplayTypeOverride;
 import com.loggerproject.coreservice.service.log.get.LogDisplayType;

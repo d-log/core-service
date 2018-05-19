@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.service.aglobal;
 
-import com.loggerproject.coreservice.data.model._shared.IGlobalModel;
+import com.loggerproject.coreservice.data.model.shared.GlobalModel;
 import com.loggerproject.coreservice.data.repository.GlobalModelRepository;
 import com.loggerproject.coreservice.service.aglobal.create.AGlobalModelCreateService;
 import com.loggerproject.coreservice.service.aglobal.delete.AGlobalModelDeleteService;
@@ -9,7 +9,7 @@ import com.loggerproject.coreservice.service.aglobal.update.AGlobalModelUpdateSe
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.GenericTypeResolver;
 
-public abstract class AGlobalModelCrudService<T extends IGlobalModel> {
+public abstract class AGlobalModelCrudService<T extends GlobalModel> {
 
     protected Class genericClass;
     protected GlobalModelRepository<T, String> repository;

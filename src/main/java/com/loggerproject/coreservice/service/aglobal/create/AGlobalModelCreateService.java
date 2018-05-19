@@ -1,7 +1,7 @@
 package com.loggerproject.coreservice.service.aglobal.create;
 
-import com.loggerproject.coreservice.data.model._shared.IGlobalModel;
-import com.loggerproject.coreservice.data.model._shared.Metadata;
+import com.loggerproject.coreservice.data.model.shared.GlobalModel;
+import com.loggerproject.coreservice.data.model.shared.Metadata;
 import com.loggerproject.coreservice.data.repository.GlobalModelRepository;
 import com.loggerproject.coreservice.service.aglobal.AGlobalModelCrudService;
 import com.loggerproject.coreservice.service.aglobal.delete.AGlobalModelDeleteService;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.Date;
 
 @SuppressWarnings("unchecked")
-public abstract class AGlobalModelCreateService<T extends IGlobalModel> extends AGlobalModelCrudService<T> {
+public abstract class AGlobalModelCreateService<T extends GlobalModel> extends AGlobalModelCrudService<T> {
 
     public AGlobalModelCreateService(GlobalModelRepository<T, String> repository,
                                      @Lazy AGlobalModelCreateService globalServerCreateService,

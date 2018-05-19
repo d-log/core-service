@@ -50,6 +50,7 @@ public class LogModelDeleteService extends AGlobalModelDeleteService<LogModel> {
 
     /**
      * TODO error recovery
+     *
      * @param model
      * @return
      * @throws Exception
@@ -66,7 +67,7 @@ public class LogModelDeleteService extends AGlobalModelDeleteService<LogModel> {
         }
 
         Set<String> tagIDs = model.getLogOrganization().getTagIDs();
-        for (String tagID: tagIDs) {
+        for (String tagID : tagIDs) {
             TagModel tagModel = tagModelGetService.findOne(tagID);
             tagModel.getLogIDs().remove(model.getId());
             tagModelUpdateService.update(tagModel);

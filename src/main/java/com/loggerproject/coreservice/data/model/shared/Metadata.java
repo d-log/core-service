@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.model._shared;
+package com.loggerproject.coreservice.data.model.shared;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

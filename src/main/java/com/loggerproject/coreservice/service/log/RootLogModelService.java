@@ -1,17 +1,16 @@
 package com.loggerproject.coreservice.service.log;
 
-import com.loggerproject.coreservice.data.model._shared.Metadata;
 import com.loggerproject.coreservice.data.model.log.LogModel;
+import com.loggerproject.coreservice.data.model.log.content.LogContent;
+import com.loggerproject.coreservice.data.model.log.content.type._section.header.HeaderSectionLogContent;
 import com.loggerproject.coreservice.data.model.log.organization.LogOrganization;
+import com.loggerproject.coreservice.data.model.shared.Metadata;
 import com.loggerproject.coreservice.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.service.log.get.regular.LogModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RootLogModelService {
@@ -44,7 +43,11 @@ public class RootLogModelService {
             organization.setTagIDs(new HashSet<>());
             root.setLogOrganization(organization);
 
-            root.setLogContents(new ArrayList<>());
+            LogContent logContent = new LogContent();
+            logContent.setData(new HeaderSectionLogContent());
+            logContent.setLogContentType("HeaderSectionLogContent");
+            logContent.setCss(new HashMap<>());
+            root.setLogContents(Collections.singletonList(logContent));
             root.setLogDisplayOverride(null);
 
             return repository.save(root);

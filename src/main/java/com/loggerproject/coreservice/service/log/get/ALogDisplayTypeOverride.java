@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.service.log.get;
 
-import com.loggerproject.coreservice.data.model._shared.Metadata;
+import com.loggerproject.coreservice.data.model.shared.Metadata;
 import lombok.Data;
 
 @Data

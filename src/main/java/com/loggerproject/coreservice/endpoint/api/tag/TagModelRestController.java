@@ -1,8 +1,8 @@
 package com.loggerproject.coreservice.endpoint.api.tag;
 
 import com.loggerproject.coreservice.data.model.tag.TagModel;
-import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.endpoint.api.AGlobalModelRestController;
+import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.service.tag.create.TagModelCreateService;
 import com.loggerproject.coreservice.service.tag.delete.TagModelDeleteService;
 import com.loggerproject.coreservice.service.tag.get.TagModelGetService;
@@ -22,17 +22,17 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/api/file/tag")
-public class TagFileModelRestController extends AGlobalModelRestController {
+@RequestMapping("/api/tag")
+public class TagModelRestController extends AGlobalModelRestController<TagModel> {
 
     @Autowired
     TagModelUpdateService tagFileModelUpdateService;
 
     @Autowired
-    public TagFileModelRestController(TagModelCreateService globalServerCreateService,
-                                      TagModelDeleteService globalServerDeleteService,
-                                      TagModelGetService globalServerGetService,
-                                      TagModelUpdateService globalServerUpdateService) {
+    public TagModelRestController(TagModelCreateService globalServerCreateService,
+                                  TagModelDeleteService globalServerDeleteService,
+                                  TagModelGetService globalServerGetService,
+                                  TagModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 

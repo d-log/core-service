@@ -30,9 +30,9 @@ import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/api/file/log")
+@RequestMapping("/api/log")
 @SuppressWarnings(value = "unchecked")
-public class LogFileModelRestController extends AGlobalModelRestController {
+public class LogModelRestController extends AGlobalModelRestController<LogModel> {
 
     @Autowired
     LogModelGetService logModelGetService;
@@ -47,10 +47,10 @@ public class LogFileModelRestController extends AGlobalModelRestController {
     RootLogModelService rootLogModelService;
 
     @Autowired
-    public LogFileModelRestController(LogModelCreateService globalServerCreateService,
-                                      LogModelDeleteService globalServerDeleteService,
-                                      LogModelGetService globalServerGetService,
-                                      LogModelUpdateService globalServerUpdateService) {
+    public LogModelRestController(LogModelCreateService globalServerCreateService,
+                                  LogModelDeleteService globalServerDeleteService,
+                                  LogModelGetService globalServerGetService,
+                                  LogModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
@@ -113,6 +113,16 @@ public class LogFileModelRestController extends AGlobalModelRestController {
                                            PagedResourcesAssembler assembler) throws Exception {
         Page page = logTypeModelGetManagerService.findAll(pageable, logType);
         Resources resources = assembler.toResource(page);
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
+    }
+
+    @GetMapping(value = "/root", produces = {"application/hal+json"})
+    public ResponseEntity getRootDefault() throws Exception {
+        ALogDisplayType root = logTypeModelGetManagerService.getRoot(null);
+
+        Resources resources = new EmptiableResources(ALogDisplayType.class, Collections.singletonList(root));
+        resources.add(linkTo(methodOn(getClass()).getRootDefault()).withSelfRel());
+
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 

@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.service.aglobal.delete;
 
-import com.loggerproject.coreservice.data.model._shared.IGlobalModel;
+import com.loggerproject.coreservice.data.model.shared.GlobalModel;
 import com.loggerproject.coreservice.data.repository.GlobalModelRepository;
 import com.loggerproject.coreservice.service.aglobal.AGlobalModelCrudService;
 import com.loggerproject.coreservice.service.aglobal.create.AGlobalModelCreateService;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public abstract class AGlobalModelDeleteService<T extends IGlobalModel> extends AGlobalModelCrudService<T> {
+public abstract class AGlobalModelDeleteService<T extends GlobalModel> extends AGlobalModelCrudService<T> {
 
     public AGlobalModelDeleteService(GlobalModelRepository<T, String> repository,
                                      @Lazy AGlobalModelCreateService globalServerCreateService,

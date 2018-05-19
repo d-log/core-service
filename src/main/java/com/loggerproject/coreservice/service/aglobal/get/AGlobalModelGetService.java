@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.service.aglobal.get;
 
-import com.loggerproject.coreservice.data.model._shared.IGlobalModel;
+import com.loggerproject.coreservice.data.model.shared.GlobalModel;
 import com.loggerproject.coreservice.data.repository.GlobalModelRepository;
 import com.loggerproject.coreservice.service.aglobal.AGlobalModelCrudService;
 import com.loggerproject.coreservice.service.aglobal.create.AGlobalModelCreateService;
@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public abstract class AGlobalModelGetService<T extends IGlobalModel> extends AGlobalModelCrudService<T> {
+public abstract class AGlobalModelGetService<T extends GlobalModel> extends AGlobalModelCrudService<T> {
 
     @Value("${spring.data.rest.maxPageSize}")
     protected Integer MAX_PAGE_SIZE;

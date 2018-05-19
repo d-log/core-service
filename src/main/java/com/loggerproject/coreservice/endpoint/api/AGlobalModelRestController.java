@@ -1,6 +1,6 @@
 package com.loggerproject.coreservice.endpoint.api;
 
-import com.loggerproject.coreservice.data.model._shared.IGlobalModel;
+import com.loggerproject.coreservice.data.model.shared.GlobalModel;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.endpoint.api.extra.GlobalResponse;
 import com.loggerproject.coreservice.service.aglobal.create.AGlobalModelCreateService;
@@ -26,7 +26,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @ResponseBody
 @SuppressWarnings("unchecked")
-public abstract class AGlobalModelRestController<T extends IGlobalModel> {
+public abstract class AGlobalModelRestController<T extends GlobalModel> {
 
     protected Class genericClass;
 
