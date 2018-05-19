@@ -1,10 +1,10 @@
 package com.loggerproject.coreservice.endpoint.api.util;
 
 
-import com.loggerproject.coreservice.data.document.file.FileModel;
+import com.loggerproject.coreservice.data.model.image.ImageModel;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
 import com.loggerproject.coreservice.endpoint.api.extra.GlobalResponse;
-import com.loggerproject.coreservice.endpoint.api.file.type.image.extra.SingleSourceImageURL;
+import com.loggerproject.coreservice.endpoint.api.image.extra.SingleSourceImageURL;
 import com.loggerproject.coreservice.service.util.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +32,7 @@ public class ImageUploadRestController {
 
     @PostMapping(value = {"/url"}, produces = {"application/hal+json"})
     public ResponseEntity<?> uploadImageSourceURL(@RequestBody SingleSourceImageURL request) throws Exception {
-        FileModel model = imageUploadService.uploadImage(request.getUrl());
+        ImageModel model = imageUploadService.uploadImage(request.getUrl());
         return hateosBuilder(model, methodOn(getClass()).uploadImageSourceURL(request));
     }
 
@@ -45,7 +45,7 @@ public class ImageUploadRestController {
         File file = new File(tmpDir + "/" + multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
 
-        FileModel model = imageUploadService.uploadImage(file);
+        ImageModel model = imageUploadService.uploadImage(file);
 
         file.delete();
         // passing null param bc: No converter found capable of converting
@@ -57,8 +57,8 @@ public class ImageUploadRestController {
     }
 
     @SuppressWarnings(value = "unchecked")
-    private ResponseEntity<?> hateosBuilder(FileModel model, Object invocationValue) {
-        Resources<FileModel> resources = new EmptiableResources(FileModel.class, Collections.singletonList(model), linkTo(invocationValue).withSelfRel());
+    private ResponseEntity<?> hateosBuilder(ImageModel model, Object invocationValue) {
+        Resources<ImageModel> resources = new EmptiableResources(ImageModel.class, Collections.singletonList(model), linkTo(invocationValue).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 

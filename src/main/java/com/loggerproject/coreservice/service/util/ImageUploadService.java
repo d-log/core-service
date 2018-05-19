@@ -1,12 +1,11 @@
 package com.loggerproject.coreservice.service.util;
 
-import com.loggerproject.coreservice.data.document.file.FileModel;
-import com.loggerproject.coreservice.data.document.file.extra.data.image.ImageFileData;
-import com.loggerproject.coreservice.data.document.file.extra.data.image.extra.ImageSource;
-import com.loggerproject.coreservice.data.document.file.extra.data.image.extra.ImageSourceType;
-import com.loggerproject.coreservice.service.file.type.impl.image.create.ImageFileModelCreateService;
-import com.loggerproject.coreservice.service.file.type.impl.image.delete.ImageFileModelDeleteService;
-import com.loggerproject.coreservice.service.file.type.impl.image.update.ImageFileModelUpdateService;
+import com.loggerproject.coreservice.data.model.image.ImageModel;
+import com.loggerproject.coreservice.data.model.image.extra.ImageSource;
+import com.loggerproject.coreservice.data.model.image.extra.ImageSourceType;
+import com.loggerproject.coreservice.service.image.create.ImageModelCreateService;
+import com.loggerproject.coreservice.service.image.delete.ImageModelDeleteService;
+import com.loggerproject.coreservice.service.image.update.ImageModelUpdateService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.joda.time.DateTime;
@@ -30,13 +29,13 @@ import java.util.Iterator;
 public class ImageUploadService {
 
     @Autowired
-    ImageFileModelCreateService imageCreateService;
+    ImageModelCreateService imageModelCreateService;
 
     @Autowired
-    ImageFileModelUpdateService imageUpdateService;
+    ImageModelUpdateService imageModelUpdateService;
 
     @Autowired
-    ImageFileModelDeleteService imageDeleteService;
+    ImageModelDeleteService imageDeleteService;
 
     @Autowired
     AmazonS3BucketService amazonS3BucketService;
@@ -84,11 +83,11 @@ public class ImageUploadService {
         }
     }
 
-    public FileModel uploadImage(File imageFile) throws Exception {
+    public ImageModel uploadImage(File imageFile) throws Exception {
         String extension = FilenameUtils.getExtension(imageFile.getName());
 
-        FileModel model = new FileModel();
-        model = imageCreateService.create(model);
+        ImageModel model = new ImageModel();
+        model = imageModelCreateService.create(model);
 
         String key = getDirectoryPath() + model.getId() + "." + extension;
 
@@ -104,34 +103,31 @@ public class ImageUploadService {
         Integer width = bufferedImage.getWidth();
         Integer height = bufferedImage.getHeight();
 
-        ImageFileData imageFileData = new ImageFileData();
-        imageFileData.setExtension(extension);
-        imageFileData.setSource(new ImageSource());
-        imageFileData.setExtension(extension);
-        imageFileData.setWidth(width);
-        imageFileData.setHeight(height);
-        imageFileData.setHeightDividedByWidth((double) height / (double) width);
-        imageFileData.setImageURL(imageURL);
-        model.setData(imageFileData);
-        model = imageUpdateService.update(model);
+        model.setExtension(extension);
+        model.setSource(new ImageSource());
+        model.setExtension(extension);
+        model.setWidth(width);
+        model.setHeight(height);
+        model.setHeightDividedByWidth((double) height / (double) width);
+        model.setImageURL(imageURL);
+        model = imageModelUpdateService.update(model);
 
         return model;
     }
 
-    public FileModel uploadImage(URL url) throws Exception {
+    public ImageModel uploadImage(URL url) throws Exception {
         File file = generateImageFile(url);
-        FileModel model = uploadImage(file);
+        ImageModel model = uploadImage(file);
 
-        ImageFileData imageFileData = (ImageFileData) model.getData();
-        imageFileData.getSource().setType(ImageSourceType.URL);
-        imageFileData.getSource().setUrl(url.toString());
-        imageUpdateService.update(model);
+        model.getSource().setType(ImageSourceType.URL);
+        model.getSource().setUrl(url.toString());
+        imageModelUpdateService.update(model);
 
         file.delete();
         return model;
     }
 
-    public FileModel uploadImage(String urlString) throws Exception {
+    public ImageModel uploadImage(String urlString) throws Exception {
         URL url = new URL(urlString);
         return uploadImage(url);
     }

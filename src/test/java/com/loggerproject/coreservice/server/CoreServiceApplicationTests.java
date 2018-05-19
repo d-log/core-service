@@ -71,17 +71,17 @@ public class CoreServiceApplicationTests {
 //		directoryModelRepository.save(logdirectory);
 //
 //		LogModel log = new LogModel();
-//		log.setOrganization(new LogOrganization());
-//		log.getOrganization().setDirectoryIDs(Collections.singleton(logdirectory.getID()));
+//		log.setLogOrganization(new LogOrganization());
+//		log.getLogOrganization().setDirectoryIDs(Collections.singleton(logdirectory.getID()));
 //
 //		TextPlainLogData textPlainLogData = new TextPlainLogData();
 //		textPlainLogData.setText("Hello World");
 //
 //		LogData logData = new LogData();
-//		logData.setLogDataType("TextPlainLogData");
+//		logData.setLogContentType("TextPlainLogData");
 //		logData.setDataString(objectMapper.writeValueAsString(textPlainLogData));
 //
-//		log.setLogDatas(Collections.singletonList(logData));
+//		log.setLogContents(Collections.singletonList(logData));
 //		logModelCreateService.create(log);
 //	}
 //
