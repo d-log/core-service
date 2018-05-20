@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class HeaderSectionLogContentScrubberValidator extends ALogContentScrubberValidator<HeaderSectionLogContent> {
 
     @Override
-    public HeaderSectionLogContent scrubAndValidateLogData(HeaderSectionLogContent data) throws Exception {
+    public HeaderSectionLogContent scrubAndValidateLogData(HeaderSectionLogContent data) {
         return data;
     }
 }

@@ -7,11 +7,12 @@ import org.springframework.data.domain.Pageable;
 @Data
 public class LogGetterRequest {
     // tells how LogModels should be modified before sending it out
-    LogDisplayType logType;
+    LogDisplayType logDisplayType;
 
     String searchString;
-    String metadataNameRegex;
-    Long millisecondThreshold;
+
+    String metadataNameLike;
+    Long createdBefore;
     Pageable pageable;
     String parentLogID;
     String tagID;

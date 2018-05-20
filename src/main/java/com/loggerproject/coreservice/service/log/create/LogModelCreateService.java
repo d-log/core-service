@@ -98,10 +98,11 @@ public class LogModelCreateService extends AGlobalModelCreateService<LogModel> {
     private LogOrganization beforeScrubAndValidateLogOrganization(LogOrganization organization) throws Exception {
         Assert.notNull(organization, "LogModel.logOrganization cannot be null");
 
-        Assert.isTrue(CollectionUtils.isEmpty(organization.getChildLogIDs()), "LogModel.logOrganization.childLogIDs should be empty");
-        organization.setChildLogIDs(new HashSet<>());
+        organization.setChildLogIDs(organization.getChildLogIDs() != null ? organization.getChildLogIDs() : new HashSet<>());
+        logModelGetService.validateAndFindByIDs(organization.getChildLogIDs());
 
         Assert.notEmpty(organization.getParentLogIDs(), "LogModel.logOrganization.parentLogIDs cannot be empty (you can specify '\" + RootLogModelService.ROOT_NAME + \"' as parent id)\"");
+        Assert.isTrue(organization.getParentLogIDs().size() == 1, "LogModel.logOrganization.parentLogIDs has to be exactly size 1");
         if (organization.getParentLogIDs().remove(RootLogModelService.ROOT_NAME)) {
             LogModel root = rootLogModelService.getRoot();
             organization.getParentLogIDs().add(root.getId());

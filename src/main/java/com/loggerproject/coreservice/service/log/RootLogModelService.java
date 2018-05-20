@@ -56,6 +56,15 @@ public class RootLogModelService {
         }
     }
 
+    public Boolean isRoot(LogModel logModel) {
+        String name = logModel.getMetadata().getName();
+        if (name.equals(ROOT_NAME)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void validateNotRoot(LogModel model) throws Exception {
         String name = model.getMetadata().getName();
         if (name.equals(ROOT_NAME)) {

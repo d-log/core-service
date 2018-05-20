@@ -93,7 +93,7 @@ public class CoreServiceApplicationTests {
 //		list.forEach(logModel -> System.out.println(logModel.toString()));
 //
 //		GetterRequest getterRequest = new GetterRequest();
-//		getterRequest.setMillisecondThreshold(System.currentTimeMillis());
+//		getterRequest.setCreatedBefore(System.currentTimeMillis());
 //		getterRequest.setPageable(new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
 //		page = logModelGetService.theGetter(getterRequest);
 //		list = page.getContent();
@@ -106,7 +106,7 @@ public class CoreServiceApplicationTests {
 //		list.forEach(logModel -> System.out.println(logModel.toString()));
 //
 //        getterRequest = new GetterRequest();
-//        getterRequest.setMillisecondThreshold(System.currentTimeMillis() - 1000);
+//        getterRequest.setCreatedBefore(System.currentTimeMillis() - 1000);
 //        getterRequest.setPageable(new PageRequest(0, 2, new Sort(new Sort.Order(Sort.Direction.DESC, "metadata.created"))));
 //		page = logModelGetService.theGetter(getterRequest);
 //		list = page.getContent();

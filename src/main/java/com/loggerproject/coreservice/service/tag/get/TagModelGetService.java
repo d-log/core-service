@@ -6,7 +6,6 @@ import com.loggerproject.coreservice.service.aglobal.get.AGlobalModelGetService;
 import com.loggerproject.coreservice.service.tag.create.TagModelCreateService;
 import com.loggerproject.coreservice.service.tag.delete.TagModelDeleteService;
 import com.loggerproject.coreservice.service.tag.update.TagModelUpdateService;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;

@@ -3,9 +3,6 @@ package com.loggerproject.coreservice.endpoint.api.log;
 import com.loggerproject.coreservice.data.model.log.LogModel;
 import com.loggerproject.coreservice.endpoint.api.AGlobalModelRestController;
 import com.loggerproject.coreservice.endpoint.api.extra.EmptiableResources;
-import com.loggerproject.coreservice.endpoint.api.log.model.UpdateBindUnbindRequest;
-import com.loggerproject.coreservice.endpoint.api.log.model.UpdateLogContentsRequest;
-import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.RootLogModelService;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
@@ -13,6 +10,7 @@ import com.loggerproject.coreservice.service.log.get.ALogDisplayType;
 import com.loggerproject.coreservice.service.log.get.LogDisplayType;
 import com.loggerproject.coreservice.service.log.get.LogDisplayTypeModelGetManagerService;
 import com.loggerproject.coreservice.service.log.get.regular.LogModelGetService;
+import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.update.LogModelUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -78,7 +76,7 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
                                     Pageable pageable,
                                     PagedResourcesAssembler assembler) throws Exception {
         getterRequest.setPageable(pageable);
-        Page<LogModel> page = logTypeModelGetManagerService.theGetter(getterRequest, getterRequest.getLogType());
+        Page<LogModel> page = logTypeModelGetManagerService.theGetter(getterRequest, getterRequest.getLogDisplayType());
         PagedResources<LogModel> resources = pageToResources(page, assembler);
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
@@ -160,25 +158,6 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     public ResponseEntity<?> updateWholeModelAndSyncOtherDocuments(@RequestBody LogModel model) throws Exception {
         LogModel modelUpdated = logFileModelUpdateService.updateWholeModelAndSyncOtherDocuments(model);
         return hateosBuilder(modelUpdated, methodOn(getClass()).updateWholeModelAndSyncOtherDocuments(model));
-    }
-
-
-    @PutMapping(value = {"/bind-unbind/tags"}, produces = {"application/hal+json"})
-    public ResponseEntity<?> bindUnbindTags(@RequestBody UpdateBindUnbindRequest request) throws Exception {
-        LogModel modelUpdated = logFileModelUpdateService.bindUnbindTags(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
-        return hateosBuilder(modelUpdated, methodOn(getClass()).bindUnbindTags(request));
-    }
-
-    @PutMapping(value = {"/bind-unbind/parent-logs"}, produces = {"application/hal+json"})
-    public ResponseEntity<?> bindUnbindParentLogs(@RequestBody UpdateBindUnbindRequest request) throws Exception {
-        LogModel modelUpdated = logFileModelUpdateService.bindUnbindParentLogs(request.getLogID(), request.getBindModelIDs(), request.getUnbindModelIDs());
-        return hateosBuilder(modelUpdated, methodOn(getClass()).bindUnbindParentLogs(request));
-    }
-
-    @PutMapping(value = {"/log-contents"}, produces = {"application/hal+json"})
-    public ResponseEntity<?> updateLogContents(@RequestBody UpdateLogContentsRequest request) throws Exception {
-        LogModel modelUpdated = logFileModelUpdateService.updateLogContents(request.getId(), request.getLogContents());
-        return hateosBuilder(modelUpdated, methodOn(getClass()).updateLogContents(request));
     }
 
     private ResponseEntity<?> hateosBuilder(LogModel model, Object invocationValue) {

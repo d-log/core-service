@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class CommentSectionLogContentScrubberValidator extends ALogContentScrubberValidator<CommentSectionLogContent> {
 
     @Override
-    public CommentSectionLogContent scrubAndValidateLogData(CommentSectionLogContent data) throws Exception {
+    public CommentSectionLogContent scrubAndValidateLogData(CommentSectionLogContent data) {
         return data;
     }
 }

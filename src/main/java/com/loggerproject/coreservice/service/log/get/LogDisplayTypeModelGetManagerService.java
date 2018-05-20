@@ -1,8 +1,8 @@
 package com.loggerproject.coreservice.service.log.get;
 
 import com.loggerproject.coreservice.data.model.log.LogModel;
-import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.get.regular.LogModelGetService;
+import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.get.type.ATypeLogModelGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -88,7 +88,7 @@ public class LogDisplayTypeModelGetManagerService {
         }
     }
 
-    public Page theGetter(LogGetterRequest getterRequest, LogDisplayType logType) throws Exception {
+    public Page theGetter(LogGetterRequest getterRequest, LogDisplayType logType) {
         if (logType == null || logType.equals(LogDisplayType.DEFAULT)) {
             return logGetService.theGetter(getterRequest);
         } else {
@@ -100,11 +100,11 @@ public class LogDisplayTypeModelGetManagerService {
         }
     }
 
-    public ALogDisplayType getAsLogType(LogModel log, LogDisplayType logType) {
+    public ALogDisplayType getAsLogDisplayType(LogModel log, LogDisplayType logType) {
         return getServiceByLogType(logType).getAsLogType(log);
     }
 
-    public List<ALogDisplayType> getAsLogType(Collection<LogModel> logs, LogDisplayType logType) {
+    public List<ALogDisplayType> getAsLogDisplayType(Collection<LogModel> logs, LogDisplayType logType) {
         return getServiceByLogType(logType).getAsLogType(logs);
     }
 

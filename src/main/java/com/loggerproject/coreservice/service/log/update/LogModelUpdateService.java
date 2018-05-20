@@ -2,12 +2,12 @@ package com.loggerproject.coreservice.service.log.update;
 
 import com.google.common.collect.Sets;
 import com.loggerproject.coreservice.data.model.log.LogModel;
-import com.loggerproject.coreservice.data.model.log.content.LogContent;
 import com.loggerproject.coreservice.data.model.log.content.LogContentScrubberValidatorService;
 import com.loggerproject.coreservice.data.model.log.organization.LogOrganization;
 import com.loggerproject.coreservice.data.model.tag.TagModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.service.aglobal.update.AGlobalModelUpdateService;
+import com.loggerproject.coreservice.service.log.RootLogModelService;
 import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.log.get.regular.LogModelGetService;
@@ -39,7 +39,7 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
     LogModelCreateService logModelCreateService;
 
     @Autowired
-    LogModelUpdateService logModelUpdateService;
+    RootLogModelService rootLogModelService;
 
     @Autowired
     public LogModelUpdateService(LogModelRepository repository,
@@ -50,90 +50,61 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
         super(repository, globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
     }
 
-    public LogModel changeName(String id, String name) throws Exception {
-        LogModel model = logModelGetService.validateAndFindOne(id);
-        model.getMetadata().setName(name);
-        return this.update(model);
-    }
-
-    public LogModel assignFromParentToParent(String childID, String oldParentID, String newParentID) throws Exception {
-        LogModel model = logModelGetService.validateAndFindOne(childID);
-        LogModel oldParent = logModelGetService.validateAndFindOne(oldParentID);
-        LogModel newParent = logModelGetService.validateAndFindOne(newParentID);
-
-        model.getLogOrganization().getParentLogIDs().remove(oldParentID);
-        oldParent.getLogOrganization().getChildLogIDs().remove(childID);
-
-        model.getLogOrganization().getParentLogIDs().add(newParentID);
-        newParent.getLogOrganization().getChildLogIDs().add(childID);
-
-        update(oldParent);
-        update(newParent);
-        return update(model);
-    }
-
-    public LogModel assignAdditionalParent(String childID, String parentID) throws Exception {
-        LogModel model = logModelGetService.validateAndFindOne(childID);
-        LogModel parent = logModelGetService.validateAndFindOne(parentID);
-
-        model.getLogOrganization().getParentLogIDs().add(parentID);
-        parent.getLogOrganization().getChildLogIDs().add(childID);
-
-        update(parent);
-        return update(model);
-    }
-
     public LogModel updateWholeModelAndSyncOtherDocuments(LogModel newModel) throws Exception {
-        logModelCreateService.beforeSaveScrubAndValidate(newModel);
-
         LogModel oldModel = logModelGetService.validateAndFindOne(newModel.getId());
+        if (!rootLogModelService.isRoot(oldModel)) {
+            logModelCreateService.beforeSaveScrubAndValidate(newModel);
 
-        LogOrganization oldLogOrganization = oldModel.getLogOrganization();
-        Set<String> oldParentLogIDs = oldLogOrganization.getParentLogIDs();
-        Set<String> oldTagIDs = oldLogOrganization.getTagIDs();
+            LogOrganization oldLogOrganization = oldModel.getLogOrganization();
+            String oldParentLogID = oldLogOrganization.getParentLogIDs().iterator().next();
+            Set<String> oldTagIDs = oldLogOrganization.getTagIDs();
 
-        LogOrganization newOrganization = newModel.getLogOrganization();
-        Set<String> newParentLogIDs = newOrganization.getParentLogIDs();
-        Set<String> newTagIDs = newOrganization.getTagIDs();
+            LogOrganization newOrganization = newModel.getLogOrganization();
+            String newParentLogID = newOrganization.getParentLogIDs().iterator().next();
+            Set<String> newTagIDs = newOrganization.getTagIDs();
 
-        oldModel = bindUnbindParentLogs(oldModel, Sets.difference(newParentLogIDs, oldParentLogIDs), Sets.difference(oldParentLogIDs, newParentLogIDs));
-        oldModel = bindUnbindTags(oldModel, Sets.difference(newTagIDs, oldTagIDs), Sets.difference(oldTagIDs, newTagIDs));
+            oldModel = assignFromParentToParent(oldModel, oldParentLogID, newParentLogID);
+            oldModel = bindUnbindTags(oldModel, Sets.difference(newTagIDs, oldTagIDs), Sets.difference(oldTagIDs, newTagIDs));
 
-        oldModel.getMetadata().setName(newModel.getMetadata().getName());
-        oldModel.getMetadata().setDescription(newModel.getMetadata().getDescription());
+            oldModel.getMetadata().setName(newModel.getMetadata().getName());
+            oldModel.getMetadata().setDescription(newModel.getMetadata().getDescription());
 
-        oldModel.setLogContents(newModel.getLogContents());
-        oldModel.setLogDisplayOverride(newModel.getLogDisplayOverride());
+            oldModel.setLogContents(newModel.getLogContents());
+            oldModel.setLogDisplayOverride(newModel.getLogDisplayOverride());
 
-        return update(oldModel);
-    }
+            return update(oldModel);
+        } else {
+            // model in subject of update has restricted fields that cannot be updated
+            oldModel.getMetadata().setDescription(newModel.getMetadata().getDescription());
+            logDataScrubberValidatorService.scrubAndValidate(newModel.getLogContents());
+            oldModel.setLogContents(newModel.getLogContents());
 
-    public LogModel bindUnbindParentLogs(String id, Set<String> bindDirectoryIDs, Set<String> unbindDirectoryIDs) throws Exception {
-        LogModel lf = logModelGetService.validateAndFindOne(id);
-        return bindUnbindParentLogs(lf, bindDirectoryIDs, unbindDirectoryIDs);
-    }
-
-    private LogModel bindUnbindParentLogs(LogModel model, Set<String> bindParentLogIDs, Set<String> unbindParentLogIDs) throws Exception {
-        List<LogModel> bindParentLogModels = logModelGetService.validateAndFindByIDs(bindParentLogIDs);
-        List<LogModel> unbindParentLogModels = logModelGetService.validateAndFindByIDs(unbindParentLogIDs);
-
-        for (LogModel parentLogModel : bindParentLogModels) {
-            model.getLogOrganization().getParentLogIDs().add(parentLogModel.getId());
-            parentLogModel.getLogOrganization().getChildLogIDs().add(model.getId());
-            logModelUpdateService.update(parentLogModel);
+            return update(oldModel);
         }
-        for (LogModel parentLogModel : unbindParentLogModels) {
-            model.getLogOrganization().getParentLogIDs().remove(parentLogModel.getId());
-            parentLogModel.getLogOrganization().getChildLogIDs().remove(model.getId());
-            logModelUpdateService.update(parentLogModel);
+    }
+
+    private LogModel assignFromParentToParent(LogModel model, String oldParentID, String newParentID) throws Exception {
+        if (oldParentID.equals(model.getId())) {
+            throw new Exception("model cannot be its own parent");
         }
 
-        return update(model);
-    }
+        if (!oldParentID.equals(newParentID)) {
+            LogModel oldParent = logModelGetService.validateAndFindOne(oldParentID);
+            LogModel newParent = logModelGetService.validateAndFindOne(newParentID);
 
-    public LogModel bindUnbindTags(String id, Set<String> bindTagIDs, Set<String> unbindTagIDs) throws Exception {
-        LogModel lf = logModelGetService.validateAndFindOne(id);
-        return bindUnbindTags(lf, bindTagIDs, unbindTagIDs);
+            model.getLogOrganization().getParentLogIDs().remove(oldParentID);
+            oldParent.getLogOrganization().getChildLogIDs().remove(model.getId());
+
+            model.getLogOrganization().getParentLogIDs().add(newParentID);
+            newParent.getLogOrganization().getChildLogIDs().add(model.getId());
+
+            update(oldParent);
+            update(newParent);
+
+            return update(model);
+        }
+
+        return model;
     }
 
     private LogModel bindUnbindTags(LogModel model, Set<String> bindTagIDs, Set<String> unbindTagIDs) throws Exception {
@@ -151,17 +122,6 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
             tagModelUpdateService.update(tagModel);
         }
 
-        return update(model);
-    }
-
-    public LogModel updateLogContents(String id, List<LogContent> logDatas) throws Exception {
-        LogModel lf = logModelGetService.validateAndFindOne(id);
-        return updateLogContents(lf, logDatas);
-    }
-
-    private LogModel updateLogContents(LogModel model, List<LogContent> logContents) throws Exception {
-        logDataScrubberValidatorService.scrubAndValidate(logContents);
-        model.setLogContents(logContents);
         return update(model);
     }
 }
