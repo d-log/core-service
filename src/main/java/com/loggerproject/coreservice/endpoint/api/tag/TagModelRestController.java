@@ -42,7 +42,7 @@ public class TagModelRestController extends AGlobalModelRestController<TagModel>
     }
 
     @GetMapping(produces = "application/hal+json")
-    public ResponseEntity theGetter(TagGetterRequest tagGetterRequest, Pageable pageable, PagedResourcesAssembler assembler) throws Exception {
+    public ResponseEntity theGetter(TagGetterRequest tagGetterRequest, Pageable pageable, PagedResourcesAssembler assembler) {
         tagGetterRequest.setPageable(pageable);
         Page<TagModel> page = tagModelGetService.theGetter(tagGetterRequest);
         PagedResources<TagModel> resources = pageToResources(page, assembler);
