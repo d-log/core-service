@@ -131,7 +131,10 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     }
 
     @GetMapping(value = {"/{id}/children/{level}", "/{id}/children"}, produces = {"application/hal+json"})
-    public ResponseEntity findChildren(@PathVariable("id") String id, @PathVariable(value = "level", required = false) Integer level) throws Exception {
+    public ResponseEntity findChildren(
+            @PathVariable("id") String id,
+            @PathVariable(value = "level", required = false) Integer level
+    ) throws Exception {
         List<LogModel> models = logModelGetService.findChildren(id, level);
 
         Resources resources = new EmptiableResources(LogModel.class, models);
@@ -158,6 +161,15 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     public ResponseEntity<?> updateWholeModelAndSyncOtherDocuments(@RequestBody LogModel model) throws Exception {
         LogModel modelUpdated = logFileModelUpdateService.updateWholeModelAndSyncOtherDocuments(model);
         return hateosBuilder(modelUpdated, methodOn(getClass()).updateWholeModelAndSyncOtherDocuments(model));
+    }
+
+    @PutMapping(value = "/{id}/parent/{parent-id}", produces = {"application/hal+json"})
+    public ResponseEntity<?> assignNewParent(
+            @PathVariable("id") String id,
+            @PathVariable("parent-id") String parentID
+    ) throws Exception {
+        LogModel model = logFileModelUpdateService.assignNewParent(id, parentID);
+        return hateosBuilder(model, methodOn(getClass()).assignNewParent(id, parentID));
     }
 
     private ResponseEntity<?> hateosBuilder(LogModel model, Object invocationValue) {

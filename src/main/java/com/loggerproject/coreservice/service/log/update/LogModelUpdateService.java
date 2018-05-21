@@ -56,14 +56,13 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
             logModelCreateService.beforeSaveScrubAndValidate(newModel);
 
             LogOrganization oldLogOrganization = oldModel.getLogOrganization();
-            String oldParentLogID = oldLogOrganization.getParentLogIDs().iterator().next();
-            Set<String> oldTagIDs = oldLogOrganization.getTagIDs();
-
             LogOrganization newOrganization = newModel.getLogOrganization();
-            String newParentLogID = newOrganization.getParentLogIDs().iterator().next();
-            Set<String> newTagIDs = newOrganization.getTagIDs();
 
-            oldModel = assignFromParentToParent(oldModel, oldParentLogID, newParentLogID);
+            String newParentLogID = newOrganization.getParentLogIDs().iterator().next();
+            oldModel = assignNewParent(oldModel, newParentLogID);
+
+            Set<String> newTagIDs = newOrganization.getTagIDs();
+            Set<String> oldTagIDs = oldLogOrganization.getTagIDs();
             oldModel = bindUnbindTags(oldModel, Sets.difference(newTagIDs, oldTagIDs), Sets.difference(oldTagIDs, newTagIDs));
 
             oldModel.getMetadata().setName(newModel.getMetadata().getName());
@@ -83,10 +82,17 @@ public class LogModelUpdateService extends AGlobalModelUpdateService<LogModel> {
         }
     }
 
-    private LogModel assignFromParentToParent(LogModel model, String oldParentID, String newParentID) throws Exception {
-        if (oldParentID.equals(model.getId())) {
+    public LogModel assignNewParent(String logID, String newParentID) throws Exception {
+        LogModel model = logModelGetService.validateAndFindOne(logID);
+        return assignNewParent(model, newParentID);
+    }
+
+    private LogModel assignNewParent(LogModel model, String newParentID) throws Exception {
+        if (newParentID.equals(model.getId())) {
             throw new Exception("model cannot be its own parent");
         }
+
+        String oldParentID = model.getLogOrganization().getParentLogIDs().iterator().next();
 
         if (!oldParentID.equals(newParentID)) {
             LogModel oldParent = logModelGetService.validateAndFindOne(oldParentID);
