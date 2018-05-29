@@ -32,6 +32,7 @@ public class CoreServiceApplication {
                                 // PRIVATE ADDRESSES
                                 "http://localhost:4200",
                                 "http://192.168.1.5:4200",
+                                "http://192.168.1.7",
                                 // PUBLIC ADDRESSES
                                 "http://life.marcuschiu.com");
             }
