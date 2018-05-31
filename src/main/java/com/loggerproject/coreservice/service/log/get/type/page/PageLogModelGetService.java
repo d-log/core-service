@@ -35,6 +35,12 @@ public class PageLogModelGetService extends ATypeLogModelGetService {
         alt.setChildLogModels(logModelGetService.findByIds(model.getLogOrganization().getChildLogIDs()));
         alt.setTagModels(tagModelGetService.findByIds(model.getLogOrganization().getTagIDs()));
 
+        try {
+            alt.setAncestryLogModels(logModelGetService.getAncestryLogModels(model.getId()));
+        } catch (Exception e) {
+            // TODO log this some where
+        }
+
         return alt;
     }
 

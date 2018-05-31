@@ -1,5 +1,6 @@
 package com.loggerproject.coreservice.service.log.get.regular;
 
+import com.google.common.collect.Lists;
 import com.loggerproject.coreservice.data.model.log.LogModel;
 import com.loggerproject.coreservice.data.repository.LogModelRepository;
 import com.loggerproject.coreservice.service.aglobal.get.AGlobalModelGetService;
@@ -8,6 +9,7 @@ import com.loggerproject.coreservice.service.log.create.LogModelCreateService;
 import com.loggerproject.coreservice.service.log.delete.LogModelDeleteService;
 import com.loggerproject.coreservice.service.log.get.regular.extra.LogGetterRequest;
 import com.loggerproject.coreservice.service.log.update.LogModelUpdateService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -95,10 +97,6 @@ public class LogModelGetService extends AGlobalModelGetService<LogModel> {
         return rootLogModelService.getRoot();
     }
 
-    public List<LogModel> findChildren(String id) throws Exception {
-        return findChildren(id, 1);
-    }
-
     /**
      * @param id
      * @param level - if null then default 1
@@ -130,9 +128,31 @@ public class LogModelGetService extends AGlobalModelGetService<LogModel> {
         return children;
     }
 
-    public List<LogModel> findParents(String id) throws Exception {
-        LogModel directory = validateAndFindOne(id);
-        Set<String> parentIDs = directory.getLogOrganization().getParentLogIDs();
-        return findByIds(parentIDs);
+    public LogModel findParent(String id) throws Exception {
+        LogModel model = validateAndFindOne(id);
+        Set<String> parentLogIDs = model.getLogOrganization().getParentLogIDs();
+        if (CollectionUtils.isNotEmpty(parentLogIDs)) {
+            return findOne(parentLogIDs.iterator().next());
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Returns a List of LogModels from root to direct parent
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public List<LogModel> getAncestryLogModels(String id) throws Exception {
+        List<LogModel> ancestryLogModels = new ArrayList<>();
+
+        LogModel currentParent = findParent(id);
+        while (currentParent != null) {
+            ancestryLogModels.add(currentParent);
+            currentParent = findParent(currentParent.getId());
+        }
+
+        return Lists.reverse(ancestryLogModels);
     }
 }

@@ -14,6 +14,7 @@ public class PageLogModel extends ALogDisplayType {
     List<LogModel> parentLogModels;
     List<LogModel> childLogModels;
     List<TagModel> tagModels;
+    List<LogModel> ancestryLogModels; // from root log to main direct parent, this is computed upon request
 
     public PageLogModel() {
         this.setLogDisplayType(LogDisplayType.PAGE);

@@ -143,16 +143,6 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
-    @GetMapping(value = {"/{id}/parent"}, produces = {"application/hal+json"})
-    public ResponseEntity findParent(@PathVariable("id") String id) throws Exception {
-        List<LogModel> models = logModelGetService.findParents(id);
-
-        Resources resources = new EmptiableResources(LogModel.class, models);
-        resources.add(linkTo(methodOn(getClass()).findParent(id)).withSelfRel());
-
-        return ResponseEntity.status(HttpStatus.OK).body(resources);
-    }
-
     //////////////
     // UPDATERS //
     //////////////
