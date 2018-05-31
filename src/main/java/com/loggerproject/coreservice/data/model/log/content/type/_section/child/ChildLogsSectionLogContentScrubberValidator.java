@@ -1,4 +1,4 @@
-package com.loggerproject.coreservice.data.model.log.content.type._section.childlogs;
+package com.loggerproject.coreservice.data.model.log.content.type._section.child;
 
 import com.loggerproject.coreservice.data.model.log.content.ALogContentScrubberValidator;
 import org.springframework.stereotype.Service;

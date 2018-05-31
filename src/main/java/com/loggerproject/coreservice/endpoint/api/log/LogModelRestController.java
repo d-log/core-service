@@ -74,7 +74,7 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     @GetMapping(value = "/the-getter", produces = {"application/hal+json"})
     public ResponseEntity theGetter(LogGetterRequest getterRequest,
                                     Pageable pageable,
-                                    PagedResourcesAssembler assembler) throws Exception {
+                                    PagedResourcesAssembler assembler) {
         getterRequest.setPageable(pageable);
         Page<LogModel> page = logTypeModelGetManagerService.theGetter(getterRequest, getterRequest.getLogDisplayType());
         PagedResources<LogModel> resources = pageToResources(page, assembler);
@@ -139,6 +139,16 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
 
         Resources resources = new EmptiableResources(LogModel.class, models);
         resources.add(linkTo(methodOn(getClass()).findChildren(id, level)).withSelfRel());
+
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
+    }
+
+    @GetMapping(value = {"/{id}/ancestry"}, produces = {"application/hal+json"})
+    public ResponseEntity ancestry(@PathVariable("id") String id) throws Exception {
+        List<LogModel> models = logModelGetService.getAncestryLogModels(id);
+
+        Resources resources = new EmptiableResources(LogModel.class, models);
+        resources.add(linkTo(methodOn(getClass()).ancestry(id)).withSelfRel());
 
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }

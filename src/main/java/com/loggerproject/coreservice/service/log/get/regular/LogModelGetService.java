@@ -140,6 +140,7 @@ public class LogModelGetService extends AGlobalModelGetService<LogModel> {
 
     /**
      * Returns a List of LogModels from root to direct parent
+     *
      * @param id
      * @return
      * @throws Exception
