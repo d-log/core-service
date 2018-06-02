@@ -31,8 +31,8 @@ public class CoreServiceApplication {
                         .allowedOrigins(
                                 // PRIVATE ADDRESSES
                                 "http://localhost:4200",
-                                "http://192.168.1.5:4200",
-                                "http://192.168.1.7",
+                                "http://10.0.0.5:4200",
+                                "http://10.0.0.7",
                                 // PUBLIC ADDRESSES
                                 "http://life.marcuschiu.com");
             }
