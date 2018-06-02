@@ -48,6 +48,16 @@ public class LogModelDeleteService extends AGlobalModelDeleteService<LogModel> {
         return model;
     }
 
+    public LogModel deleteLogModelAndDescendants(String id) throws Exception {
+        LogModel logModel = logModelGetService.validateAndFindOne(id);
+
+        for (String childID : logModel.getLogOrganization().getChildLogIDs()) {
+            deleteLogModelAndDescendants(childID);
+        }
+
+        return delete(id);
+    }
+
     /**
      * TODO error recovery
      *

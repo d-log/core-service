@@ -46,11 +46,22 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     RootLogModelService rootLogModelService;
 
     @Autowired
+    LogModelDeleteService logModelDeleteService;
+
+    @Autowired
     public LogModelRestController(LogModelCreateService globalServerCreateService,
                                   LogModelDeleteService globalServerDeleteService,
                                   LogModelGetService globalServerGetService,
                                   LogModelUpdateService globalServerUpdateService) {
         super(globalServerCreateService, globalServerDeleteService, globalServerGetService, globalServerUpdateService);
+    }
+
+    @DeleteMapping(value = "/{id}/descendants", produces = "application/hal+json")
+    public ResponseEntity delete(@PathVariable("id") String id) throws Exception {
+        LogModel t = logModelDeleteService.deleteLogModelAndDescendants(id);
+        Resources<LogModel> resources = new EmptiableResources(genericClass, Collections.singletonList(t));
+        resources.add(linkTo(methodOn(getClass()).delete(id)).withSelfRel());
+        return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
     /////////////
