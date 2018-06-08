@@ -22,7 +22,6 @@ public class PageLogModelGetService extends ATypeLogModelGetService {
         return LogDisplayType.PAGE;
     }
 
-
     @Override
     public PageLogModel getByLogModelInternal(LogModel model) {
         PageLogModel alt = new PageLogModel();
