@@ -97,24 +97,24 @@ public class LogModelRestController extends AGlobalModelRestController<LogModel>
     @GetMapping(value = "/{id}/{log-type}", produces = {"application/hal+json"})
     public ResponseEntity<?> getLogType(@PathVariable("id") String id,
                                         @PathVariable("log-type") LogDisplayType logType,
-                                        @RequestParam(value = "child-model-display-type", required = false, defaultValue = "DEFAULT") String childModelDisplayTypeString) {
+                                        @RequestParam(value = "child-log-display-type", required = false, defaultValue = "DEFAULT") String childLogDisplayTypeString) {
         ALogDisplayType model = logTypeModelGetManagerService.findOne(id, logType);
 
-        LogDisplayType childModelDisplayType = LogDisplayType.valueOf(childModelDisplayTypeString);
-        if (childModelDisplayType != LogDisplayType.DEFAULT) {
+        LogDisplayType childLogDisplayType = LogDisplayType.valueOf(childLogDisplayTypeString);
+        if (childLogDisplayType != LogDisplayType.DEFAULT) {
             if (logType == LogDisplayType.FORUPDATE) {
                 ForUpdateLogModel forUpdateLogModel = (ForUpdateLogModel) model;
                 List childLogModels = forUpdateLogModel.getChildLogModels();
-                forUpdateLogModel.setChildLogModels(logTypeModelGetManagerService.getAsLogDisplayType(childLogModels, childModelDisplayType));
+                forUpdateLogModel.setChildLogModels(logTypeModelGetManagerService.getAsLogDisplayType(childLogModels, childLogDisplayType));
             } else if (logType == LogDisplayType.PAGE) {
                 PageLogModel pageLogModel = (PageLogModel) model;
                 List childLogModels = pageLogModel.getChildLogModels();
-                pageLogModel.setChildLogModels(logTypeModelGetManagerService.getAsLogDisplayType(childLogModels, childModelDisplayType));
+                pageLogModel.setChildLogModels(logTypeModelGetManagerService.getAsLogDisplayType(childLogModels, childLogDisplayType));
             }
         }
 
         Resources resources = new EmptiableResources(ALogDisplayType.class, Collections.singletonList(model));
-        resources.add(linkTo(methodOn(getClass()).getLogType(id, logType, childModelDisplayTypeString)).withSelfRel());
+        resources.add(linkTo(methodOn(getClass()).getLogType(id, logType, childLogDisplayTypeString)).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(resources);
     }
 
