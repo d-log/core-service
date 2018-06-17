@@ -34,7 +34,8 @@ public class CoreServiceApplication {
                                 "http://10.0.0.5:4200",
                                 "http://10.0.0.7",
                                 // PUBLIC ADDRESSES
-                                "http://life.marcuschiu.com");
+                                "http://life.marcuschiu.com",
+                                "http://marcuschiu.com");
             }
         };
     }
