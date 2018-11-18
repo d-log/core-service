@@ -34,6 +34,7 @@ public class CoreServiceApplication {
                                 "http://192.168.86.218",
                                 "http://192.168.86.217",
                                 // PUBLIC ADDRESSES
+                                "http://72.180.103.50",
                                 "http://marcuschiu.com");
             }
         };
