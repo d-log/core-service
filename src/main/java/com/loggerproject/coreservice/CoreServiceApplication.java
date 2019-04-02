@@ -30,7 +30,7 @@ public class CoreServiceApplication {
                         .allowedMethods("GET", "POST", "PUT")
                         .allowedOrigins(
                                 // PRIVATE ADDRESSES
-                                "http://localhost:4200",
+                                "http://localhost:4200", // for local testing of ui-store-front
                                 "http://192.168.86.218",
                                 "http://192.168.86.217",
                                 // PUBLIC ADDRESSES

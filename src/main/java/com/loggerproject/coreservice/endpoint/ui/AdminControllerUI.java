@@ -1,12 +1,14 @@
 package com.loggerproject.coreservice.endpoint.ui;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AdminControllerUI {
 
+    @CrossOrigin(origins = "http://192.168.86.218")
     @GetMapping("/")
     public @ResponseBody
     String test() {
