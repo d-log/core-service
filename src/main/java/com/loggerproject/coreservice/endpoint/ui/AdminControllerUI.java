@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AdminControllerUI {
 
-//    @GetMapping("/")
-//    public @ResponseBody
-//    String test() {
+    @GetMapping("/")
+    public @ResponseBody
+    String test() {
+        return "";
 //        return "<!DOCTYPE html>\n" +
 //                "<html>\n" +
 //                "<head>\n" +
@@ -22,5 +23,5 @@ public class AdminControllerUI {
 //                "  </form>\n" +
 //                "</body>\n" +
 //                "</html>";
-//    }
+    }
 }
