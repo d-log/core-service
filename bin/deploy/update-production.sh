@@ -1,6 +1,6 @@
 #! /bin/bash
 
-ssh ubuntu-server << EOF
+ssh ubuntu-server.local << EOF
     cd core-service/core-service
     git pull origin master
     ./bin/deploy/kill_core-service.sh
