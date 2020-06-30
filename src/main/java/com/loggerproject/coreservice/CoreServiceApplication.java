@@ -34,7 +34,8 @@ public class CoreServiceApplication {
                                 "http://192.168.86.218",
                                 "http://192.168.86.217",
                                 // PUBLIC ADDRESSES
-                                "http://doc.marcuschiu.com");
+                                "http://doc.marcuschiu.com",
+                                "https://doc.marcuschiu.com");
             }
         };
     }
